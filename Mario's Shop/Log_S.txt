@@ -1,0 +1,57 @@
+Mai 28, 2020 10:02:43 AM Datenstrukturen.Changelog schreibeLog
+INFO: Das Programm wird gestartet.
+Mai 28, 2020 10:02:50 AM Datenstrukturen.Changelog schreibeLog
+INFO: Der Mitarbeiter ske hat sich angemeldet.
+Mai 28, 2020 10:42:58 AM Datenstrukturen.Changelog schreibeLog
+INFO: Das Programm wird gestartet.
+Mai 28, 2020 10:43:03 AM Datenstrukturen.Changelog schreibeLog
+INFO: Es kam zu einer Fehlerhaften eingabe im Startmenue.
+Mai 28, 2020 10:43:08 AM Datenstrukturen.Changelog schreibeLog
+INFO: Der Mitarbeiter ske hat sich angemeldet.
+Mai 28, 2020 10:02:43 AM Datenstrukturen.Changelog schreibeLog
+INFO: Das Programm wird gestartet.
+Mai 28, 2020 10:02:50 AM Datenstrukturen.Changelog schreibeLog
+INFO: Der Mitarbeiter ske hat sich angemeldet.
+Mai 28, 2020 10:42:58 AM Datenstrukturen.Changelog schreibeLog
+INFO: Das Programm wird gestartet.
+Mai 28, 2020 10:43:03 AM Datenstrukturen.Changelog schreibeLog
+INFO: Es kam zu einer Fehlerhaften eingabe im Startmenue.
+Mai Mai 28, 2020 10:44:26 AM Datenstrukturen.Changelog schreibeLog
+INFO: Der Changelog wurde gespeichert...
+
+Mai 28, 2020 10:44:37 AM Datenstrukturen.Changelog schreibeLog
+INFO: Das Programm wird gestartet.
+Mai 28, 2020 10:44:41 AM Datenstrukturen.Changelog schreibeLog
+INFO: Es gab eine Fehlerhafte eingabe bei der Mitarbeiteranmeldung.
+Mai 28, 2020 10:44:44 AM Datenstrukturen.Changelog schreibeLog
+INFO: Der Mitarbeiter ske hat sich angemeldet.
+Mai 28, 2020 10:44:37 AM Datenstrukturen.Changelog schreibeLog
+INFO: Das Programm wird gestartet.
+Mai 28, 2020 10:44:41 AM Datenstrukturen.Changelog schreibeLog
+INFO: Es gab eine Fehlerhafte eingabe bei der Mitarbeiteranmeldung.
+Mai 28, 2020 10:44:44 AM Datenstrukturen.Changelog schreibeLog
+INFO: Der Mitarbeiter ske hat sich angemeldet.
+Mai 28, 2020 10:44:45 AM Datenstrukturen.Changelog schreibeLog
+INFO: Der Changelog wurde angezeigt...
+Mai 28, 2020 10:47:00 AM Datenstrukturen.Changelog schreibeLog
+INFO: Alle Artikel wurden Angezeigt
+Mai 28, 2020 10:47:01 AM Datenstrukturen.Changelog schreibeLog
+INFO: Alle Artikel wurden Angezeigt
+Mai 28, 2020 10:47:01 AM Datenstrukturen.Changelog schreibeLog
+INFO: Alle Artikel wurden Angezeigt
+Mai 28, 2020 10:47:02 AM Datenstrukturen.Changelog schreibeLog
+INFO: Alle Artikel wurden Angezeigt
+Mai 28, 2020 10:47:02 AM Datenstrukturen.Changelog schreibeLog
+INFO: Alle Artikel wurden Angezeigt
+Mai 28, 2020 10:47:02 AM Datenstrukturen.Changelog schreibeLog
+INFO: Alle Artikel wurden Angezeigt
+Mai 28, 2020 10:47:03 AM Datenstrukturen.Changelog schreibeLog
+INFO: Alle Artikel wurden Angezeigt
+Mai 28, 2020 10:47:03 AM Datenstrukturen.Changelog schreibeLog
+INFO: Alle Artikel wurden Angezeigt
+Mai 28, 2020 10:47:03 AM Datenstrukturen.Changelog schreibeLog
+INFO: Alle Artikel wurden Angezeigt
+Mai 28, 2020 10:47:14 AM Datenstrukturen.Changelog schreibeLog
+INFO: Das Programm wird gestartet.
+Mai 28, 2020 10:47:18 AM Datenstrukturen.Changelog schreibeLog
+INFO: Der Mitarbeiter ske hat sich angemeldet.
