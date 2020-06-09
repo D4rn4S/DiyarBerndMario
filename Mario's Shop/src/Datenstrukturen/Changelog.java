@@ -28,7 +28,7 @@ FileHandler fh;
 		
 		try {  
 	        // This block configure the logger with handler and formatter  
-	        fh = new FileHandler("C:/Users/Mario/eclipse-workspace/Mario's Shop/Log_S.txt");  
+	        fh = new FileHandler("C:/Users/bernd/OneDrive/Dokumente/GitHub/Eshoprichtig/DiyarBerndMario/Mario's Shop/Log_S.txt");  
 	        logger.addHandler(fh); //Dem Logger dem Dateihandler zuweisen
 	        logger.setUseParentHandlers(false); //verhindern das der Log in der Console erscheint
 	        SimpleFormatter formatter = new SimpleFormatter();   //das Datumsformat festlegen

@@ -93,6 +93,8 @@ public class ShopCUI {
 		String input = "";
 		Scanner sc = new Scanner(System.in);
 		input = sc.nextLine();
+		
+		// Funktion zum Beenden des Programms 
 		if(input.equals("quit")) {
 			System.out.println("das Programm wird jetzt beendet...");
 			changelog.schreibeLog("Das Programm wird beendet.");
