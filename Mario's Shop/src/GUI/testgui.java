@@ -79,8 +79,11 @@ public class testgui extends JFrame{
 	private JTextField textNummer;
 	private JTextField textPreis;
 	private JTextField textBestand;
-	private  JTextField textMindestbestand;
+	private JTextField textMindestbestand;
 	private JTextField textArtikelNummer;
+	private JTextField textArtikelname;
+	private JTextField textAnzahl;
+	private JTextField textArtikelNr;
 	private JPasswordField textPasswort;
 	private JTextField textKundeNr;
 	private JLabel FalscheKundenNr;
@@ -237,7 +240,7 @@ public class testgui extends JFrame{
 			gibMenueAus.getContentPane().add(Registrieren);
 
 	}
-	   // tabelle befüllen und aktualisieren
+	   // tabellen befüllen und aktualisieren
 	public void updateTabelle(List<Artikel> l) {
 		DefaultTableModel TabelleBefüllen = (DefaultTableModel) tabelle.getModel();
 		TabelleBefüllen.setRowCount(0);
@@ -249,12 +252,33 @@ public class testgui extends JFrame{
             rowData[2] = l.get(i).getPreis();
             rowData[3] = l.get(i).getBestand();
             rowData[4] = l.get(i).getMindestbestand();
-            
+            if(l.get(i).getBestand()<= l.get(i).getMindestbestand()) {
+            	//TabelleBefüllen
+            }
             TabelleBefüllen.addRow(rowData);
         }
 	} 
 	
+	public void updateKundenTabelle(List<Artikel> l) {
+		DefaultTableModel TabelleBefüllen = (DefaultTableModel) tabelle.getModel();
+		TabelleBefüllen.setRowCount(0);
+        Object rowData[] = new Object[5];
+        for(int i = 0; i < l.size(); i++)
+        {
+            rowData[0] = l.get(i).getName();
+            rowData[1] = l.get(i).getNummer();
+            rowData[2] = l.get(i).getPreis();
+            rowData[3] = l.get(i).getBestand();
+            if(l.get(i).getBestand()<= l.get(i).getMindestbestand()) {
+            	//TabelleBefüllen
+            }
+            TabelleBefüllen.addRow(rowData);
+        }
+	}
+	
 	public void mitarbeiterMenue() {
+		
+		// mitarbeiter menue erstellt 
 		
 		mitarbeiterMenue = new JFrame();
 		mitarbeiterMenue.setVisible(true);
@@ -263,7 +287,7 @@ public class testgui extends JFrame{
 		mitarbeiterMenue.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mitarbeiterMenue.getContentPane().setLayout(null);
 		
-		// main tab 
+		// main tab erstellt
 		
 				JTabbedPane Maintab = new JTabbedPane(JTabbedPane.TOP);
 				Maintab.setBounds(0, 0, 668, 507);
@@ -332,7 +356,7 @@ public class testgui extends JFrame{
 						ArtikelHinzufuegenMenue = new JFrame();
 						ArtikelHinzufuegenMenue.setVisible(true);
 						ArtikelHinzufuegenMenue.setBounds(100, 100, 328, 299);
-						ArtikelHinzufuegenMenue.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+						ArtikelHinzufuegenMenue.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 						ArtikelHinzufuegenMenue.getContentPane().setLayout(null);
 						
 						JLabel Artikelanlegen = new JLabel("Legen Sie ein neuen Artikel an!");
@@ -438,7 +462,7 @@ public class testgui extends JFrame{
 								}  */
 								
 								
-								for(Artikel a : aliste) {
+								for(Artikel a : lager.gibAlleArtikel()) {
 									if(a.getNummer() == aNum) {	
 										falscherArtikel.setForeground(Color.RED);
 										falscherArtikel.setText("Die ArtikelNr existiert bereits!"); 
@@ -485,7 +509,7 @@ public class testgui extends JFrame{
 						ArtikelLoeschenMenue = new JFrame();
 						ArtikelLoeschenMenue.setVisible(true);
 						ArtikelLoeschenMenue.setBounds(100, 100, 304, 246);
-						ArtikelLoeschenMenue.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+						ArtikelLoeschenMenue.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 						ArtikelLoeschenMenue.getContentPane().setLayout(null);
 						
 						JLabel ArtikelLöschen = new JLabel("L\u00F6schen Sie ein Artikel!");
@@ -518,7 +542,7 @@ public class testgui extends JFrame{
 								System.out.println(aNummer);
 								aNum = Integer.parseInt(aNummer);
 								
-								for(Artikel a : aliste) {
+								for(Artikel a : lager.gibAlleArtikel()) {
 									if(a.getNummer() == aNum) {	
 										lager.loescheArtikel(aNum);
 										ArtikelLoeschenMenue.setVisible(false);
@@ -548,14 +572,14 @@ public class testgui extends JFrame{
 				JButton ArtikelSuchen = new JButton("Artikel suchen");
 				ArtikelSuchen.addActionListener(new ActionListener() {
 					
-					//Funktion zum öffnen eines neuen Fensters, um artikel löschen zu können
+					//Funktion zum öffnen eines neuen Fensters, um artikel suchen zu können
 					
 					public void actionPerformed(ActionEvent e) {
 						
 						artikelScreach = new JFrame();
 						artikelScreach.setVisible(true);
 						artikelScreach.setBounds(100, 100, 304, 246);
-						artikelScreach.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+						artikelScreach.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 						artikelScreach.getContentPane().setLayout(null);
 						
 						JLabel Artikelanlegen = new JLabel("Welchen Artikel Suchen Sie?");
@@ -663,15 +687,103 @@ public class testgui extends JFrame{
 				LagerTab.add(ArtikelSoNam);
 				
 				
+				// erstell layout für die bestandserhöhung 
+				
+				JScrollPane Layout1 = new JScrollPane();
+				Layout1.setBounds(10, 147, 170, 202);
+				LagerTab.add(Layout1);
+				
+				// erstell "Raster im layout, um buttons etc einfügen zu können
+				
+				JPanel Raster = new JPanel();
+				Layout1.setViewportView(Raster);
+				Raster.setLayout(null);  
+				
+                // erstellt Label für neuer bestand
+				
+				JLabel NeuerBestand = new JLabel("Neuer Bestand :");
+				NeuerBestand.setBounds(37, 72, 113, 14);
+				Raster.add(NeuerBestand);
+				
+				//erstellt eine Texteingabe zum schreiben für bestand
+				
+				textBestand = new JTextField();
+				textBestand.setBounds(37, 92, 96, 20);
+				Raster.add(textBestand);
+				textBestand.setColumns(10);
+				
+				// erstellt label für Artikelname
+				
+				JLabel lblNewLabel_1_1 = new JLabel("ArtikelNr :");
+				lblNewLabel_1_1.setBounds(37, 16, 113, 14);
+				Raster.add(lblNewLabel_1_1);
+				
+				//erstellt eine Texteingabe zum schreiben für Artikelname
+				
+				textArtikel = new JTextField();
+				textArtikel.setColumns(10);
+				textArtikel.setBounds(37, 41, 96, 20);
+				Raster.add(textArtikel);
+				
+				JLabel FalscheArtNr = new JLabel(" ");
+				FalscheArtNr.setForeground(Color.RED);
+				FalscheArtNr.setBounds(7, 168, 170, 14);
+				Raster.add(FalscheArtNr);
+				
+				
+				// erstellt button " bestand aendern"
+				
+				JButton Bestandaendern = new JButton("Bestand \u00E4ndern");
+				Bestandaendern.addActionListener(new ActionListener() {
+					
+				// erstellt funktion zum bestand ändern 	
+					
+					public void actionPerformed(ActionEvent e) {
+						
+						String aNummer = "";
+						String aBestand ="";
+						int aBe;
+						int aNum;
+						
+						aNummer = textArtikel.getText();
+						aNum = Integer.parseInt(aNummer);
+						aBestand = textBestand.getText();
+						aBe = Integer.parseInt(aBestand);
+						
+						for(Artikel a : lager.gibAlleArtikel()) {
+							if(a.getNummer() == aNum) {	
+								a.setBestand(aBe);
+								changelog.schreibeLog("Bei dem Artikel mit der Nummer: " + aNum +" wurde der Bestand auf: "+aBe +" gesetzt.");
+								FalscheArtNr.setText(null);
+								updateTabelle(lager.gibAlleArtikel());
+								break;
+							} else {
+								FalscheArtNr.setText("Fehlerhafte Artikelnummer!");
+								textArtikel.setText(null);
+							}
+						}
+						
+					}
+				});
+				Bestandaendern.setBounds(10, 134, 152, 23);
+				Raster.add(Bestandaendern);
+				
+				
+				
+				
 				/*-------------------------------------------------------------------------------------*/
 				
 				JPanel panel_1 = new JPanel();
 				Maintab.addTab("Warenkorb", null, panel_1, null);
 				panel_1.setLayout(null);
 				
+				/*-------------------------------------------------------------------------------------*/
+				
 				JPanel panel_2 = new JPanel();
 				Maintab.addTab("Changelog", null, panel_2, null);
 				panel_2.setLayout(null);
+				
+				/*-------------------------------------------------------------------------------------*/
 				
 				JPanel panel_3 = new JPanel();
 				Maintab.addTab("Benutzermanagement", null, panel_3, null);
@@ -695,9 +807,9 @@ public class testgui extends JFrame{
 				
 				
 				
-				JLabel lblNewLabel = new JLabel("E-Shop creater : Mario Schulz, Bernd Henke, Dyar lol");
-				lblNewLabel.setBounds(40, 510, 442, 14);
-				mitarbeiterMenue.getContentPane().add(lblNewLabel);
+				JLabel Creater = new JLabel("E-Shop creater : Mario Schulz, Bernd Henke, Dyar lol");
+				Creater.setBounds(40, 510, 442, 14);
+				mitarbeiterMenue.getContentPane().add(Creater);
 			}		
 	/*	
 		String input = "";
@@ -1045,16 +1157,286 @@ public class testgui extends JFrame{
 		}
 		    */
 	
+	/*--------------------------------------------------------------------------------*/
 	
 	public void kundenMenue() {
+		
 		
 		kundenMenue = new JFrame();
 		kundenMenue.setVisible(true);
 		kundenMenue.setTitle("Menü für Kunden");
-		kundenMenue.setBounds(100, 100, 727, 666);
+		kundenMenue.setBounds(100, 100, 680, 564);
 		kundenMenue.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		kundenMenue.getContentPane().setLayout(null);
 		
-		String input = "";
+		// main tab 
+		
+		JTabbedPane Maintab = new JTabbedPane(JTabbedPane.TOP);
+		Maintab.setBounds(0, 0, 668, 507);
+		kundenMenue.getContentPane().add(Maintab);
+		
+		/*-------------------------------------------------------------------------------------*/
+		
+		 // lager sortiment erstellt
+		
+		JPanel LagerTab = new JPanel();
+		Maintab.addTab("Sortiment", null, LagerTab, null);
+		LagerTab.setLayout(null);
+		
+		// erstellt das Layout, wo die Tabelle entsteht
+		
+		JScrollPane Layout = new JScrollPane();
+		Layout.setBounds(320, 58, 319, 410);
+		LagerTab.add(Layout);
+		
+		// erstellt die Tabelle
+		tabelle = new JTable();
+		tabelle.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Name", "Nummer", "Preis","Bestand"
+			}
+		) {
+			// die Klassen mit jeweils den Parametern
+			
+			Class[] columnTypes = new Class[] {
+				Object.class, Integer.class, Double.class, Integer.class
+			};
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+			boolean[] columnEditables = new boolean[] {
+				true, false, false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		tabelle.getColumnModel().getColumn(0).setPreferredWidth(45);
+		tabelle.getColumnModel().getColumn(1).setPreferredWidth(55);
+		
+		Layout.setViewportView(tabelle);
+		
+		//tabelle befüllen
+		updateKundenTabelle(lager.gibAlleArtikel());
+		
+		// erstellt button "artikel suchen"
+		
+		JButton ArtikelSuchen = new JButton("Artikel suchen");
+		ArtikelSuchen.addActionListener(new ActionListener() {
+			
+			//Funktion zum öffnen eines neuen Fensters, um artikel zu suchen
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				artikelScreach = new JFrame();
+				artikelScreach.setVisible(true);
+				artikelScreach.setBounds(100, 100, 304, 246);
+				artikelScreach.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				artikelScreach.getContentPane().setLayout(null);
+				
+				JLabel Artikelanlegen = new JLabel("Welchen Artikel Suchen Sie?");
+				Artikelanlegen.setFont(new Font("Tahoma", Font.PLAIN, 14));
+				Artikelanlegen.setBounds(50, 11, 193, 31);
+				artikelScreach.getContentPane().add(Artikelanlegen);
+				
+				JLabel Artikelname = new JLabel("Geben Sie den Artikelname des Artikels ein :");
+				Artikelname.setBounds(10, 68, 282, 14);
+				artikelScreach.getContentPane().add(Artikelname);
+				
+				textArtikel = new JTextField();
+				textArtikel.setBounds(81, 93, 104, 20);
+				artikelScreach.getContentPane().add(textArtikel);
+				textArtikel.setColumns(10);
+				
+				JLabel FalscherArtikel = new JLabel("");
+				FalscherArtikel.setForeground(Color.RED);
+				FalscherArtikel.setBounds(26, 186, 240, 14);
+				artikelScreach.getContentPane().add(FalscherArtikel);
+				
+				JButton Suchen = new JButton("Suchen");
+				Suchen.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						
+						String aName = "";
+						
+						aName = textArtikel.getText();
+						
+						for(Artikel a : aliste) {
+							if(a.getName().equals(aName)) {	
+								updateTabelle(lager.sucheNachName(aName));
+								artikelScreach.setVisible(false);
+								changelog.schreibeLog("Der Artikel mit dem Namen: " + aName +" wurde gesucht.");
+							} else {
+								FalscherArtikel.setText("Bitte geben Sie ein gültigen Artikelnamen an!");
+								textArtikel.setText(null);
+							}
+						}
+						
+						updateTabelle(lager.sucheNachName(aName));
+						artikelScreach.setVisible(false);
+					}
+				});
+				Suchen.setBounds(81, 143, 104, 32);
+				artikelScreach.getContentPane().add(Suchen);
+				
+				
+				
+				
+			}
+		
+			
+		});
+		ArtikelSuchen.setBounds(513, 11, 126, 23);
+		LagerTab.add(ArtikelSuchen);
+		
+		
+		
+		//erstellt button "Artikel sortieren Nummer"
+		
+		JButton ArtikelSoNum = new JButton("Artikel Sortieren Nummer");
+		ArtikelSoNum.addActionListener(new ActionListener() {
+			
+			//Funktion zum öffnen eines neuen Fensters, um artikel zu sortieren zu können
+			public void actionPerformed(ActionEvent e) {
+				updateKundenTabelle(sortNummerArtikelliste(lager.gibAlleArtikel()));
+			}
+		});
+		ArtikelSoNum.setBounds(52, 417, 195, 23);
+		LagerTab.add(ArtikelSoNum);
+		
+		
+		
+		// erstellt button " artikeln sortieren Namen"
+		
+		JButton ArtikelSoNam = new JButton("Artikel Sortieren Namen");
+		ArtikelSoNam.addActionListener(new ActionListener() {
+			
+			//Funktion zum öffnen eines neuen Fensters, um artikel zu sortieren zu können
+			
+			public void actionPerformed(ActionEvent e) {
+				updateKundenTabelle(sortNameArtikelliste(lager.gibAlleArtikel()));
+			}
+		});
+		ArtikelSoNam.setBounds(51, 372, 196, 23);
+		LagerTab.add(ArtikelSoNam);
+		
+		// erstellt button " Artikel anzeigen" bernd hat n kleinen
+		
+		JButton btnArtikelAnzeigen = new JButton("Artikel anzeigen");
+		btnArtikelAnzeigen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				updateKundenTabelle(lager.gibAlleArtikel());
+			}
+		});
+		btnArtikelAnzeigen.setBounds(319, 11, 153, 23);
+		LagerTab.add(btnArtikelAnzeigen);
+		
+		// erstell layout um Artikel hinzufügen (Warenkorb) 
+		
+		JScrollPane Layout1 = new JScrollPane();
+		Layout1.setBounds(10, 58, 249, 291);
+		LagerTab.add(Layout1);
+		
+		// erstell "Raster im layout, um buttons etc einfügen zu können
+		
+		JPanel Raster = new JPanel();
+		Layout1.setViewportView(Raster);
+		Raster.setLayout(null);  
+		
+		JLabel FalscherArt = new JLabel("  ");
+		FalscherArt.setForeground(Color.RED);
+		FalscherArt.setBounds(49, 263, 170, 14);
+		Raster.add(FalscherArt);
+		
+		
+
+		
+		// erstellt button " artikel hinzufügen"
+		
+		JButton ArtikelHinzufügen = new JButton("Artikel hinzuf\u00FCgen");
+		ArtikelHinzufügen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String aNummer = "";
+				int aNum;
+				aNummer = textArtikelNr.getText();
+				aNum = Integer.parseInt(aNummer);
+				
+				String aAnzahl ="";
+				int aAnz;
+				aAnzahl = textAnzahl.getText();
+				aAnz = Integer.parseInt(aAnzahl);
+				
+				for(Artikel a : aliste) {
+					if(a.getNummer()==aNum && aAnz <= a.getBestand()) {	
+						warenkorb.addArtikel(aNum, aAnz);
+						changelog.schreibeLog("Der Artikel mit der Nummer: " + aNum +" wurde "+ aAnz +" zum Warenkorb hinzugefügt.");
+						warenkorb.anzeigen();
+						FalscherArt.setText("");
+					} else {
+						FalscherArt.setText("Keine Ware mehr auf Lager!");
+						textArtikelNr.setText(null);
+						textAnzahl.setText(null);
+					}
+				}
+				   
+				
+				
+			}
+		});
+		ArtikelHinzufügen.setBounds(49, 229, 152, 23);
+		Raster.add(ArtikelHinzufügen);
+		
+		JLabel Anzahl = new JLabel("Anzahl :");
+		Anzahl.setBounds(76, 141, 113, 14);
+		Raster.add(Anzahl);
+		
+		textAnzahl = new JTextField();
+		textAnzahl.setBounds(76, 176, 96, 20);
+		Raster.add(textAnzahl);
+		textAnzahl.setColumns(10);
+		
+		JLabel ArtikelName = new JLabel("ArtikelNr:");
+		ArtikelName.setBounds(76, 74, 113, 14);
+		Raster.add(ArtikelName);
+		
+		textArtikelNr = new JTextField();
+		textArtikelNr.setColumns(10);
+		textArtikelNr.setBounds(76, 110, 96, 20);
+		Raster.add(textArtikelNr);
+		
+		JLabel ueberschrift = new JLabel("Artikel zum Warenkorb hinzuf\u00FCgen");
+		ueberschrift.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		ueberschrift.setBounds(20, 11, 227, 32);
+		Raster.add(ueberschrift);
+		
+
+		
+		
+		/*-------------------------------------------------------------------------------------*/
+		
+		JPanel panel_1 = new JPanel();
+		Maintab.addTab("Warenkorb", null, panel_1, null);
+		panel_1.setLayout(null);
+		
+				
+		JButton btnNewButton = new JButton("Ausloggen");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				gibMenueAus();
+				kundenMenue.setVisible(false);
+			}
+		});
+		btnNewButton.setBounds(549, 506, 119, 23);
+		kundenMenue.getContentPane().add(btnNewButton);
+		
+		JLabel lblNewLabel = new JLabel("E-Shop creater : Mario Schulz, Bernd Henke, Dyar lol");
+		lblNewLabel.setBounds(40, 510, 442, 14);
+		kundenMenue.getContentPane().add(lblNewLabel);
+		
+	/*	String input = "";
 		String aName = "";
 		String aNummer ="";
 		int aNum;
@@ -1190,8 +1572,8 @@ public class testgui extends JFrame{
 			changelog.schreibeLog("Es kam zu einer Fehlerhaften eingabe im Kunden-Menue.");
 			System.out.println("");
 			kundenMenue();
-		}
-	}
+		}  */
+	}                 
 	
 	
 	public void shopAnmeldung() {

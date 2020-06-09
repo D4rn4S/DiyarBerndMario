@@ -9,16 +9,17 @@ public class Artikel {
 	private int mindestbestand;
 	
 	
-	public Artikel(String name, int nummer, double preis, int bestand) {
+	public Artikel(String name, int nummer, double preis, int bestand, int mindestbestand) {
 		this.nummer = nummer;
 		this.name = name;
 		this.preis = preis;
 		this.bestand = bestand;
+		this.mindestbestand = mindestbestand;
 	}
 	
-	public Artikel(String name, int nummer, double preis, int bestand, int mindestbestand) {
+	/*public Artikel(String name, int nummer, double preis, int bestand, int mindestbestand) {
 		this(name, nummer, preis, mindestbestand);
-	}
+	}*/
 	
 	public String toString() {
 		return ("Name: " + name + " | Nummer: " + nummer + " | Preis: " + preis + " | Bestand: " + bestand);

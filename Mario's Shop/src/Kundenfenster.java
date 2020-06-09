@@ -1,24 +1,20 @@
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JTabbedPane;
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.JList;
-import javax.swing.JTable;
-import javax.swing.JScrollPane;
-import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.awt.event.ActionEvent;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JLayeredPane;
-import javax.swing.JDesktopPane;
-import javax.swing.JTextField;
 import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class testen {
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+import java.awt.Font;
+
+public class Kundenfenster {
 
 	private JFrame frame;
 	private JTable table;
@@ -32,7 +28,7 @@ public class testen {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					testen window = new testen();
+					Kundenfenster window = new Kundenfenster();
 					window.frame.setVisible(true);
 					
 				} catch (Exception e) {
@@ -46,7 +42,7 @@ public class testen {
 	 * Create the application.
 	 */
 	
-	public testen() {
+	public Kundenfenster() {
 		initialize();
 	}
 
@@ -77,7 +73,7 @@ public class testen {
 		// erstellt das Layout, wo die Tabelle entsteht
 		
 		JScrollPane Layout = new JScrollPane();
-		Layout.setBounds(194, 58, 445, 410);
+		Layout.setBounds(320, 58, 319, 410);
 		LagerTab.add(Layout);
 		
 		// erstellt die Tabelle
@@ -86,13 +82,13 @@ public class testen {
 			new Object[][] {
 			},
 			new String[] {
-				"Name", "Nummer", "Preis", "Bestand", "Mindestbestand"
+				"Name", "Nummer", "Preis",
 			}
 		) {
 			// die Klassen mit jeweils den Parametern
 			
 			Class[] columnTypes = new Class[] {
-				Object.class, Integer.class, Double.class, Integer.class, Object.class
+				Object.class, Integer.class, Double.class,
 			};
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
@@ -106,38 +102,8 @@ public class testen {
 		});
 		table.getColumnModel().getColumn(0).setPreferredWidth(45);
 		table.getColumnModel().getColumn(1).setPreferredWidth(55);
-		table.getColumnModel().getColumn(2).setPreferredWidth(40);
-		table.getColumnModel().getColumn(3).setPreferredWidth(57);
-		table.getColumnModel().getColumn(4).setPreferredWidth(90);
+		
 		Layout.setViewportView(table);
-		
-		//erstellt ein button "artikel hinzufügen"
-		
-		JButton ArtikelHinzufuegen = new JButton("Artikel hinzufuegen");
-		ArtikelHinzufuegen.addActionListener(new ActionListener() {
-			
-	    // Funktion zum öffnen eines neuen Fensters, um artikel hinzufügen zu können
-			
-			public void actionPerformed(ActionEvent e) {
-					
-				
-			}
-		});
-		ArtikelHinzufuegen.setBounds(486, 11, 153, 23);
-		LagerTab.add(ArtikelHinzufuegen);
-		
-		//erstellt button "artikel löschen" 
-		
-		JButton ArtikelLoeschen = new JButton("Artikel L\u00F6schen");
-		ArtikelLoeschen.addActionListener(new ActionListener() {
-			
-			// Funktion zum öffnen eines neuen Fensters, um artikel löschen zu können
-			
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		ArtikelLoeschen.setBounds(330, 11, 126, 23);
-		LagerTab.add(ArtikelLoeschen);
 		
 		// erstellt button "artikel suchen"
 		
@@ -149,7 +115,7 @@ public class testen {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		ArtikelSuchen.setBounds(194, 11, 126, 23);
+		ArtikelSuchen.setBounds(513, 11, 126, 23);
 		LagerTab.add(ArtikelSuchen);
 		
 		//erstellt button "Artikel sortieren Nummer"
@@ -161,7 +127,7 @@ public class testen {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		ArtikelSoNum.setBounds(0, 419, 195, 23);
+		ArtikelSoNum.setBounds(52, 417, 195, 23);
 		LagerTab.add(ArtikelSoNum);
 		
 		// erstellt button " artikeln sortieren Namen"
@@ -174,7 +140,7 @@ public class testen {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		ArtikelSoNam.setBounds(0, 373, 196, 23);
+		ArtikelSoNam.setBounds(51, 372, 196, 23);
 		LagerTab.add(ArtikelSoNam);
 		
 		JButton btnArtikelAnzeigen = new JButton("Artikel anzeigen");
@@ -182,13 +148,13 @@ public class testen {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnArtikelAnzeigen.setBounds(10, 11, 153, 23);
+		btnArtikelAnzeigen.setBounds(319, 11, 153, 23);
 		LagerTab.add(btnArtikelAnzeigen);
 		
 		// erstell layout für die bestandserhöhung 
 		
 		JScrollPane Layout1 = new JScrollPane();
-		Layout1.setBounds(10, 147, 170, 202);
+		Layout1.setBounds(10, 58, 249, 291);
 		LagerTab.add(Layout1);
 		
 		// erstell "Raster im layout, um buttons etc einfügen zu können
@@ -199,36 +165,41 @@ public class testen {
 		
 		// erstellt button " bestand erhoehen"
 		
-		JButton btnNewButton_1 = new JButton("Bestand \u00E4ndern");
+		JButton btnNewButton_1 = new JButton("Artikel hinzuf\u00FCgen");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnNewButton_1.setBounds(10, 134, 152, 23);
+		btnNewButton_1.setBounds(49, 229, 152, 23);
 		Raster.add(btnNewButton_1);
 		
-		JLabel lblNewLabel_1 = new JLabel("Neuer Bestand :");
-		lblNewLabel_1.setBounds(37, 72, 113, 14);
+		JLabel lblNewLabel_1 = new JLabel("Preis :");
+		lblNewLabel_1.setBounds(76, 141, 113, 14);
 		Raster.add(lblNewLabel_1);
 		
 		textField = new JTextField();
-		textField.setBounds(37, 92, 96, 20);
+		textField.setBounds(76, 176, 96, 20);
 		Raster.add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Artikelname :");
-		lblNewLabel_1_1.setBounds(37, 16, 113, 14);
+		lblNewLabel_1_1.setBounds(76, 74, 113, 14);
 		Raster.add(lblNewLabel_1_1);
 		
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
-		textField_1.setBounds(37, 41, 96, 20);
+		textField_1.setBounds(76, 110, 96, 20);
 		Raster.add(textField_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("New label");
 		lblNewLabel_2.setForeground(Color.RED);
-		lblNewLabel_2.setBounds(10, 168, 152, 14);
+		lblNewLabel_2.setBounds(49, 263, 152, 14);
 		Raster.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel("Artikel zum Warenkorb hinzuf\u00FCgen");
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_3.setBounds(20, 11, 227, 32);
+		Raster.add(lblNewLabel_3);
 		
 
 		
@@ -239,13 +210,7 @@ public class testen {
 		Maintab.addTab("Warenkorb", null, panel_1, null);
 		panel_1.setLayout(null);
 		
-		JPanel panel_2 = new JPanel();
-		Maintab.addTab("Changelog", null, panel_2, null);
-		panel_2.setLayout(null);
-		
-		JPanel panel_3 = new JPanel();
-		Maintab.addTab("Benutzermanagement", null, panel_3, null);
-		
+				
 		JButton btnNewButton = new JButton("Ausloggen");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
