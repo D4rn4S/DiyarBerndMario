@@ -63,8 +63,10 @@ public class testgui extends JFrame{
 	private JFrame shopAnmeldungMitarbeiter;
 	private JFrame shopAnmeldungKunde;
 	private JFrame mitarbeiterMenue;
-	private JFrame mitarbeiterHinzufuegenMenue;
+	private JFrame ArtikelHinzufuegenMenue;
 	private JFrame kundenMenue;
+	private JFrame ArtikelLoeschenMenue;
+	private JFrame artikelScreach;
 	private JTextField textVorname;
 	private JTextField textNachname;
 	private JTextField textWohnort;
@@ -78,11 +80,13 @@ public class testgui extends JFrame{
 	private JTextField textPreis;
 	private JTextField textBestand;
 	private  JTextField textMindestbestand;
+	private JTextField textArtikelNummer;
 	private JPasswordField textPasswort;
 	private JTextField textKundeNr;
 	private JLabel FalscheKundenNr;
 	private JLabel FalscheIDundPw;
 	private JLabel falscherArtikel;
+	private JTable tabelle;
 	
 	
 	
@@ -182,7 +186,7 @@ public class testgui extends JFrame{
 	//Startmenue
 	public void gibMenueAus() {
 		
-			//Fenster erstellen
+			// Fenster erstellen
 		
 			gibMenueAus = new JFrame();
 			gibMenueAus.setTitle("E-Shop");
@@ -233,8 +237,22 @@ public class testgui extends JFrame{
 			gibMenueAus.getContentPane().add(Registrieren);
 
 	}
-	
-	
+	   // tabelle befüllen und aktualisieren
+	public void updateTabelle(List<Artikel> l) {
+		DefaultTableModel TabelleBefüllen = (DefaultTableModel) tabelle.getModel();
+		TabelleBefüllen.setRowCount(0);
+        Object rowData[] = new Object[5];
+        for(int i = 0; i < l.size(); i++)
+        {
+            rowData[0] = l.get(i).getName();
+            rowData[1] = l.get(i).getNummer();
+            rowData[2] = l.get(i).getPreis();
+            rowData[3] = l.get(i).getBestand();
+            rowData[4] = l.get(i).getMindestbestand();
+            
+            TabelleBefüllen.addRow(rowData);
+        }
+	} 
 	
 	public void mitarbeiterMenue() {
 		
@@ -266,7 +284,7 @@ public class testgui extends JFrame{
 				LagerTab.add(Layout);
 				
 				// erstellt die Tabelle
-				JTable tabelle = new JTable();
+				tabelle = new JTable();
 				tabelle.setModel(new DefaultTableModel(
 					new Object[][] {
 					},
@@ -296,21 +314,10 @@ public class testgui extends JFrame{
 				tabelle.getColumnModel().getColumn(4).setPreferredWidth(90);
 				Layout.setViewportView(tabelle);
 				
-					//tabelle befüllen
-			    
-			        DefaultTableModel TabelleBefüllen = (DefaultTableModel) tabelle.getModel();
-			        
-			        Object rowData[] = new Object[5];
-			        for(int i = 0; i < aliste.size(); i++)
-			        {
-			            rowData[0] = aliste.get(i).getName();
-			            rowData[1] = aliste.get(i).getNummer();
-			            rowData[2] = aliste.get(i).getPreis();
-			            rowData[3] = aliste.get(i).getBestand();
-			            rowData[4] = aliste.get(i).getMindestbestand();
-			            TabelleBefüllen.addRow(rowData);
-			        }
-			                
+					
+				//Tabelle erstes mal befüllen , ruft methode oben auf
+				updateTabelle(lager.gibAlleArtikel());
+     
 			    
 				
 				//erstellt ein button "artikel hinzufügen"
@@ -322,72 +329,72 @@ public class testgui extends JFrame{
 					
 					public void actionPerformed(ActionEvent e) {
 						
-						mitarbeiterHinzufuegenMenue = new JFrame();
-						mitarbeiterHinzufuegenMenue.setVisible(true);
-						mitarbeiterHinzufuegenMenue.setBounds(100, 100, 328, 299);
-						mitarbeiterHinzufuegenMenue.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-						mitarbeiterHinzufuegenMenue.getContentPane().setLayout(null);
+						ArtikelHinzufuegenMenue = new JFrame();
+						ArtikelHinzufuegenMenue.setVisible(true);
+						ArtikelHinzufuegenMenue.setBounds(100, 100, 328, 299);
+						ArtikelHinzufuegenMenue.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+						ArtikelHinzufuegenMenue.getContentPane().setLayout(null);
 						
 						JLabel Artikelanlegen = new JLabel("Legen Sie ein neuen Artikel an!");
 						Artikelanlegen.setFont(new Font("Tahoma", Font.PLAIN, 14));
 						Artikelanlegen.setBounds(56, 11, 197, 31);
-						mitarbeiterHinzufuegenMenue.getContentPane().add(Artikelanlegen);
+						ArtikelHinzufuegenMenue.getContentPane().add(Artikelanlegen);
 						
 						JLabel Artikelname = new JLabel("Artikelname :");
 						 Artikelname.setBounds(37, 64, 96, 14);
-						mitarbeiterHinzufuegenMenue.getContentPane().add(Artikelname);
+						 ArtikelHinzufuegenMenue.getContentPane().add(Artikelname);
 						
 						textArtikel= new JTextField(null);
 						textArtikel.setBounds(37, 89, 96, 20);
-						mitarbeiterHinzufuegenMenue.getContentPane().add(textArtikel);
+						ArtikelHinzufuegenMenue.getContentPane().add(textArtikel);
 						textArtikel.setColumns(10);
 						
 						JLabel lblArtikelnummer = new JLabel("Artikelnummer :");
 						lblArtikelnummer.setBounds(37, 120, 96, 14);
-						mitarbeiterHinzufuegenMenue.getContentPane().add(lblArtikelnummer);
+						ArtikelHinzufuegenMenue.getContentPane().add(lblArtikelnummer);
 						
 						textNummer = new JTextField(null);
 						textNummer.setColumns(10);
 						textNummer.setBounds(37, 145, 37, 20);
-						mitarbeiterHinzufuegenMenue.getContentPane().add(textNummer);
+						ArtikelHinzufuegenMenue.getContentPane().add(textNummer);
 						
 						
 						
 						JLabel Preis = new JLabel("Preis :");
 						Preis.setBounds(187, 64, 96, 14);
-						mitarbeiterHinzufuegenMenue.getContentPane().add(Preis);
+						ArtikelHinzufuegenMenue.getContentPane().add(Preis);
 						
 						textPreis = new JTextField(null);
 						textPreis.setColumns(10);
 						textPreis.setBounds(187, 89, 96, 20);
-						mitarbeiterHinzufuegenMenue.getContentPane().add(textPreis);
+						ArtikelHinzufuegenMenue.getContentPane().add(textPreis);
 						
 						
 						JLabel Bestand = new JLabel("Bestand");
 						Bestand.setBounds(187, 120, 96, 14);
-						mitarbeiterHinzufuegenMenue.getContentPane().add(Bestand);
+						ArtikelHinzufuegenMenue.getContentPane().add(Bestand);
 						
 						textBestand = new JTextField(null);
 						textBestand.setColumns(10);
 						textBestand.setBounds(187, 145, 96, 20);
-						mitarbeiterHinzufuegenMenue.getContentPane().add(textBestand);
+						ArtikelHinzufuegenMenue.getContentPane().add(textBestand);
 						
 						
 						
 						JLabel Mindestbestand = new JLabel("Mindestbestand :");
 						Mindestbestand.setBounds(37, 176, 96, 14);
-						mitarbeiterHinzufuegenMenue.getContentPane().add(Mindestbestand);
+						ArtikelHinzufuegenMenue.getContentPane().add(Mindestbestand);
 						
 						textMindestbestand = new JTextField(null);
 						textMindestbestand.setColumns(10);
 						textMindestbestand.setBounds(37, 201, 96, 20);
-						mitarbeiterHinzufuegenMenue.getContentPane().add(textMindestbestand);
+						ArtikelHinzufuegenMenue.getContentPane().add(textMindestbestand);
 						
 						falscherArtikel = new JLabel("Bitte füllen Sie alle Felder.");
 						falscherArtikel.setBounds(81, 232, 170, 14);
 						falscherArtikel.setForeground(Color.BLACK);
 						falscherArtikel.setFont(new Font("Tahoma", Font.PLAIN, 13));
-						mitarbeiterHinzufuegenMenue.getContentPane().add(falscherArtikel);
+						ArtikelHinzufuegenMenue.getContentPane().add(falscherArtikel);
 					
 						
 						JButton Hinzufügen = new JButton("Hinzuf\u00FCgen");
@@ -428,15 +435,8 @@ public class testgui extends JFrame{
 								/* fehlermeldung wenn nicht alle Felder befüllt sind
 								if(textArtikel.getText().isEmpty()) {
 									System.out.println("lol");
-								}
-								if(textArtikel.getText().isEmpty() || textNummer.getText().isEmpty() || textPreis.getText().isEmpty() || textBestand.getText().isEmpty() || textMindestbestand.getText().isEmpty()) {
-									falscherArtikel.setText("Bitte füllen sie alle Felder");
-									textNummer.setText(null);
-									textArtikel.setText(null);
-									textPreis.setText(null);
-									textBestand.setText(null);
-									textMindestbestand.setText(null);
-								} */
+								}  */
+								
 								
 								for(Artikel a : aliste) {
 									if(a.getNummer() == aNum) {	
@@ -458,13 +458,14 @@ public class testgui extends JFrame{
 										e1.printStackTrace();
 									}
 						
-									mitarbeiterHinzufuegenMenue.setVisible(false);
+									ArtikelHinzufuegenMenue.setVisible(false);
+									updateTabelle(lager.gibAlleArtikel());
 								}
 							
 							}
 						});
 						Hinzufügen.setBounds(177, 189, 104, 32);
-						mitarbeiterHinzufuegenMenue.getContentPane().add(Hinzufügen);
+						ArtikelHinzufuegenMenue.getContentPane().add(Hinzufügen);
 							
 						
 					}
@@ -480,10 +481,67 @@ public class testgui extends JFrame{
 					// Funktion zum öffnen eines neuen Fensters, um artikel löschen zu können
 					
 					public void actionPerformed(ActionEvent e) {
+						
+						ArtikelLoeschenMenue = new JFrame();
+						ArtikelLoeschenMenue.setVisible(true);
+						ArtikelLoeschenMenue.setBounds(100, 100, 304, 246);
+						ArtikelLoeschenMenue.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+						ArtikelLoeschenMenue.getContentPane().setLayout(null);
+						
+						JLabel ArtikelLöschen = new JLabel("L\u00F6schen Sie ein Artikel!");
+						ArtikelLöschen.setFont(new Font("Tahoma", Font.PLAIN, 14));
+						ArtikelLöschen.setBounds(68, 11, 160, 31);
+						ArtikelLoeschenMenue.getContentPane().add(ArtikelLöschen);
+						
+						JLabel ANumNichtvergeben = new JLabel("  ");
+						ANumNichtvergeben.setForeground(Color.RED);
+						ANumNichtvergeben.setBounds(10, 186, 280, 14);
+						ArtikelLoeschenMenue.getContentPane().add(ANumNichtvergeben);
+						
+						JLabel eingeben = new JLabel("Geben Sie die Artikelnummer des Artikels ein :");
+						eingeben.setBounds(10, 68, 282, 14);
+						ArtikelLoeschenMenue.getContentPane().add(eingeben);
+						
+						textArtikelNummer = new JTextField();
+						textArtikelNummer.setBounds(107, 93, 54, 20);
+						ArtikelLoeschenMenue.getContentPane().add(textArtikelNummer);
+						textArtikelNummer.setColumns(10);
+						
+						JButton Loeschen = new JButton("L\u00F6schen");
+						Loeschen.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								
+								String aNummer = "";
+								int aNum;
+								
+								aNummer = textArtikelNummer.getText();
+								System.out.println(aNummer);
+								aNum = Integer.parseInt(aNummer);
+								
+								for(Artikel a : aliste) {
+									if(a.getNummer() == aNum) {	
+										lager.loescheArtikel(aNum);
+										ArtikelLoeschenMenue.setVisible(false);
+										updateTabelle(lager.gibAlleArtikel());
+										changelog.schreibeLog("Der Artikel mit der Nummer: " + aNum +" wurde gelöscht.");
+									} else {
+										ANumNichtvergeben.setText("Bitte geben Sie eine gültige Artikelnummer ein!");
+										textArtikelNummer.setText(null);
+									}
+								}
+								
+						
+							}
+						});
+						Loeschen.setBounds(81, 143, 104, 32);
+						ArtikelLoeschenMenue.getContentPane().add(Loeschen);
 					}
 				});
 				ArtikelLoeschen.setBounds(330, 11, 126, 23);
 				LagerTab.add(ArtikelLoeschen);
+				
+				
+				
 				
 				// erstellt button "artikel suchen"
 				
@@ -493,10 +551,84 @@ public class testgui extends JFrame{
 					//Funktion zum öffnen eines neuen Fensters, um artikel löschen zu können
 					
 					public void actionPerformed(ActionEvent e) {
+						
+						artikelScreach = new JFrame();
+						artikelScreach.setVisible(true);
+						artikelScreach.setBounds(100, 100, 304, 246);
+						artikelScreach.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+						artikelScreach.getContentPane().setLayout(null);
+						
+						JLabel Artikelanlegen = new JLabel("Welchen Artikel Suchen Sie?");
+						Artikelanlegen.setFont(new Font("Tahoma", Font.PLAIN, 14));
+						Artikelanlegen.setBounds(50, 11, 193, 31);
+						artikelScreach.getContentPane().add(Artikelanlegen);
+						
+						JLabel Artikelname = new JLabel("Geben Sie den Artikelname des Artikels ein :");
+						Artikelname.setBounds(10, 68, 282, 14);
+						artikelScreach.getContentPane().add(Artikelname);
+						
+						textArtikel = new JTextField();
+						textArtikel.setBounds(81, 93, 104, 20);
+						artikelScreach.getContentPane().add(textArtikel);
+						textArtikel.setColumns(10);
+						
+						JLabel FalscherArtikel = new JLabel("");
+						FalscherArtikel.setForeground(Color.RED);
+						FalscherArtikel.setBounds(26, 186, 240, 14);
+						artikelScreach.getContentPane().add(FalscherArtikel);
+						
+						JButton Suchen = new JButton("Suchen");
+						Suchen.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								
+								String aName = "";
+								
+								aName = textArtikel.getText();
+								
+								for(Artikel a : aliste) {
+									if(a.getName().equals(aName)) {	
+										updateTabelle(lager.sucheNachName(aName));
+										artikelScreach.setVisible(false);
+										changelog.schreibeLog("Der Artikel mit dem Namen: " + aName +" wurde gesucht.");
+									} else {
+										FalscherArtikel.setText("Bitte geben Sie ein gültigen Artikelnamen an!");
+										textArtikel.setText(null);
+									}
+								}
+								
+								updateTabelle(lager.sucheNachName(aName));
+								artikelScreach.setVisible(false);
+							}
+						});
+						Suchen.setBounds(81, 143, 104, 32);
+						artikelScreach.getContentPane().add(Suchen);
+						
+						
+						
+						
 					}
 				});
 				ArtikelSuchen.setBounds(194, 11, 126, 23);
 				LagerTab.add(ArtikelSuchen);
+				
+				
+				
+				// erstellen button" Artikel anzeigen"
+				
+				JButton Anzeigen = new JButton("Artikel anzeigen");
+				Anzeigen.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						
+						updateTabelle(lager.gibAlleArtikel());
+						
+					}
+				});
+				Anzeigen.setBounds(10, 11, 153, 23);
+				LagerTab.add(Anzeigen);
+				
+				
+				
+				
 				
 				//erstellt button "Artikel sortieren Nummer"
 				
@@ -505,10 +637,14 @@ public class testgui extends JFrame{
 					
 					//Funktion zum öffnen eines neuen Fensters, um artikel zu sortieren zu können
 					public void actionPerformed(ActionEvent e) {
+						updateTabelle(sortNummerArtikelliste(lager.gibAlleArtikel()));
 					}
 				});
 				ArtikelSoNum.setBounds(0, 419, 195, 23);
 				LagerTab.add(ArtikelSoNum);
+				
+				
+				
 				
 				// erstellt button " artikeln sortieren Namen"
 				
@@ -519,6 +655,7 @@ public class testgui extends JFrame{
 					
 					public void actionPerformed(ActionEvent e) {
 						
+						updateTabelle(sortNameArtikelliste(lager.gibAlleArtikel()));
 					
 					}
 				});
@@ -539,9 +676,24 @@ public class testgui extends JFrame{
 				JPanel panel_3 = new JPanel();
 				Maintab.addTab("Benutzermanagement", null, panel_3, null);
 				
-				JButton btnNewButton = new JButton("Ausloggen");
-				btnNewButton.setBounds(549, 506, 119, 23);
-				mitarbeiterMenue.getContentPane().add(btnNewButton);
+				
+				
+				
+				// erstellt Ausloggen button und schickt uns zurück zum Startfenster
+				
+				JButton Ausloggen = new JButton("Ausloggen");
+				Ausloggen.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						gibMenueAus();
+						mitarbeiterMenue.setVisible(false);
+						
+					}
+				});
+				Ausloggen.setBounds(549, 506, 119, 23);
+				mitarbeiterMenue.getContentPane().add(Ausloggen);
+				
+				
+				
 				
 				JLabel lblNewLabel = new JLabel("E-Shop creater : Mario Schulz, Bernd Henke, Dyar lol");
 				lblNewLabel.setBounds(40, 510, 442, 14);
@@ -1599,7 +1751,7 @@ public class testgui extends JFrame{
 		}
 	}
 	
-	private static void sortNameArtikelliste(List<Artikel> liste) {
+	private List<Artikel> sortNameArtikelliste(List<Artikel> liste) {
 		if (liste.isEmpty()) {
 			System.out.println("Liste ist leer.");
 		} else {
@@ -1612,12 +1764,10 @@ public class testgui extends JFrame{
 				});
 				
 			}
-			for (Artikel a : liste) {
-				System.out.println(a);
-			}
+		return liste;
 		}
 		
-	private static void sortNummerArtikelliste(List<Artikel> liste) {
+	private List<Artikel> sortNummerArtikelliste(List<Artikel> liste) {
 		if (liste.isEmpty()) {
 			System.out.println("Liste ist leer.");
 		} else {
@@ -1633,9 +1783,7 @@ public class testgui extends JFrame{
 				});
 				
 			}
-			for (Artikel a : liste) {
-				System.out.println(a);
-			}
+		return liste;
 		}
 	
 	

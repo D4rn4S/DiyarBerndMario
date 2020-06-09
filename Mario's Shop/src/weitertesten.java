@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class weitertesten {
 
@@ -16,6 +17,7 @@ public class weitertesten {
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_4;
+	private JTextField textField_5;
 
 	/**
 	 * Launch the application.
@@ -45,76 +47,40 @@ public class weitertesten {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 328, 299);
+		
+		frame.setBounds(100, 100, 304, 246);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JLabel Artikelanlegen = new JLabel("Legen Sie ein neuen Artikel an!");
+		JLabel Artikelanlegen = new JLabel("Welchen Artikel Suchen Sie?");
 		Artikelanlegen.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		Artikelanlegen.setBounds(56, 11, 197, 31);
+		Artikelanlegen.setBounds(50, 11, 193, 31);
 		frame.getContentPane().add(Artikelanlegen);
 		
-		JLabel Artikelname = new JLabel("Artikelname :");
-		 Artikelname.setBounds(37, 64, 96, 14);
-		frame.getContentPane().add(Artikelname);
-		
-		textArtikel= new JTextField();
-		textArtikel.setBounds(37, 89, 96, 20);
-		frame.getContentPane().add(textArtikel);
-		textArtikel.setColumns(10);
-		
-		JLabel lblArtikelnummer = new JLabel("Artikelnummer :");
-		lblArtikelnummer.setBounds(37, 120, 96, 14);
-		frame.getContentPane().add(lblArtikelnummer);
-		
-		textNummer = new JTextField();
-		textNummer.setColumns(10);
-		textNummer.setBounds(37, 145, 37, 20);
-		frame.getContentPane().add(textNummer);
 		
 		
-		
-		JLabel Preis = new JLabel("Preis :");
-		Preis.setBounds(187, 64, 96, 14);
-		frame.getContentPane().add(Preis);
-		
-		textPreis = new JTextField();
-		textPreis.setColumns(10);
-		textPreis.setBounds(187, 89, 96, 20);
-		frame.getContentPane().add(textPreis);
-		
-		
-		JLabel Bestand = new JLabel("Bestand");
-		Bestand.setBounds(187, 120, 96, 14);
-		frame.getContentPane().add(Bestand);
-		
-		textBestand = new JTextField();
-		textBestand.setColumns(10);
-		textBestand.setBounds(187, 145, 96, 20);
-		frame.getContentPane().add(textBestand);
-		
-		
-		
-		JLabel Mindestbestand = new JLabel("Mindestbestand :");
-		Mindestbestand.setBounds(37, 176, 96, 14);
-		frame.getContentPane().add(Mindestbestand);
-		
-		textMindestbestand = new JTextField();
-		textMindestbestand.setColumns(10);
-		textMindestbestand.setBounds(37, 201, 96, 20);
-		frame.getContentPane().add(textMindestbestand);
-		
-		JButton Hinzufügen = new JButton("Hinzuf\u00FCgen");
-		Hinzufügen.addActionListener(new ActionListener() {
+		JButton Suchen = new JButton("Suchen");
+		Suchen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		Hinzufügen.setBounds(177, 189, 104, 32);
-		frame.getContentPane().add(Hinzufügen);
+		Suchen.setBounds(81, 143, 104, 32);
+		frame.getContentPane().add(Suchen);
+		
+		
+		
+		JLabel lblNewLabel_1 = new JLabel("Geben Sie die Artikelnummer des Artikels ein :");
+		lblNewLabel_1.setBounds(10, 68, 282, 14);
+		frame.getContentPane().add(lblNewLabel_1);
+		
+		textField_5 = new JTextField();
+		textField_5.setBounds(81, 93, 104, 20);
+		frame.getContentPane().add(textField_5);
+		textField_5.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNewLabel.setBounds(81, 232, 132, 14);
+		lblNewLabel.setForeground(Color.RED);
+		lblNewLabel.setBounds(26, 186, 240, 14);
 		frame.getContentPane().add(lblNewLabel);
 		
 		

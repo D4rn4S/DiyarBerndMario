@@ -171,6 +171,14 @@ public class testen {
 		ArtikelSoNam.setBounds(0, 373, 196, 23);
 		LagerTab.add(ArtikelSoNam);
 		
+		JButton btnArtikelAnzeigen = new JButton("Artikel anzeigen");
+		btnArtikelAnzeigen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnArtikelAnzeigen.setBounds(10, 11, 153, 23);
+		LagerTab.add(btnArtikelAnzeigen);
+		
 		
 		/*-------------------------------------------------------------------------------------*/
 		
@@ -186,6 +194,10 @@ public class testen {
 		Maintab.addTab("Benutzermanagement", null, panel_3, null);
 		
 		JButton btnNewButton = new JButton("Ausloggen");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnNewButton.setBounds(549, 506, 119, 23);
 		frame.getContentPane().add(btnNewButton);
 		
