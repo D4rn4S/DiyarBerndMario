@@ -22,7 +22,6 @@ public class Warenkorb {
 		while(iter.hasNext()) {
 			Artikel a = iter.next();
 			if(a.getNummer()==aNummer) {
-				System.out.println(a);
 				if(warenkorbListe.contains(new tempArtikel(a, aAnz))) { //prüfen ob der Artikel bereits im Warenkorb ist (fehlerhaft)
 					t = warenkorbListe.get(warenkorbListe.indexOf(a)); //get gibt ein objekt aus einer Liste zurück, indexof liefert dir die stelle in einer Liste von einen Objekt
 					System.out.println("bereits vorhanden"); //nur zum testen
@@ -65,7 +64,25 @@ public class Warenkorb {
 		}
 	}
 
+	public List<tempArtikel> getWarenkorb(){
+		return warenkorbListe;
+	}
 	
+	public List<tempArtikel> sucheNachName(String name) {
+		
+		List<tempArtikel> suchErg = new ArrayList<tempArtikel>();
+		Iterator<tempArtikel> iter = warenkorbListe.iterator();
+		
+		while(iter.hasNext()) {
+			tempArtikel a = iter.next();
+			if(a.getArtikel().getName().equals(name)) {
+				suchErg.add(a);
+			}
+		}
+		
+		
+		return suchErg; 
+	}
 	
 	public void leeren() {  //warenkorb leeren
 		warenkorbListe.removeAll(warenkorbListe);		

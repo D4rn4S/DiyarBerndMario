@@ -36,6 +36,7 @@ import Datenstrukturen.Lager;
 import Datenstrukturen.Mitarbeiter;
 import Datenstrukturen.Verkaufsstand;
 import Datenstrukturen.Warenkorb;
+import Datenstrukturen.tempArtikel;
 import Manager.ChangeLogManager;
 import Datenstrukturen.Artikel;
 import Datenstrukturen.Buero;
@@ -84,12 +85,17 @@ public class testgui extends JFrame{
 	private JTextField textArtikelname;
 	private JTextField textAnzahl;
 	private JTextField textArtikelNr;
+	private JTextField textArtikelNr1;
+	private JTextField textAnzahl1;
 	private JPasswordField textPasswort;
 	private JTextField textKundeNr;
 	private JLabel FalscheKundenNr;
 	private JLabel FalscheIDundPw;
 	private JLabel falscherArtikel;
+	private JLabel falscheEingabe;
 	private JTable tabelle;
+	private JTable tabelle1;
+	private JLabel gesamtPreisZahl;
 	
 	
 	
@@ -275,6 +281,35 @@ public class testgui extends JFrame{
             TabelleBefüllen.addRow(rowData);
         }
 	}
+	
+	
+	
+	public void updateKundenWarenkorbTabelle(List<tempArtikel> l) {
+		double gesamtpreis;
+		double test = 0;
+		String testString = "";
+		
+		DefaultTableModel TabelleBefüllen = (DefaultTableModel) tabelle1.getModel();
+		TabelleBefüllen.setRowCount(0);
+        Object rowData[] = new Object[5];
+        for(int i = 0; i < l.size(); i++)
+        {
+            rowData[0] = l.get(i).getArtikel().getName();
+            rowData[1] = l.get(i).getArtikel().getNummer();
+            rowData[2] = l.get(i).getAnzahl();
+            rowData[3] = l.get(i).getArtikel().getPreis();
+            rowData[4] = l.get(i).getArtikel().getPreis() * l.get(i).getAnzahl();
+            
+            gesamtpreis = l.get(i).getArtikel().getPreis()* l.get(i).getAnzahl();
+            test = gesamtpreis + test;
+            testString = String.valueOf(test);
+            TabelleBefüllen.addRow(rowData);
+            gesamtPreisZahl.setText("  " + testString + " €");
+        }
+        
+	}
+	
+	
 	
 	public void mitarbeiterMenue() {
 		
@@ -548,6 +583,11 @@ public class testgui extends JFrame{
 										ArtikelLoeschenMenue.setVisible(false);
 										updateTabelle(lager.gibAlleArtikel());
 										changelog.schreibeLog("Der Artikel mit der Nummer: " + aNum +" wurde gelöscht.");
+										try {
+											lager.schreibeArtikel();
+										} catch (IOException e1) {
+											e1.printStackTrace();
+										}
 									} else {
 										ANumNichtvergeben.setText("Bitte geben Sie eine gültige Artikelnummer ein!");
 										textArtikelNummer.setText(null);
@@ -609,19 +649,19 @@ public class testgui extends JFrame{
 								
 								aName = textArtikel.getText();
 								
-								for(Artikel a : aliste) {
+								for(Artikel a : lager.gibAlleArtikel()) {
 									if(a.getName().equals(aName)) {	
 										updateTabelle(lager.sucheNachName(aName));
 										artikelScreach.setVisible(false);
 										changelog.schreibeLog("Der Artikel mit dem Namen: " + aName +" wurde gesucht.");
+										break;
 									} else {
-										FalscherArtikel.setText("Bitte geben Sie ein gültigen Artikelnamen an!");
+										FalscherArtikel.setText("Ungültiger Name!");
 										textArtikel.setText(null);
 									}
 								}
 								
-								updateTabelle(lager.sucheNachName(aName));
-								artikelScreach.setVisible(false);
+								
 							}
 						});
 						Suchen.setBounds(81, 143, 104, 32);
@@ -730,7 +770,7 @@ public class testgui extends JFrame{
 				FalscheArtNr.setBounds(7, 168, 170, 14);
 				Raster.add(FalscheArtNr);
 				
-				
+				System.out.println(textArtikel.getText());
 				// erstellt button " bestand aendern"
 				
 				JButton Bestandaendern = new JButton("Bestand \u00E4ndern");
@@ -744,8 +784,9 @@ public class testgui extends JFrame{
 						String aBestand ="";
 						int aBe;
 						int aNum;
-						
+						System.out.println(textArtikel.getText());
 						aNummer = textArtikel.getText();
+						System.out.println(textArtikel.getText());
 						aNum = Integer.parseInt(aNummer);
 						aBestand = textBestand.getText();
 						aBe = Integer.parseInt(aBestand);
@@ -755,11 +796,22 @@ public class testgui extends JFrame{
 								a.setBestand(aBe);
 								changelog.schreibeLog("Bei dem Artikel mit der Nummer: " + aNum +" wurde der Bestand auf: "+aBe +" gesetzt.");
 								FalscheArtNr.setText(null);
+								textArtikel.setText(null);
+								textBestand.setText(null);
 								updateTabelle(lager.gibAlleArtikel());
+								FalscheArtNr.setForeground(Color.black);
+								FalscheArtNr.setText("Bestand geändert!");
+								try {
+									lager.schreibeArtikel();
+								} catch (IOException e1) {
+									e1.printStackTrace();
+								}
 								break;
 							} else {
+								FalscheArtNr.setForeground(Color.RED);
 								FalscheArtNr.setText("Fehlerhafte Artikelnummer!");
 								textArtikel.setText(null);
+								textBestand.setText(null);
 							}
 						}
 						
@@ -1322,7 +1374,7 @@ public class testgui extends JFrame{
 		ArtikelSoNam.setBounds(51, 372, 196, 23);
 		LagerTab.add(ArtikelSoNam);
 		
-		// erstellt button " Artikel anzeigen" bernd hat n kleinen
+		// erstellt button " Artikel anzeigen" 
 		
 		JButton btnArtikelAnzeigen = new JButton("Artikel anzeigen");
 		btnArtikelAnzeigen.addActionListener(new ActionListener() {
@@ -1346,7 +1398,6 @@ public class testgui extends JFrame{
 		Raster.setLayout(null);  
 		
 		JLabel FalscherArt = new JLabel("  ");
-		FalscherArt.setForeground(Color.RED);
 		FalscherArt.setBounds(49, 263, 170, 14);
 		Raster.add(FalscherArt);
 		
@@ -1369,17 +1420,30 @@ public class testgui extends JFrame{
 				aAnzahl = textAnzahl.getText();
 				aAnz = Integer.parseInt(aAnzahl);
 				
-				for(Artikel a : aliste) {
+				for(Artikel a : lager.gibAlleArtikel()) {
+					System.out.println(a.getNummer()==aNum && aAnz <= a.getBestand());
+					System.out.println(!( a.getNummer() == aNum));
+					System.out.println( a.getBestand() <= aAnz);
 					if(a.getNummer()==aNum && aAnz <= a.getBestand()) {	
 						warenkorb.addArtikel(aNum, aAnz);
 						changelog.schreibeLog("Der Artikel mit der Nummer: " + aNum +" wurde "+ aAnz +" zum Warenkorb hinzugefügt.");
 						warenkorb.anzeigen();
-						FalscherArt.setText("");
-					} else {
-						FalscherArt.setText("Keine Ware mehr auf Lager!");
+						FalscherArt.setForeground(Color.BLACK);
+						FalscherArt.setText("Artikel hinzugefügt.");
 						textArtikelNr.setText(null);
 						textAnzahl.setText(null);
-					}
+						
+						// funktion zum laden in der Tabelle
+						
+						updateKundenWarenkorbTabelle(warenkorb.getWarenkorb());
+						break;
+					} else {
+						FalscherArt.setForeground(Color.RED);
+						FalscherArt.setText("     Falsche Eingabe!");
+						textArtikelNr.setText(null);
+						textAnzahl.setText(null);
+						
+					} 
 				}
 				   
 				
@@ -1417,9 +1481,306 @@ public class testgui extends JFrame{
 		
 		/*-------------------------------------------------------------------------------------*/
 		
-		JPanel panel_1 = new JPanel();
-		Maintab.addTab("Warenkorb", null, panel_1, null);
-		panel_1.setLayout(null);
+		// erstellt warenkorb tab
+		
+		JPanel Warenkorb = new JPanel();
+		Maintab.addTab("Warenkorb", null, Warenkorb, null);
+		Warenkorb.setLayout(null);
+		
+		// erstellt das fenster in den Tab
+		
+		JScrollPane Layout3 = new JScrollPane();
+		Layout3.setBounds(54, 21, 326, 374);
+		Warenkorb.add(Layout3);
+		
+		// erstellt eine tabelle mit den jeweiligen eigenschaften
+		
+		tabelle1 = new JTable();
+		tabelle1.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Name", "Nr", "Anzahl", "St\u00FCckpreis", "Preis"
+			}
+		) {
+			Class[] columnTypes = new Class[] {
+				String.class, Integer.class, Integer.class, Double.class, Double.class
+			};
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+			boolean[] columnEditables = new boolean[] {
+				true, true, true, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		
+		// größe der einzelnen componenten in der tabelle
+		
+		tabelle1.getColumnModel().getColumn(0).setPreferredWidth(36);
+		tabelle1.getColumnModel().getColumn(1).setPreferredWidth(50);
+		tabelle1.getColumnModel().getColumn(2).setPreferredWidth(48);
+		tabelle1.getColumnModel().getColumn(3).setPreferredWidth(64);
+		tabelle1.getColumnModel().getColumn(4).setPreferredWidth(40);
+		Layout3.setViewportView(tabelle1);
+		
+		//laden des Warenkorbs
+		
+		//updateKundenWarenkorbTabelle(warenkorb.getWarenkorb());
+		
+		// layout größe für Gesamtpreis
+		
+		JScrollPane Layout2 = new JScrollPane();
+		Layout2.setBounds(52, 404, 219, 37);
+		Warenkorb.add(Layout2);
+		
+		// Label für gesamtpreis
+		
+		JLabel gesamtPreis = new JLabel("Gesamtpreis :");
+		Layout2.setRowHeaderView(gesamtPreis);
+		gesamtPreis.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		
+		// label für den Preis, der angezeigt wird
+		
+		gesamtPreisZahl = new JLabel("");
+		gesamtPreisZahl.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		Layout2.setViewportView(gesamtPreisZahl);
+		
+		
+		
+		// button "kaufen" erstellt
+		
+		JButton kaufen = new JButton("Kaufen");
+		kaufen.addActionListener(new ActionListener() {
+			
+		// funktion zum kaufen der Artikeln
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				warenkorb.kaufen();
+				warenkorb.leeren();
+				try {
+					lager.schreibeArtikel();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				gesamtPreisZahl.setText(null);
+				updateKundenWarenkorbTabelle(warenkorb.getWarenkorb());
+				updateKundenTabelle(lager.gibAlleArtikel());
+			}
+		});
+		kaufen.setBounds(291, 406, 89, 35);
+		Warenkorb.add(kaufen);
+		
+
+		
+		
+		// button " artikel entfernen" erstellt 
+		
+		JButton artikelEntfernen = new JButton("Artikel entfernen");
+		
+		// erstellt funktion um artikel entfernen zu können
+		
+		artikelEntfernen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String aNummer = "";
+				int aNum;
+				aNummer = textAnzahl1.getText();
+				aNum = Integer.parseInt(aNummer);
+				
+				String aAnzahl ="";
+				int aAnz;
+				aAnzahl = textArtikelNr1.getText();
+				aAnz = Integer.parseInt(aAnzahl);
+				
+				for(tempArtikel a : warenkorb.getWarenkorb()) {
+					
+					
+					if(a.getArtikel().getNummer() == aNum && a.getAnzahl()>= aAnz) {
+						warenkorb.delArtikel(aNum, aAnz);
+						changelog.schreibeLog("Der Artikel mit der Nummer: " + aNum +" wurde "+ aAnz +" zum aus dem Warenkorb entfernt.");
+						falscheEingabe.setForeground(Color.BLACK);
+						falscheEingabe.setText("Artikel entfernt.");
+						textArtikelNr1.setText(null);
+						textAnzahl1.setText(null);
+						updateKundenWarenkorbTabelle(warenkorb.getWarenkorb());
+						break;
+					} else if(!(a.getArtikel().getNummer() == aNum)) {
+						falscheEingabe.setForeground(Color.RED);
+						falscheEingabe.setText("Falsche ArtikelNr!");
+						textArtikelNr1.setText(null);
+						textAnzahl1.setText(null);
+					} else if(!(a.getAnzahl()>= aAnz)) {
+						falscheEingabe.setForeground(Color.RED);
+						falscheEingabe.setText("Anzahl zu groß!");
+						textArtikelNr1.setText(null);
+						textAnzahl1.setText(null);
+					}
+					
+				}
+				
+			}
+		});
+		
+		artikelEntfernen.setBounds(446, 372, 141, 23);
+		Warenkorb.add(artikelEntfernen);
+		
+		// erstellt label für artikelnr
+		
+		JLabel artikelNr = new JLabel("ArtikelNr :");
+		artikelNr.setBounds(489, 247, 59, 14);
+		Warenkorb.add(artikelNr);
+		
+		// erstellt eine texteingabe für artikelnr
+		
+		textArtikelNr1 = new JTextField();
+		textArtikelNr1.setBounds(467, 329, 96, 20);
+		Warenkorb.add(textArtikelNr1);
+		textArtikelNr1.setColumns(10);
+		
+		// erstellt ein label für anzahl
+		
+		JLabel anzahl = new JLabel(" Anzahl :");
+		 anzahl.setBounds(489, 304, 59, 14);
+		Warenkorb.add( anzahl);
+		
+		// erstellt eine texteingabe für anzahl 
+		
+		textAnzahl1 = new JTextField();
+		textAnzahl1.setColumns(10);
+		textAnzahl1.setBounds(467, 272, 96, 20);
+		Warenkorb.add(textAnzahl1);
+		
+		falscheEingabe = new JLabel("  ");
+		falscheEingabe.setForeground(Color.RED);
+		falscheEingabe.setBounds(446, 404, 141, 14);
+		Warenkorb.add(falscheEingabe);
+		
+		// erstellt layout größe für artikel entfernen
+		
+		JScrollPane Layout4 = new JScrollPane();
+		Layout4.setBounds(422, 211, 184, 226);
+		Warenkorb.add(Layout4);
+		
+		
+		
+		
+		
+		
+		
+		// erstell button "warenkorb leeren" 
+		
+		JButton warenkorbLeeren = new JButton("Warenkorb leeren");
+		warenkorbLeeren.addActionListener(new ActionListener() {
+			
+			// funktion zum leeren des warenkorbs
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				warenkorb.leeren();
+				gesamtPreisZahl.setText(null);
+				updateKundenWarenkorbTabelle(warenkorb.getWarenkorb());
+			
+			}
+		});
+		warenkorbLeeren.setBounds(446, 133, 141, 23);
+		Warenkorb.add(warenkorbLeeren);
+		
+		
+		
+		
+		// erstellt button "artikel suchen"
+		
+		JButton artikelSuchen = new JButton("Artikel suchen");
+		artikelSuchen.addActionListener(new ActionListener() {
+			
+			// funktion zum suchen der Artikeln im warenkorb 
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				artikelScreach = new JFrame();
+				artikelScreach.setVisible(true);
+				artikelScreach.setBounds(100, 100, 304, 246);
+				artikelScreach.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				artikelScreach.getContentPane().setLayout(null);
+				
+				JLabel Artikelanlegen = new JLabel("Welchen Artikel Suchen Sie?");
+				Artikelanlegen.setFont(new Font("Tahoma", Font.PLAIN, 14));
+				Artikelanlegen.setBounds(50, 11, 193, 31);
+				artikelScreach.getContentPane().add(Artikelanlegen);
+				
+				JLabel Artikelname = new JLabel("Geben Sie den Artikelname des Artikels ein :");
+				Artikelname.setBounds(10, 68, 282, 14);
+				artikelScreach.getContentPane().add(Artikelname);
+				
+				textArtikel = new JTextField();
+				textArtikel.setBounds(81, 93, 104, 20);
+				artikelScreach.getContentPane().add(textArtikel);
+				textArtikel.setColumns(10);
+				
+				JLabel FalscherArtikel = new JLabel("lol ");
+				FalscherArtikel.setForeground(Color.RED);
+				FalscherArtikel.setBounds(26, 186, 240, 14);
+				artikelScreach.getContentPane().add(FalscherArtikel);
+				
+				JButton Suchen = new JButton("Suchen");
+				Suchen.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						
+						String aName = "";
+						
+						aName = textArtikel.getText();
+						
+						for(tempArtikel a : warenkorb.getWarenkorb()) {
+							if(a.getArtikel().getName().equals(aName)) {	
+								updateKundenWarenkorbTabelle(warenkorb.sucheNachName(aName));
+								artikelScreach.setVisible(false);
+								changelog.schreibeLog("Der Artikel mit dem Namen: " + aName +" wurde gesucht.");
+								break;
+							} else {
+								FalscherArtikel.setText("Ungültiger Name!");
+								textArtikel.setText(null);
+							}
+						}
+						
+						
+					}
+				});
+				Suchen.setBounds(81, 143, 104, 32);
+				artikelScreach.getContentPane().add(Suchen);
+				
+				
+				
+				
+			}
+		});
+		
+		
+		artikelSuchen.setBounds(446, 24, 141, 23);
+		Warenkorb.add(artikelSuchen);
+		
+		
+		
+		
+		// erstellt button "artikel anzeigen" 
+		
+		JButton artikelAnzeigen = new JButton("Artikel anzeigen");
+		artikelAnzeigen.addActionListener(new ActionListener() {
+			
+			// funktion zum anzeigen der Artikeln, nachdem man ein artikel gesucht hat ( sinnig)
+			
+			public void actionPerformed(ActionEvent e) {
+				updateKundenWarenkorbTabelle(warenkorb.getWarenkorb());
+			}
+		});
+		artikelAnzeigen.setBounds(446, 72, 141, 23);
+		Warenkorb.add(artikelAnzeigen);
+	
 		
 				
 		JButton btnNewButton = new JButton("Ausloggen");
