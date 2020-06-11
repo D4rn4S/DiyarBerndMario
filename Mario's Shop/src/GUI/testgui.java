@@ -61,6 +61,7 @@ public class testgui extends JFrame{
 	private JFrame gibMenueAus;
 	private JFrame shopAnmeldung;
 	private JFrame shopKundeRegistrierung;
+	private JFrame shopMitarbeiterRegistrierung;
 	private JFrame shopAnmeldungMitarbeiter;
 	private JFrame shopAnmeldungKunde;
 	private JFrame mitarbeiterMenue;
@@ -89,12 +90,16 @@ public class testgui extends JFrame{
 	private JTextField textAnzahl1;
 	private JPasswordField textPasswort;
 	private JTextField textKundeNr;
+	private JTextField textMitarbeiterNr;
 	private JLabel FalscheKundenNr;
+	private JLabel FalscheMitarbeiterNr;
 	private JLabel FalscheIDundPw;
 	private JLabel falscherArtikel;
 	private JLabel falscheEingabe;
 	private JTable tabelle;
 	private JTable tabelle1;
+	private JTable tabelle2;
+	private JTable tabelle3;
 	private JLabel gesamtPreisZahl;
 	
 	
@@ -199,7 +204,7 @@ public class testgui extends JFrame{
 		
 			gibMenueAus = new JFrame();
 			gibMenueAus.setTitle("E-Shop");
-			gibMenueAus.setBounds(100, 100, 418, 269);
+			gibMenueAus.setBounds(500, 300, 418, 269);
 			gibMenueAus.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			gibMenueAus.getContentPane().setLayout(null);
 			gibMenueAus.setVisible(true);
@@ -213,7 +218,7 @@ public class testgui extends JFrame{
 			//Label Anmeldung oder Registrieren
 			
 			JLabel AoderR = new JLabel("Anmelden oder Registrieren?");
-			AoderR.setBounds(93, 88, 241, 14);
+			AoderR.setBounds(115, 100, 241, 14);
 			gibMenueAus.getContentPane().add(AoderR);
 			
 			//button Mitarbeiter
@@ -237,7 +242,7 @@ public class testgui extends JFrame{
 				public void actionPerformed(ActionEvent e) {
 					
 					gibMenueAus.setVisible(false);
-					shopKundeRegistrierung();
+					shopKundeRegistrierung(false);
 					
 						}
 			});
@@ -264,6 +269,42 @@ public class testgui extends JFrame{
             TabelleBefüllen.addRow(rowData);
         }
 	} 
+	
+	public void updateBenutzerMitarbeiterTabelle(List<Mitarbeiter> l) {
+		DefaultTableModel TabelleBefüllen = (DefaultTableModel) tabelle3.getModel();
+		TabelleBefüllen.setRowCount(0); //leert die tabelle
+        Object rowData[] = new Object[7];
+        for(int i = 0; i < l.size(); i++)
+        {
+            rowData[0] = l.get(i).getMitarbeiterNr();
+            rowData[1] = l.get(i).getUsername();
+            rowData[2] = l.get(i).getVorname();
+            rowData[3] = l.get(i).getNachname();
+            rowData[4] = l.get(i).getWohnort();
+            rowData[5] = l.get(i).getPlz();
+            rowData[6] = l.get(i).getStrasse();
+            TabelleBefüllen.addRow(rowData);
+        }
+	}
+	
+	public void updateBenutzerKundenTabelle(List<Kunde> l) {
+		DefaultTableModel TabelleBefüllen = (DefaultTableModel) tabelle2.getModel();
+		TabelleBefüllen.setRowCount(0); //leert die tabelle
+        Object rowData[] = new Object[7];
+        for(int i = 0; i < l.size(); i++)
+        {
+            rowData[0] = l.get(i).getKundenNr();
+            rowData[1] = l.get(i).getUsername();
+            rowData[2] = l.get(i).getVorname();
+            rowData[3] = l.get(i).getNachname();
+            rowData[4] = l.get(i).getWohnort();
+            rowData[5] = l.get(i).getPlz();
+            rowData[6] = l.get(i).getStrasse();
+            TabelleBefüllen.addRow(rowData);
+        }
+	}
+	
+	
 	
 	public void updateKundenTabelle(List<Artikel> l) {
 		DefaultTableModel TabelleBefüllen = (DefaultTableModel) tabelle.getModel();
@@ -318,7 +359,7 @@ public class testgui extends JFrame{
 		mitarbeiterMenue = new JFrame();
 		mitarbeiterMenue.setVisible(true);
 		mitarbeiterMenue.setTitle("Menü für Mitarbeiter");
-		mitarbeiterMenue.setBounds(100, 100, 680, 564);
+		mitarbeiterMenue.setBounds(300, 150, 680, 564);
 		mitarbeiterMenue.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mitarbeiterMenue.getContentPane().setLayout(null);
 		
@@ -389,8 +430,9 @@ public class testgui extends JFrame{
 					public void actionPerformed(ActionEvent e) {
 						
 						ArtikelHinzufuegenMenue = new JFrame();
+						ArtikelHinzufuegenMenue.setTitle("Artikel hinzufuegen");
 						ArtikelHinzufuegenMenue.setVisible(true);
-						ArtikelHinzufuegenMenue.setBounds(100, 100, 328, 299);
+						ArtikelHinzufuegenMenue.setBounds(970, 150, 328, 299);
 						ArtikelHinzufuegenMenue.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 						ArtikelHinzufuegenMenue.getContentPane().setLayout(null);
 						
@@ -542,8 +584,9 @@ public class testgui extends JFrame{
 					public void actionPerformed(ActionEvent e) {
 						
 						ArtikelLoeschenMenue = new JFrame();
+						ArtikelLoeschenMenue.setTitle("Loeschen eines Artikels");
 						ArtikelLoeschenMenue.setVisible(true);
-						ArtikelLoeschenMenue.setBounds(100, 100, 304, 246);
+						ArtikelLoeschenMenue.setBounds(970, 150, 304, 246);
 						ArtikelLoeschenMenue.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 						ArtikelLoeschenMenue.getContentPane().setLayout(null);
 						
@@ -617,8 +660,9 @@ public class testgui extends JFrame{
 					public void actionPerformed(ActionEvent e) {
 						
 						artikelScreach = new JFrame();
+						artikelScreach.setTitle("Artikel suchen");
 						artikelScreach.setVisible(true);
-						artikelScreach.setBounds(100, 100, 304, 246);
+						artikelScreach.setBounds(970, 150, 304, 246);
 						artikelScreach.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 						artikelScreach.getContentPane().setLayout(null);
 						
@@ -837,8 +881,210 @@ public class testgui extends JFrame{
 				
 				/*-------------------------------------------------------------------------------------*/
 				
-				JPanel panel_3 = new JPanel();
-				Maintab.addTab("Benutzermanagement", null, panel_3, null);
+				
+				JPanel 	Benutzermanagement = new JPanel();
+				Maintab.addTab("Benutzermanagement", null, Benutzermanagement, null);
+				Benutzermanagement.setLayout(null);
+				
+				// ScrollPane für Tabelle erstellt
+				
+				JScrollPane scrollPane = new JScrollPane();
+				scrollPane.setBounds(38, 50, 414, 165);
+				Benutzermanagement.add(scrollPane);
+				
+				// erstellt tabelle für Kunde
+				
+				tabelle2 = new JTable();
+				tabelle2.setModel(new DefaultTableModel(
+					new Object[][] {
+					},
+					new String[] {
+						"KundenNr", "Username", "Vorname", "Nachname", "Wohnort", "PLZ", "Strasse"
+					}
+				) {
+					// eigenschaften in der Tabelle ( größe, int etc..)
+					
+					Class[] columnTypes = new Class[] {
+						Integer.class, String.class, String.class, Object.class, String.class, Integer.class, String.class
+					};
+					public Class getColumnClass(int columnIndex) {
+						return columnTypes[columnIndex];
+					}
+					boolean[] columnEditables = new boolean[] {
+						true, false, true, false, false, true, false
+					};
+					public boolean isCellEditable(int row, int column) {
+						return columnEditables[column];
+					}
+				});
+				tabelle2.getColumnModel().getColumn(0).setPreferredWidth(62);
+				tabelle2.getColumnModel().getColumn(1).setPreferredWidth(63);
+				tabelle2.getColumnModel().getColumn(2).setPreferredWidth(58);
+				tabelle2.getColumnModel().getColumn(3).setPreferredWidth(63);
+				tabelle2.getColumnModel().getColumn(4).setPreferredWidth(57);
+				tabelle2.getColumnModel().getColumn(5).setPreferredWidth(35);
+				tabelle2.getColumnModel().getColumn(6).setPreferredWidth(52);
+				scrollPane.setViewportView(tabelle2);
+				
+				
+				//befüllen der Tabelle
+				updateBenutzerKundenTabelle(verkaufsstand.gibAlleKunden());
+				
+				/*-----------------------------------------------------*/
+				
+				// scrollPane für die 2. tabelle erstellt
+				
+				JScrollPane scrollPane1 = new JScrollPane();
+				scrollPane1.setBounds(38, 274, 414, 175);
+				Benutzermanagement.add(scrollPane1);
+				
+				// erstellt tabelle für Mitarbeiter
+				
+				tabelle3 = new JTable();
+				tabelle3.setModel(new DefaultTableModel(
+					new Object[][] {
+					},
+					new String[] {
+						"MitarbeiterNr", "Username", "Vorname", "Nachname", "Wohnort", "PLZ", "Strasse"
+					}
+				) {
+					// eigenschaften in der Tabelle ( größe, int etc..)
+					
+					Class[] columnTypes = new Class[] {
+						String.class, String.class, String.class, String.class, String.class, Integer.class, String.class
+					};
+					public Class getColumnClass(int columnIndex) {
+						return columnTypes[columnIndex];
+					}
+					boolean[] columnEditables = new boolean[] {
+						false, false, true, true, true, true, true
+					};
+					public boolean isCellEditable(int row, int column) {
+						return columnEditables[column];
+					}
+				});
+				tabelle3.getColumnModel().getColumn(1).setPreferredWidth(61);
+				tabelle3.getColumnModel().getColumn(2).setPreferredWidth(58);
+				tabelle3.getColumnModel().getColumn(3).setPreferredWidth(64);
+				tabelle3.getColumnModel().getColumn(4).setPreferredWidth(57);
+				tabelle3.getColumnModel().getColumn(5).setPreferredWidth(34);
+				tabelle3.getColumnModel().getColumn(6).setPreferredWidth(51);
+				scrollPane1.setViewportView(tabelle3);
+				
+				//befüllen der Tabelle
+				updateBenutzerMitarbeiterTabelle(buero.gibAlleMitarbeiter());
+				
+				
+				// erstellt button mitarbeiter suchen 
+				
+				JButton mitarbeiterSuchen = new JButton("Mitarbeiter suchen");
+				mitarbeiterSuchen.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+					}
+				});
+				mitarbeiterSuchen.setBounds(484, 329, 155, 23);
+				Benutzermanagement.add(mitarbeiterSuchen);
+				
+				
+				
+				// erstellt button mitarbeiter löschen 
+				
+				JButton mitarbeiterLoeschen = new JButton("Mitarbeiter l\u00F6schen ");
+				mitarbeiterLoeschen.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+					}
+				});
+				mitarbeiterLoeschen.setBounds(484, 380, 155, 23);
+				Benutzermanagement.add(mitarbeiterLoeschen);
+				
+				
+				
+				// erstellt button mitarbeiter anlegen
+				
+				JButton mitarbeiterAnlegen = new JButton("Mitarbeiter anlegen");
+				mitarbeiterAnlegen.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						shopMitarbeiterRegistrierung(true);
+						updateBenutzerMitarbeiterTabelle(buero.gibAlleMitarbeiter());
+					}
+				});
+				mitarbeiterAnlegen.setBounds(484, 426, 155, 23);
+				Benutzermanagement.add(mitarbeiterAnlegen);
+				
+				
+				
+				
+				//erstellt button kunde suchen
+				
+				JButton kundeSuchen = new JButton("Kunde suchen");
+				kundeSuchen.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+					}
+				});
+				kundeSuchen.setBounds(484, 53, 155, 23);
+				Benutzermanagement.add(kundeSuchen);
+				
+				
+				
+				
+				// erstellt button kunde löschen
+				
+				JButton kundeLoeschen = new JButton("Kunde l\u00F6schen");
+				kundeLoeschen.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+					}
+				});
+				kundeLoeschen.setBounds(484, 101, 155, 23);
+				Benutzermanagement.add(kundeLoeschen);
+				
+				
+				
+				
+				// erstellt button kunden anlegen 
+				
+				JButton kundeAnlegen = new JButton("Kunde anlegen");
+				kundeAnlegen.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						shopKundeRegistrierung(true);
+						updateBenutzerKundenTabelle(verkaufsstand.gibAlleKunden());
+						
+					}
+				});
+				 kundeAnlegen.setBounds(484, 147, 155, 23);
+				Benutzermanagement.add( kundeAnlegen);
+				
+				
+				
+				
+				// erstellt button listen aktualisieren 
+				
+				JButton listenAktualisieren = new JButton("Listen aktualisieren");
+				listenAktualisieren.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+
+						updateBenutzerKundenTabelle(verkaufsstand.gibAlleKunden());
+						updateBenutzerMitarbeiterTabelle(buero.gibAlleMitarbeiter());
+					}
+				});
+				listenAktualisieren.setBounds(484, 227, 155, 26);
+				Benutzermanagement.add(listenAktualisieren);
+				
+				
+				
+				
+				// erstellt ein label bzw übeschrift für die tabellen (kunde)
+				
+				JLabel labelKunden = new JLabel("Liste von Kunden");
+				labelKunden.setFont(new Font("Tahoma", Font.PLAIN, 14));
+				labelKunden.setBounds(38, 13, 160, 26);
+				Benutzermanagement.add(labelKunden);
+				
+				// erstellt ein label bzw übeschrift für die tabellen (mitarbeiter)
+				
+				JLabel labelMitarbeiter = new JLabel("Liste von Mitarbeiter");
+				labelMitarbeiter.setFont(new Font("Tahoma", Font.PLAIN, 14));
+				labelMitarbeiter.setBounds(38, 237, 160, 26);
+				Benutzermanagement.add(labelMitarbeiter);
 				
 				
 				
@@ -1217,7 +1463,7 @@ public class testgui extends JFrame{
 		kundenMenue = new JFrame();
 		kundenMenue.setVisible(true);
 		kundenMenue.setTitle("Menü für Kunden");
-		kundenMenue.setBounds(100, 100, 680, 564);
+		kundenMenue.setBounds(300, 150, 680, 564);
 		kundenMenue.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		kundenMenue.getContentPane().setLayout(null);
 		
@@ -1229,7 +1475,7 @@ public class testgui extends JFrame{
 		
 		/*-------------------------------------------------------------------------------------*/
 		
-		 // lager sortiment erstellt
+		 // tab sortiment erstellt
 		
 		JPanel LagerTab = new JPanel();
 		Maintab.addTab("Sortiment", null, LagerTab, null);
@@ -1247,7 +1493,7 @@ public class testgui extends JFrame{
 			new Object[][] {
 			},
 			new String[] {
-				"Name", "Nummer", "Preis","Bestand"
+				"Name", "Nummer", "Preis","Auf Lager"
 			}
 		) {
 			// die Klassen mit jeweils den Parametern
@@ -1283,8 +1529,9 @@ public class testgui extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				
 				artikelScreach = new JFrame();
+				artikelScreach.setTitle("Artikel suchen");
 				artikelScreach.setVisible(true);
-				artikelScreach.setBounds(100, 100, 304, 246);
+				artikelScreach.setBounds(970, 150, 304, 246);
 				artikelScreach.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				artikelScreach.getContentPane().setLayout(null);
 				
@@ -1398,7 +1645,7 @@ public class testgui extends JFrame{
 		Raster.setLayout(null);  
 		
 		JLabel FalscherArt = new JLabel("  ");
-		FalscherArt.setBounds(49, 263, 170, 14);
+		FalscherArt.setBounds(65, 263, 170, 14);
 		Raster.add(FalscherArt);
 		
 		
@@ -1408,6 +1655,9 @@ public class testgui extends JFrame{
 		
 		JButton ArtikelHinzufügen = new JButton("Artikel hinzuf\u00FCgen");
 		ArtikelHinzufügen.addActionListener(new ActionListener() {
+			
+		// erstellt eine funktion um ware im warenkorb hinzuzufügen 
+			
 			public void actionPerformed(ActionEvent e) {
 				
 				String aNummer = "";
@@ -1657,7 +1907,7 @@ public class testgui extends JFrame{
 		
 		falscheEingabe = new JLabel("  ");
 		falscheEingabe.setForeground(Color.RED);
-		falscheEingabe.setBounds(446, 404, 141, 14);
+		falscheEingabe.setBounds(475, 404, 141, 14);
 		Warenkorb.add(falscheEingabe);
 		
 		// erstellt layout größe für artikel entfernen
@@ -1705,7 +1955,8 @@ public class testgui extends JFrame{
 				
 				artikelScreach = new JFrame();
 				artikelScreach.setVisible(true);
-				artikelScreach.setBounds(100, 100, 304, 246);
+				artikelScreach.setTitle("Artikeln suchen");
+				artikelScreach.setBounds(970, 150, 304, 246);
 				artikelScreach.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				artikelScreach.getContentPane().setLayout(null);
 				
@@ -1723,7 +1974,7 @@ public class testgui extends JFrame{
 				artikelScreach.getContentPane().add(textArtikel);
 				textArtikel.setColumns(10);
 				
-				JLabel FalscherArtikel = new JLabel("lol ");
+				JLabel FalscherArtikel = new JLabel(" ");
 				FalscherArtikel.setForeground(Color.RED);
 				FalscherArtikel.setBounds(26, 186, 240, 14);
 				artikelScreach.getContentPane().add(FalscherArtikel);
@@ -1943,7 +2194,7 @@ public class testgui extends JFrame{
 		
 				shopAnmeldung = new JFrame();
 				shopAnmeldung.setTitle("E-Shop");
-				shopAnmeldung.setBounds(100, 100, 418, 269);
+				shopAnmeldung.setBounds(500, 300, 418, 269);
 				shopAnmeldung.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				shopAnmeldung.getContentPane().setLayout(null);
 				shopAnmeldung.setVisible(true);
@@ -2016,7 +2267,7 @@ public class testgui extends JFrame{
 		
 		shopAnmeldungMitarbeiter = new JFrame();
 		shopAnmeldungMitarbeiter.setTitle("Mitarbeiterfenster");
-		shopAnmeldungMitarbeiter.setBounds(100, 100, 320, 204);
+		shopAnmeldungMitarbeiter.setBounds(500, 300, 320, 204);
 		shopAnmeldungMitarbeiter.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		shopAnmeldungMitarbeiter.getContentPane().setLayout(null);
 		shopAnmeldungMitarbeiter.setVisible(true);
@@ -2045,7 +2296,7 @@ public class testgui extends JFrame{
 		
 		FalscheIDundPw = new JLabel("    ");
 		FalscheIDundPw.setForeground(Color.RED);
-		FalscheIDundPw.setBounds(46, 91, 240, 14);
+		FalscheIDundPw.setBounds(32, 91, 240, 14);
 		shopAnmeldungMitarbeiter.getContentPane().add(FalscheIDundPw);
 		
 		// erstellt Button + Funktion zum überprüfen der Anmeldedaten
@@ -2100,7 +2351,7 @@ public class testgui extends JFrame{
 		
 		shopAnmeldungKunde = new JFrame();
 		shopAnmeldungKunde.setTitle("Kundenfenster");
-		shopAnmeldungKunde.setBounds(100, 100, 320, 204);
+		shopAnmeldungKunde.setBounds(500, 300, 320, 204);
 		shopAnmeldungKunde.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		shopAnmeldungKunde.getContentPane().setLayout(null);
 		shopAnmeldungKunde.setVisible(true);
@@ -2131,7 +2382,7 @@ public class testgui extends JFrame{
 		
 		FalscheIDundPw = new JLabel("    ");
 		FalscheIDundPw.setForeground(Color.RED);
-		FalscheIDundPw.setBounds(46, 91, 240, 14);
+		FalscheIDundPw.setBounds(32, 91, 240, 14);
 		shopAnmeldungKunde.getContentPane().add(FalscheIDundPw); 
 		
 		// erstellt Button + Funktion zum überprüfen der Anmeldedaten
@@ -2184,13 +2435,13 @@ public class testgui extends JFrame{
 	
 	
 	
-	public void shopKundeRegistrierung() {
+	public void shopKundeRegistrierung(boolean b) {
 		
 		 // erstellt das Fenster für die Registrierung
 		
 		 shopKundeRegistrierung = new JFrame();
 		 shopKundeRegistrierung.setTitle("Registrierungsfenster");
-		 shopKundeRegistrierung.setBounds(100, 100, 397, 394);
+		 shopKundeRegistrierung.setBounds(500, 300, 397, 394);
 		 shopKundeRegistrierung.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		 shopKundeRegistrierung.getContentPane().setLayout(null);
 		 shopKundeRegistrierung.setVisible(true);
@@ -2379,7 +2630,10 @@ public class testgui extends JFrame{
 					}
 					shopKundeRegistrierung.setVisible(false);
 					System.out.println("Kunde wurde angelegt.");
-					shopAnmeldungKunde();
+					if(!b) {
+						shopAnmeldungKunde();	
+					}
+					
 				}
 			}
 
@@ -2393,94 +2647,213 @@ public class testgui extends JFrame{
 	
 	
 	
-	public void shopMitarbeiterRegistrierung() {
-		String username = "";
-		String passwort = "";
-		String vorname = "";
-		String nachname = "";
-		String wohnort = "";
-		String plz = "";
-		String strasse = "";
-		String mitarbeiterNummer = "";
-		int mitarbeiterNr;
-		List<Mitarbeiter> liste;
-		liste = buero.gibAlleMitarbeiter();
+	public void shopMitarbeiterRegistrierung(boolean b) {
 		
-		System.out.println("");
-		System.out.println("Bitte gebe einen Benutzernamen ein: ");
-		System.out.println("");
-		System.out.print(">>");
-		username = liesEingabe();
-
-		System.out.println("");
-		System.out.println("Bitte lege ein Passwort fest: ");
-		System.out.println("");
-		System.out.print(">>");
-		passwort = liesEingabe();
-
+		 // erstellt das Fenster für die Registrierung
 		
-		System.out.println("");
-		System.out.println("Bitte gebe einen Vornamen ein: ");
-		System.out.println("");
-		System.out.print(">>");
-		vorname = liesEingabe();
+		 shopMitarbeiterRegistrierung = new JFrame();
+		 shopMitarbeiterRegistrierung.setTitle("Registrierungsfenster");
+		 shopMitarbeiterRegistrierung.setBounds(500, 300, 397, 394);
+		 shopMitarbeiterRegistrierung.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		 shopMitarbeiterRegistrierung.getContentPane().setLayout(null);
+		 shopMitarbeiterRegistrierung.setVisible(true);
+		 
+		// erstellt Vornametext + eingabetext
+		 
+		JLabel Vorname = new JLabel("Vorname:");
+		Vorname.setBounds(24, 38, 115, 14);
+		shopMitarbeiterRegistrierung.getContentPane().add(Vorname);
 		
-		System.out.println("");
-		System.out.println("Bitte gebe einen Nachnamen ein: ");
-		System.out.println("");
-		System.out.print(">>");
-		nachname = liesEingabe();
+		textVorname = new JTextField();
+		textVorname.setColumns(10);
+		textVorname.setBounds(24, 63, 115, 20);
+		shopMitarbeiterRegistrierung.getContentPane().add(textVorname);
 		
-		System.out.println("");
-		System.out.println("Bitte gebe einen Wohnort ein: ");
-		System.out.println("");
-		System.out.print(">>");
-		wohnort = liesEingabe();
+		// erstellt Nachnametext + eingabetext
 		
-		System.out.println("");
-		System.out.println("Bitte gebe einen Postleitzahl ein: ");
-		System.out.println("");
-		System.out.print(">>");
-		plz = liesEingabe();
+		JLabel Nachname = new JLabel("Nachname:");
+		Nachname.setBounds(24, 94, 115, 14);
+		shopMitarbeiterRegistrierung.getContentPane().add(Nachname);
 		
-		System.out.println("");
-		System.out.println("Bitte gebe eine Strasse ein: ");
-		System.out.println("");
-		System.out.print(">>");
-		strasse = liesEingabe();
+		textNachname = new JTextField();
+		textNachname.setColumns(10);
+		textNachname.setBounds(24, 119, 115, 20);
+		shopMitarbeiterRegistrierung.getContentPane().add(textNachname);
 		
-		System.out.println("");
-		System.out.println("Bitte lege eine Mitarbeiter-Nummer fest: ");
-		System.out.println("");
-		System.out.print(">>");
-		mitarbeiterNummer = liesEingabe();
-		mitarbeiterNr = Integer.parseInt(mitarbeiterNummer);
+		// erstellt Wohnorttext + eingabetext
 		
-		for(Mitarbeiter m : liste) {
-			while(m.getMitarbeiterNr() == mitarbeiterNr) {
-				System.out.println("");
-				System.out.println("Bitte wähle eine andere Mitarbeiter-Nr..");
-				System.out.println("");
-				System.out.print(">>");
-				mitarbeiterNummer = liesEingabe();
+		JLabel Wohnort = new JLabel("Wohnort:");
+		Wohnort.setBounds(171, 38, 115, 14);
+		shopMitarbeiterRegistrierung.getContentPane().add(Wohnort);
+		
+		textWohnort = new JTextField();
+		textWohnort.setColumns(10);
+		textWohnort.setBounds(171, 63, 115, 20);
+		shopMitarbeiterRegistrierung.getContentPane().add(textWohnort);
+		
+		// erstellt Straßetext + eingabetext
+		
+		JLabel Straße = new JLabel("Stra\u00DFe:");
+		Straße.setBounds(171, 94, 115, 14);
+		shopMitarbeiterRegistrierung.getContentPane().add(Straße);
+		
+		textStraße = new JTextField();
+		textStraße.setColumns(10);
+		textStraße.setBounds(171, 119, 115, 20);
+		shopMitarbeiterRegistrierung.getContentPane().add(textStraße);
+		
+		
+		// erstellt PLZtext + eingabetext
+		
+		JLabel PLZ = new JLabel("PLZ:");
+		PLZ.setBounds(296, 38, 95, 14);
+		shopMitarbeiterRegistrierung.getContentPane().add(PLZ);
+		
+		textplz = new JTextField();
+		textplz.setColumns(10);
+		textplz.setBounds(296, 63, 57, 20);
+		shopMitarbeiterRegistrierung.getContentPane().add(textplz);
+		
+	
+		// erstellt ein Hintergrund Balken (Rechteck layout)
+		
+		JProgressBar progressBar = new JProgressBar();
+		progressBar.setBounds(10, 20, 364, 140);
+		shopMitarbeiterRegistrierung.getContentPane().add(progressBar);
+		
+		// erstellt Benutzernametext + eingabetext
+		
+		JLabel Benutzername = new JLabel("Geben Sie einen Benutzernamen ein :");
+		Benutzername.setBounds(24, 194, 221, 14);
+		shopMitarbeiterRegistrierung.getContentPane().add(Benutzername);
+		
+		textBenutzername = new JTextField();
+		textBenutzername.setColumns(10);
+		textBenutzername.setBounds(24, 219, 115, 20);
+		shopMitarbeiterRegistrierung.getContentPane().add(textBenutzername);
+		
+		// erstellt Passworttext + eingabetext
+		
+		JLabel Passwort = new JLabel("Legen Sie einen Passwort fest : ");
+		Passwort.setBounds(24, 251, 221, 14);
+		shopMitarbeiterRegistrierung.getContentPane().add(Passwort);
+		
+		textPasswort = new JPasswordField();
+		textPasswort.setColumns(10);
+		textPasswort.setBounds(24, 272, 115, 20);
+		shopMitarbeiterRegistrierung.getContentPane().add(textPasswort);
+		
+		// erstellt KundenNrtext + eingabetext
+		
+		JLabel KundeNr = new JLabel("MitarbeiterNr angeben :");
+		KundeNr.setBounds(232, 219, 121, 14);
+		shopMitarbeiterRegistrierung.getContentPane().add(KundeNr);
+		
+		textMitarbeiterNr = new JTextField();
+		textMitarbeiterNr.setColumns(10);
+		textMitarbeiterNr.setBounds(264, 248, 43, 20);
+		shopMitarbeiterRegistrierung.getContentPane().add(textMitarbeiterNr);
+		
+		//  bei bereits existernder KundenNr!
+		
+		FalscheMitarbeiterNr = new JLabel("      ");
+		FalscheMitarbeiterNr.setForeground(Color.RED);
+		FalscheMitarbeiterNr.setBounds(232, 279, 180, 14);
+		shopMitarbeiterRegistrierung.getContentPane().add(FalscheMitarbeiterNr);  
+		
+		// erstellt ein Hintergrund Balken (Rechteck layout)
+		
+		JProgressBar progressBar_1 = new JProgressBar();
+		progressBar_1.setBounds(10, 180, 364, 129);
+		shopMitarbeiterRegistrierung.getContentPane().add(progressBar_1);
+		
+		//Erstellt Button
+		
+		JButton Registrieren = new JButton("Registrieren!");
+		Registrieren.setBounds(141, 325, 115, 23);
+		shopMitarbeiterRegistrierung.getContentPane().add(Registrieren);
+		
+		
+		/*Funktion zum Speichern der Daten beim klick auf button
+		 * bzw Registrierung eines neuen Kunden*/
+		
+		
+		Registrieren.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				String username = "";
+				String passwort = "";
+				String vorname = "";
+				String nachname = "";
+				String wohnort = "";
+				String PLZ = "";
+				String strasse = "";
+				String mitarbeiterNummer = "";
+				int mitarbeiterNr;
+				/*List<Kunde> liste;
+				liste = verkaufsstand.gibAlleKunden();*/
+				
+				
+				vorname = textVorname.getText();
+				System.out.print(vorname);
+				
+				nachname = textNachname.getText();
+				System.out.print(nachname);
+				
+				wohnort = textWohnort.getText();
+				System.out.print(wohnort);
+				
+				strasse = textStraße.getText();
+				System.out.print(strasse);
+				
+				PLZ = textplz.getText();
+				System.out.print(strasse);
+				
+				
+				username = textBenutzername.getText();
+				System.out.print(username);
+				
+				passwort = textPasswort.getText();
+				System.out.print(passwort);
+				
+				mitarbeiterNummer = textMitarbeiterNr.getText();
+				System.out.print(mitarbeiterNummer);
+				
 				mitarbeiterNr = Integer.parseInt(mitarbeiterNummer);
+				
+				for(Mitarbeiter m : buero.gibAlleMitarbeiter()) {
+					if(m.getMitarbeiterNr() == mitarbeiterNr) {				
+					    FalscheMitarbeiterNr.setText("Die MitarbeiterNr existiert bereits!"); 
+					    textMitarbeiterNr.setText(null);
+					    			    
+					    
+					} 	
+				}
+				
+				if(!textMitarbeiterNr.getText().isEmpty()) {
+					changelog.schreibeLog("Ein neuer Mitarbeiter wurde angelegt. Er hat die Nummer " + mitarbeiterNr + ". ");
+					buero.fuegeMitarbeiterEin(username, passwort, vorname, nachname, wohnort, PLZ, strasse, mitarbeiterNr);
+					try {
+						buero.schreibeMitarbeiter();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					shopMitarbeiterRegistrierung.setVisible(false);
+					System.out.println("Mitarbeiter wurde angelegt.");
+					if(!b) {
+						shopAnmeldungMitarbeiter();	
+					}
+					
+				}
 			}
-		}
+
+			
+				
+			
+		});
 		
-		
-		changelog.schreibeLog("Ein neuer Mitarbeiter wurde angelegt. Er hat die Nummer " + mitarbeiterNr + ". ");
-		buero.fuegeMitarbeiterEin(username, passwort, vorname, nachname, wohnort, plz, strasse, mitarbeiterNr);
-		
-		try {
-			buero.schreibeMitarbeiter();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		System.out.println("");
-		System.out.println("Ein neuer Mitarbeiter wurde regestriert...");
-		System.out.println("");
 	}
 	
 

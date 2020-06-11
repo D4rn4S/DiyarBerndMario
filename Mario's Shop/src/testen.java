@@ -24,6 +24,8 @@ public class testen {
 	private JTable table;
 	private JTextField textField;
 	private JTextField textField_1;
+	private JTable table_1;
+	private JTable table_2;
 
 	/**
 	 * Launch the application.
@@ -239,12 +241,169 @@ public class testen {
 		Maintab.addTab("Warenkorb", null, panel_1, null);
 		panel_1.setLayout(null);
 		
+		
+		
 		JPanel panel_2 = new JPanel();
 		Maintab.addTab("Changelog", null, panel_2, null);
 		panel_2.setLayout(null);
 		
-		JPanel panel_3 = new JPanel();
-		Maintab.addTab("Benutzermanagement", null, panel_3, null);
+		
+		
+		/*---------------------------------------------------------------------------------------*/
+		
+		// erstellt tab benutzermanagement
+		
+		JPanel 	Benutzermanagement = new JPanel();
+		Maintab.addTab("Benutzermanagement", null, Benutzermanagement, null);
+		Benutzermanagement.setLayout(null);
+		
+		// ScrollPane für Tabelle erstellt
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(38, 50, 414, 165);
+		Benutzermanagement.add(scrollPane);
+		
+		// erstellt tabelle für Kunde
+		
+		table_1 = new JTable();
+		table_1.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"KundenNr", "Username", "Vorname", "Nachname", "Wohnort", "PLZ", "Strasse"
+			}
+		) {
+			// eigenschaften in der Tabelle ( größe, int etc..)
+			
+			Class[] columnTypes = new Class[] {
+				Integer.class, String.class, String.class, Object.class, String.class, Integer.class, String.class
+			};
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+			boolean[] columnEditables = new boolean[] {
+				true, false, true, false, false, true, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		table_1.getColumnModel().getColumn(0).setPreferredWidth(62);
+		table_1.getColumnModel().getColumn(1).setPreferredWidth(63);
+		table_1.getColumnModel().getColumn(2).setPreferredWidth(58);
+		table_1.getColumnModel().getColumn(3).setPreferredWidth(63);
+		table_1.getColumnModel().getColumn(4).setPreferredWidth(57);
+		table_1.getColumnModel().getColumn(5).setPreferredWidth(35);
+		table_1.getColumnModel().getColumn(6).setPreferredWidth(52);
+		scrollPane.setViewportView(table_1);
+		
+		
+		/*-----------------------------------------------------*/
+		
+		// scrollPane für die 2. tabelle erstellt
+		
+		JScrollPane scrollPane1 = new JScrollPane();
+		scrollPane1.setBounds(38, 274, 414, 175);
+		Benutzermanagement.add(scrollPane1);
+		
+		// erstellt tabelle für Mitarbeiter
+		
+		table_2 = new JTable();
+		table_2.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"MitarbeiterNr", "Username", "Vorname", "Nachname", "Wohnort", "PLZ", "Strasse"
+			}
+		) {
+			// eigenschaften in der Tabelle ( größe, int etc..)
+			
+			Class[] columnTypes = new Class[] {
+				String.class, String.class, String.class, String.class, String.class, Integer.class, String.class
+			};
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+			boolean[] columnEditables = new boolean[] {
+				false, false, true, true, true, true, true
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		table_2.getColumnModel().getColumn(1).setPreferredWidth(61);
+		table_2.getColumnModel().getColumn(2).setPreferredWidth(58);
+		table_2.getColumnModel().getColumn(3).setPreferredWidth(64);
+		table_2.getColumnModel().getColumn(4).setPreferredWidth(57);
+		table_2.getColumnModel().getColumn(5).setPreferredWidth(34);
+		table_2.getColumnModel().getColumn(6).setPreferredWidth(51);
+		scrollPane1.setViewportView(table_2);
+		
+		
+		// erstellt button mitarbeiter suchen 
+		
+		JButton mitarbeiterSuchen = new JButton("Mitarbeiter suchen");
+		mitarbeiterSuchen.setBounds(484, 329, 155, 23);
+		Benutzermanagement.add(mitarbeiterSuchen);
+		
+		// erstellt button mitarbeiter löschen 
+		
+		JButton mitarbeiterLoeschen = new JButton("Mitarbeiter l\u00F6schen ");
+		mitarbeiterLoeschen.setBounds(484, 380, 155, 23);
+		Benutzermanagement.add(mitarbeiterLoeschen);
+		
+		// erstellt button mitarbeiter anlegen
+		
+		JButton mitarbeiterAnlegen = new JButton("Mitarbeiter anlegen");
+		mitarbeiterAnlegen.setBounds(484, 426, 155, 23);
+		Benutzermanagement.add(mitarbeiterAnlegen);
+		
+		//erstellt button kunde suchen
+		
+		JButton kundeSuchen = new JButton("Kunde suchen");
+		kundeSuchen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		kundeSuchen.setBounds(484, 53, 155, 23);
+		Benutzermanagement.add(kundeSuchen);
+		
+		// erstellt button kunde löschen
+		
+		JButton kundeLoeschen = new JButton("Kunde l\u00F6schen");
+		kundeLoeschen.setBounds(484, 101, 155, 23);
+		Benutzermanagement.add(kundeLoeschen);
+		
+		// erstellt button anlegen 
+		
+		JButton kundeAnlegen = new JButton("Kunde anlegen");
+		 kundeAnlegen.setBounds(484, 147, 155, 23);
+		Benutzermanagement.add( kundeAnlegen);
+		
+		// erstellt button listen aktualisieren 
+		
+		JButton listenAktualisieren = new JButton("Listen aktualisieren");
+		listenAktualisieren.setBounds(484, 227, 155, 26);
+		Benutzermanagement.add(listenAktualisieren);
+		
+		// erstellt ein label bzw übeschrift für die tabellen (kunde)
+		
+		JLabel labelKunden = new JLabel("Liste von Kunden");
+		labelKunden.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		labelKunden.setBounds(38, 13, 160, 26);
+		Benutzermanagement.add(labelKunden);
+		
+		// erstellt ein label bzw übeschrift für die tabellen (mitarbeiter)
+		
+		JLabel labelMitarbeiter = new JLabel("Liste von Mitarbeiter");
+		labelMitarbeiter.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		labelMitarbeiter.setBounds(38, 237, 160, 26);
+		Benutzermanagement.add(labelMitarbeiter);
+		
+		
+		
+		
+		/*-------------------------------------------------------------------*/
 		
 		JButton btnNewButton = new JButton("Ausloggen");
 		btnNewButton.addActionListener(new ActionListener() {

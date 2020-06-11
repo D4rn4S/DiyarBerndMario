@@ -1,4 +1,6 @@
-Juni 07, 2020 7:44:02 PM Datenstrukturen.Changelog schreibeLog
+Juni 11, 2020 1:43:35 PM Datenstrukturen.Changelog schreibeLog
 INFO: Das Programm wird gestartet.
-Juni 07, 2020 7:44:26 PM Datenstrukturen.Changelog schreibeLog
-INFO: Ein neuer Kunde wurde angelegt. Er hat die Nummer 1. 
+Juni 11, 2020 1:43:40 PM Datenstrukturen.Changelog schreibeLog
+INFO: Der Mitarbeiter ske hat sich angemeldet.
+Juni 11, 2020 1:44:19 PM Datenstrukturen.Changelog schreibeLog
+INFO: Ein neuer Mitarbeiter wurde angelegt. Er hat die Nummer 50. 
