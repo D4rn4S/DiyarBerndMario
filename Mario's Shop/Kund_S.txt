@@ -7,74 +7,10 @@ Bremen
 CarlSeveringStraße
 1
 bhe
-schrank
+123
 Bernd
 Henke
 Bremen
 28329
-JuliusBrechtAllee
+Julius-Brecht-Allee 24
 2
-bernde2
-schrank12
-Bernd
-Henke
-Lastrup
-49688
-Vorm Heideland
-3
-bernd
-schrank
-bernd
-henke
-bremen
-49688
-vorm heideland 3
-4
-stephie
-schrank
-Stephie
-kerperin
-lastrup
-9543
-vorm heideland 2
-5
-insaB
-schrank12
-Insa
-Bünnemeyer
-Bremen
-49688
-vorm Heideland 3
-10
-nadin
-abcd
-Nadine
-asdasds
-dadas
-49688
-babaweg 21
-80
-pbe
-123
-Peter
-Behrens
-Bremen
-28329
-Carl-Severing 69
-7
-monti
-123
-monte
-black
-buxtehude
-34242
-lappenweg 2
-19
-Ehre
-123
-Peter
-Ehrenmann
-Bremen
-28329
-Ehrenstraße 4
-8

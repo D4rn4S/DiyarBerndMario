@@ -45,7 +45,11 @@ import Datenstrukturen.Kunde;
 
 
 
-
+/**
+ * 
+ * @author Mario
+ *
+ */
 public class testgui extends JFrame{
 	
 	private static Lager lager;
@@ -78,6 +82,7 @@ public class testgui extends JFrame{
 	private JTextField textBenutzername;
 	private JTextField textID;
 	private JTextField textArtikel;
+	private JTextField textArtikel2;
 	private JTextField textNummer;
 	private JTextField textPreis;
 	private JTextField textBestand;
@@ -91,6 +96,7 @@ public class testgui extends JFrame{
 	private JPasswordField textPasswort;
 	private JTextField textKundeNr;
 	private JTextField textMitarbeiterNr;
+	private JTextField textKundenNummer;
 	private JLabel FalscheKundenNr;
 	private JLabel FalscheMitarbeiterNr;
 	private JLabel FalscheIDundPw;
@@ -101,10 +107,17 @@ public class testgui extends JFrame{
 	private JTable tabelle2;
 	private JTable tabelle3;
 	private JLabel gesamtPreisZahl;
+	private JFrame kundLoeschen;
+	private JFrame artikelScreach1;
 	
 	
-	
-
+	/**
+	 * 
+	 * @param dArtikel
+	 * @param dMitarbeiter
+	 * @param dKunden
+	 * @param dLog
+	 */
 	public testgui(String dArtikel, String dMitarbeiter, String dKunden, String dLog) {
 		
 		try {
@@ -197,7 +210,9 @@ public class testgui extends JFrame{
 	}
 
 
-	//Startmenue
+	/**
+	 * 
+	 */
 	public void gibMenueAus() {
 		
 			// Fenster erstellen
@@ -675,10 +690,10 @@ public class testgui extends JFrame{
 						Artikelname.setBounds(10, 68, 282, 14);
 						artikelScreach.getContentPane().add(Artikelname);
 						
-						textArtikel = new JTextField();
-						textArtikel.setBounds(81, 93, 104, 20);
-						artikelScreach.getContentPane().add(textArtikel);
-						textArtikel.setColumns(10);
+						textArtikel2 = new JTextField();
+						textArtikel2.setBounds(81, 93, 104, 20);
+						artikelScreach.getContentPane().add(textArtikel2);
+						textArtikel2.setColumns(10);
 						
 						JLabel FalscherArtikel = new JLabel("");
 						FalscherArtikel.setForeground(Color.RED);
@@ -691,7 +706,7 @@ public class testgui extends JFrame{
 								
 								String aName = "";
 								
-								aName = textArtikel.getText();
+								aName = textArtikel2.getText();
 								
 								for(Artikel a : lager.gibAlleArtikel()) {
 									if(a.getName().equals(aName)) {	
@@ -701,7 +716,7 @@ public class testgui extends JFrame{
 										break;
 									} else {
 										FalscherArtikel.setText("Ungültiger Name!");
-										textArtikel.setText(null);
+										textArtikel2.setText(null);
 									}
 								}
 								
@@ -1019,6 +1034,59 @@ public class testgui extends JFrame{
 				JButton kundeSuchen = new JButton("Kunde suchen");
 				kundeSuchen.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+					
+						artikelScreach1 = new JFrame();
+						artikelScreach1.setTitle("Kunden suchen");
+						artikelScreach1.setVisible(true);
+						artikelScreach1.setBounds(970, 150, 304, 246);
+						artikelScreach1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+						artikelScreach1.getContentPane().setLayout(null);
+						
+						JLabel Artikelanlegen = new JLabel("Welchen Kunden suchen Sie?");
+						Artikelanlegen.setFont(new Font("Tahoma", Font.PLAIN, 14));
+						Artikelanlegen.setBounds(50, 11, 193, 31);
+						artikelScreach1.getContentPane().add(Artikelanlegen);
+						
+						JLabel KundenNr = new JLabel("Geben Sie die KundenNr ein :");
+						KundenNr.setBounds(50, 68, 282, 14);
+						artikelScreach1.getContentPane().add(KundenNr);
+						
+						textKundeNr = new JTextField();
+						textKundeNr.setBounds(81, 93, 104, 20);
+						artikelScreach1.getContentPane().add(textKundeNr);
+						textKundeNr.setColumns(10);
+						
+						JLabel FalscherArtikel = new JLabel("");
+						FalscherArtikel.setForeground(Color.RED);
+						FalscherArtikel.setBounds(26, 186, 240, 14);
+						artikelScreach1.getContentPane().add(FalscherArtikel);
+						
+						JButton suchen = new JButton("Suchen");
+						suchen.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								
+								String kNummer = "";
+								int kNum;
+								kNummer = textKundeNr.getText();
+								kNum = Integer.parseInt(kNummer);
+								
+								for(Kunde k : verkaufsstand.gibAlleKunden()) {
+									if(k.getKundenNr() == kNum) {	
+										updateBenutzerKundenTabelle(verkaufsstand.sucheNachNummer(kNum));
+										artikelScreach1.setVisible(false);
+										changelog.schreibeLog("Der Kunde mit der Nummer: " + kNum +" wurde gesucht.");
+										break;
+									} else {
+										FalscherArtikel.setText("Ungültige Nr!");
+										textKundeNr.setText(null);
+									}
+								}
+								
+								
+							}
+						});
+						suchen.setBounds(81, 143, 104, 32);
+						artikelScreach1.getContentPane().add(suchen);	
 					}
 				});
 				kundeSuchen.setBounds(484, 53, 155, 23);
@@ -1032,6 +1100,66 @@ public class testgui extends JFrame{
 				JButton kundeLoeschen = new JButton("Kunde l\u00F6schen");
 				kundeLoeschen.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						kundLoeschen = new JFrame();
+						kundLoeschen.setTitle("Loeschen eines Kunden");
+						kundLoeschen.setVisible(true);
+						kundLoeschen.setBounds(970, 150, 304, 246);
+						kundLoeschen.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+						kundLoeschen.getContentPane().setLayout(null);
+						
+						JLabel kundeLoeschArt = new JLabel("L\u00F6schen Sie ein Kunde!");
+						kundeLoeschArt.setFont(new Font("Tahoma", Font.PLAIN, 14));
+						kundeLoeschArt.setBounds(68, 11, 160, 31);
+						kundLoeschen.getContentPane().add(kundeLoeschArt);
+						
+						JLabel kundNrNichtvergeben = new JLabel("  ");
+						kundNrNichtvergeben.setForeground(Color.RED);
+						kundNrNichtvergeben.setBounds(10, 186, 280, 14);
+						kundLoeschen.getContentPane().add(kundNrNichtvergeben);
+						
+						JLabel eingeben = new JLabel("Geben Sie die KundenNr des Kunden ein :");
+						eingeben.setBounds(10, 68, 282, 14);
+						kundLoeschen.getContentPane().add(eingeben);
+						
+						textKundenNummer = new JTextField();
+						textKundenNummer.setBounds(107, 93, 54, 20);
+						kundLoeschen.getContentPane().add(textKundenNummer);
+						textKundenNummer.setColumns(10);
+						
+						JButton Loeschen = new JButton("L\u00F6schen");
+						Loeschen.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								
+								String kNummer = "";
+								int kNum;
+								
+								kNummer = textKundenNummer.getText();
+								System.out.println(kNummer);
+								kNum = Integer.parseInt(kNummer);
+								
+								for(Kunde k : verkaufsstand.gibAlleKunden()) {
+									if(k.getKundenNr() == kNum) {	
+										verkaufsstand.loescheKunde(kNum);
+										kundLoeschen.setVisible(false);
+										updateBenutzerKundenTabelle(verkaufsstand.gibAlleKunden());
+										changelog.schreibeLog("Der Kunde mit der Nummer: " + kNum +" wurde gelöscht.");
+										try {
+											verkaufsstand.schreibeKunden();
+										} catch (IOException e1) {
+											e1.printStackTrace();
+										}
+									} else {
+										kundNrNichtvergeben.setText("Bitte geben Sie eine gültige Kundennummer ein!");
+										textKundenNummer.setText(null);
+									}
+								}
+								
+						
+							}
+						});
+						Loeschen.setBounds(81, 143, 104, 32);
+						kundLoeschen.getContentPane().add(Loeschen);
+					
 					}
 				});
 				kundeLoeschen.setBounds(484, 101, 155, 23);
@@ -1046,6 +1174,7 @@ public class testgui extends JFrame{
 				kundeAnlegen.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						shopKundeRegistrierung(true);
+						System.out.println("kommt das?");
 						updateBenutzerKundenTabelle(verkaufsstand.gibAlleKunden());
 						
 					}
@@ -2940,7 +3069,10 @@ public class testgui extends JFrame{
 		}
 	}
 	
-	
+	/**
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		
 		testgui gui;

@@ -28,6 +28,12 @@ public class LagerManager {
 		
 	}
 	
+	/**
+	 * Verwendet von:
+	 * Methodenbeschriebung:
+	 * @param String datei
+	 * @throws IOException
+	 */
 	public void schreibeDaten(String datei) throws IOException {
 		
 		pm.openForWriting(datei);
@@ -52,6 +58,11 @@ public class LagerManager {
 		}
 		}
 	
+	/**
+	 * 
+	 * @param name
+	 * @return eine Liste mit den Suchergebnissen
+	 */
 	public List<Artikel> suchArtikelName(String name){
 		
 		List<Artikel> suchErg = new ArrayList<Artikel>();
