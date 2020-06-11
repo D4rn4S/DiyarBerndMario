@@ -109,6 +109,9 @@ public class testgui extends JFrame{
 	private JLabel gesamtPreisZahl;
 	private JFrame kundLoeschen;
 	private JFrame artikelScreach1;
+	private JFrame mitaLoeschen;
+	private JTextField textMitarbeiterNummer;
+	private JFrame mitarbeiterScreach;
 	
 	
 	/**
@@ -995,6 +998,61 @@ public class testgui extends JFrame{
 				JButton mitarbeiterSuchen = new JButton("Mitarbeiter suchen");
 				mitarbeiterSuchen.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+					
+						
+						mitarbeiterScreach = new JFrame();
+						mitarbeiterScreach.setTitle("Mitarbeiter suchen");
+						mitarbeiterScreach.setVisible(true);
+						mitarbeiterScreach.setBounds(970, 150, 304, 246);
+						mitarbeiterScreach.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+						mitarbeiterScreach.getContentPane().setLayout(null);
+						
+						JLabel mitarbeitersuche = new JLabel("Welchen Mitarbeiter suchen Sie?");
+						mitarbeitersuche.setFont(new Font("Tahoma", Font.PLAIN, 14));
+						mitarbeitersuche.setBounds(50, 11, 193, 31);
+						mitarbeiterScreach.getContentPane().add(mitarbeitersuche);
+						
+						JLabel mitarbeiterNr = new JLabel("Geben Sie die MitarbeiterNr ein :");
+						mitarbeiterNr.setBounds(50, 68, 282, 14);
+						mitarbeiterScreach.getContentPane().add(mitarbeiterNr);
+						
+						textMitarbeiterNr = new JTextField();
+						textMitarbeiterNr.setBounds(81, 93, 104, 20);
+						mitarbeiterScreach.getContentPane().add(textMitarbeiterNr);
+						textMitarbeiterNr.setColumns(10);
+						
+						JLabel FalscherArtikel = new JLabel("");
+						FalscherArtikel.setForeground(Color.RED);
+						FalscherArtikel.setBounds(26, 186, 240, 14);
+						mitarbeiterScreach.getContentPane().add(FalscherArtikel);
+						
+						JButton suchen = new JButton("Suchen");
+						suchen.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								
+								String mNummer = "";
+								int mNum;
+								mNummer = textMitarbeiterNr.getText();
+								mNum = Integer.parseInt(mNummer);
+								
+								for(Mitarbeiter m : buero.gibAlleMitarbeiter()) {
+									if(m.getMitarbeiterNr() == mNum) {	
+										updateBenutzerMitarbeiterTabelle(buero.sucheNachNummer(mNum));
+										mitarbeiterScreach.setVisible(false);
+										changelog.schreibeLog("Der Artikel mit dem Namen: " + mNum +" wurde gesucht.");
+										break;
+									} else {
+										FalscherArtikel.setText("Ungültige Nr!");
+										textArtikel.setText(null);
+									}
+								}
+								
+								
+							}
+						});
+						suchen.setBounds(81, 143, 104, 32);
+						mitarbeiterScreach.getContentPane().add(suchen);
+						
 					}
 				});
 				mitarbeiterSuchen.setBounds(484, 329, 155, 23);
@@ -1007,6 +1065,67 @@ public class testgui extends JFrame{
 				JButton mitarbeiterLoeschen = new JButton("Mitarbeiter l\u00F6schen ");
 				mitarbeiterLoeschen.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+					
+						mitaLoeschen = new JFrame();
+						mitaLoeschen.setTitle("Loeschen eines Mitarbeiter");
+						mitaLoeschen.setVisible(true);
+						mitaLoeschen.setBounds(970, 150, 304, 246);
+						mitaLoeschen.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+						mitaLoeschen.getContentPane().setLayout(null);
+						
+						JLabel mitaLoesch = new JLabel("L\u00F6schen Sie ein Mitarbeiter!");
+						mitaLoesch.setFont(new Font("Tahoma", Font.PLAIN, 14));
+						mitaLoesch.setBounds(68, 11, 160, 31);
+						mitaLoeschen.getContentPane().add(mitaLoesch);
+						
+						JLabel mitaNrNichtvergeben = new JLabel("  ");
+						mitaNrNichtvergeben.setForeground(Color.RED);
+						mitaNrNichtvergeben.setBounds(10, 186, 280, 14);
+						mitaLoeschen.getContentPane().add(mitaNrNichtvergeben);
+						
+						JLabel eingeben = new JLabel("Geben Sie die MitarbeiterNr des Mitarbeiter ein :");
+						eingeben.setBounds(10, 68, 282, 14);
+						mitaLoeschen.getContentPane().add(eingeben);
+						
+						textMitarbeiterNummer = new JTextField();
+						textMitarbeiterNummer.setBounds(107, 93, 54, 20);
+						mitaLoeschen.getContentPane().add(textMitarbeiterNummer);
+						textMitarbeiterNummer.setColumns(10);
+						
+						JButton Loeschen = new JButton("L\u00F6schen");
+						Loeschen.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								
+								String mNummer = "";
+								int mNum;
+								
+								mNummer = textMitarbeiterNummer.getText();
+								System.out.println(mNummer);
+								mNum = Integer.parseInt(mNummer);
+								
+								for(Mitarbeiter m : buero.gibAlleMitarbeiter()) {
+									if(m.getMitarbeiterNr() == mNum) {	
+										buero.loescheMitarbeiter(mNum);
+										mitaLoeschen.setVisible(false);
+										updateBenutzerMitarbeiterTabelle(buero.gibAlleMitarbeiter());
+										changelog.schreibeLog("Der Mitarbeiter mit der Nummer: " + mNum +" wurde gelöscht.");
+										try {
+											buero.schreibeMitarbeiter();
+										} catch (IOException e1) {
+											e1.printStackTrace();
+										}
+									} else {
+										mitaNrNichtvergeben.setText("Bitte geben Sie eine gültige Mitarbeiternummer ein!");
+										textMitarbeiterNummer.setText(null);
+									}
+								}
+								
+						
+							}
+						});
+						Loeschen.setBounds(81, 143, 104, 32);
+						mitaLoeschen.getContentPane().add(Loeschen);
+						
 					}
 				});
 				mitarbeiterLoeschen.setBounds(484, 380, 155, 23);
