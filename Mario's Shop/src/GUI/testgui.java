@@ -2949,6 +2949,34 @@ public class testgui extends JFrame{
 		
 		
 		gui.gibMenueAus();
+		
+		//speichert alle Daten vor dem Beenden des Programmes
+		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+	        public void run() {
+	        	changelog.schreibeLog("Das Programm wurde beendet.");
+	        	System.out.println("test");
+	            try {
+					logmanager.schreibeDaten("Log");
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+	            try {
+					lager.schreibeArtikel();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+	            try {
+					verkaufsstand.schreibeKunden();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+	            try {
+					buero.schreibeMitarbeiter();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+	        }
+	    }, "Shutdown-thread"));
 	
 	}
 
