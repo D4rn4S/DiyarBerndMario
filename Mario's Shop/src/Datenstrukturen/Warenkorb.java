@@ -3,7 +3,11 @@ package Datenstrukturen;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
+/**
+ * 
+ * @author Mario
+ *
+ */
 public class Warenkorb {
 
 
@@ -14,7 +18,11 @@ public class Warenkorb {
 	public Warenkorb (List<Artikel> aListe) {
 		this.aListe = aListe;
 	}
-	
+	/**
+	 * Fügt einen Artikel den WArenkorb hinzu. Es wird geprüft ob ein Artikel bereits im Warenkorb ist, ist jedoch noch fehlerhaft.
+	 * @param aNummer
+	 * @param aAnz
+	 */
 	public void addArtikel(int aNummer, int aAnz) { //artikel dem Warenkorb hinzufügen
 		Iterator<Artikel> iter = this.aListe.iterator();
 		tempArtikel t;
@@ -39,6 +47,11 @@ public class Warenkorb {
 		}
 	} 
 	
+	/**
+	 * löscht einen Artikel aus dem Warenkorb, je nach dem wie groß die ANzahl ist.
+	 * @param aNummer
+	 * @param aAnz
+	 */
 	public void delArtikel(int aNummer, int aAnz) { //artikel aus dem Warenkorb entfernen
 		Iterator<tempArtikel> iter = this.warenkorbListe.iterator();
 		while(iter.hasNext()) {
@@ -58,16 +71,28 @@ public class Warenkorb {
 		
 	} 
 	
+	/**
+	 * gibt den Warenkorb in der Console aus.
+	 */
 	public void anzeigen() {  //warenkorb ausgeben
 		for( tempArtikel a : warenkorbListe) {
 			System.out.println(a);
 		}
 	}
 
+	/**
+	 * gibt die aktuelle Warenkobliste aus
+	 * @return
+	 */
 	public List<tempArtikel> getWarenkorb(){
 		return warenkorbListe;
 	}
 	
+	/**
+	 * durchsucht den Warenkorb nach einen Namen
+	 * @param name
+	 * @return
+	 */
 	public List<tempArtikel> sucheNachName(String name) {
 		
 		List<tempArtikel> suchErg = new ArrayList<tempArtikel>();
@@ -84,10 +109,16 @@ public class Warenkorb {
 		return suchErg; 
 	}
 	
+	/**
+	 * leer den Warenkorb
+	 */
 	public void leeren() {  //warenkorb leeren
 		warenkorbListe.removeAll(warenkorbListe);		
 	}
 	
+	/**
+	 * um den Warenkorb zu kaufen
+	 */
 	public void kaufen() {  //artikel aus dem Warenkorb kaufen
 		
 		for(tempArtikel a : warenkorbListe) { //jeden Artikel aus dem Warenkorb durchgehen

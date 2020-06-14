@@ -14,20 +14,33 @@ import Datenstrukturen.Artikel;
 import Datenstrukturen.Kunde;
 import Datenstrukturen.Mitarbeiter;
 
-
+/**
+ * 
+ * @author Mario
+ *
+ */
 public class FilePersistenceManager implements PersistenceManager {
 
 	private BufferedReader reader = null;
 	private PrintWriter writer = null;
 	
+	/**
+	 * erzeugt einen Buffered Reder der etwas einlesen kann aus einer Datei
+	 */
 	@Override
 	public void openForReading(String datei) throws FileNotFoundException {
 		reader = new BufferedReader(new FileReader(datei));
 	}
+	/**
+	 * erzeugt einen BufferedWritter der etwas in eine Datei schreiben kann
+	 */
 	@Override
 	public void openForWriting(String datei)  throws IOException {
 		writer = new PrintWriter(new BufferedWriter(new FileWriter(datei)));
 	}
+	/**
+	 * schließt den buffered Reader und writer
+	 */
 	@Override
 	public boolean close() {
 		if (writer != null) {
@@ -46,7 +59,9 @@ public class FilePersistenceManager implements PersistenceManager {
 }
 	
 	
-	//funktion zum einlesen der Artikel
+	/**
+	 * funktion zum laden der Artikel
+	 */
 	@Override
 	public Artikel ladeArtikel() throws IOException {
 		//einlesen des Namens
@@ -97,7 +112,9 @@ public class FilePersistenceManager implements PersistenceManager {
 	
 	
 	
-	//funktion zum einlesen der Mitarbeiter
+	/**
+	 * funktion zum laden der Mitarbeiter
+	 */
 	@Override
 	public Mitarbeiter ladeMitarbeiter() throws IOException {
 		//einlesen des Usernamens
@@ -156,7 +173,9 @@ public class FilePersistenceManager implements PersistenceManager {
 	
 	
 	
-	//funktion zum einlesen der Kunden
+	/**
+	 * funktion zum laden der Kunden
+	 */
 	@Override
 	public Kunde ladeKunde() throws IOException {
 		//einlesen des Usernamens
@@ -214,7 +233,9 @@ public class FilePersistenceManager implements PersistenceManager {
 	}
 	
 	
-	//das abspeichern der Artikel
+	/**
+	 * funktion zum speichern der Artikel
+	 */
 	@Override
 	public boolean speichereArtikel(Artikel a)  throws IOException {
 		schreibeZeile(a.getName());
@@ -225,7 +246,9 @@ public class FilePersistenceManager implements PersistenceManager {
 		
 		return true;
 	}
-	//das abspeichern der Mitarbeiter
+	/**
+	 * funktionb zum speichern der Mitarbeiter
+	 */
 	@Override
 	public boolean speichereMitarbeiter(Mitarbeiter m)  throws IOException {
 		schreibeZeile(m.getUsername());
@@ -240,7 +263,9 @@ public class FilePersistenceManager implements PersistenceManager {
 		return true;
 	}
 	
-	//das abspeichern der Kunden
+	/**
+	 * funktion zum speichern der Kunden
+	 */
 	@Override
 	public boolean speichereKunde(Kunde k)  throws IOException {
 		schreibeZeile(k.getUsername());
@@ -255,6 +280,9 @@ public class FilePersistenceManager implements PersistenceManager {
 		return true;
 	}
 	
+	/**
+	 * funktion zum speichern vom Log
+	 */
 	@Override
 	public boolean speichereLog(String log) throws IOException {
 		//hier fehlt noch der inhalt
@@ -262,6 +290,9 @@ public class FilePersistenceManager implements PersistenceManager {
 		return true;
 	}
 	
+	/**
+	 * funktion zum einelsen des Logs
+	 */
 	@Override
 	public String liesLog(){
 
@@ -277,7 +308,11 @@ public class FilePersistenceManager implements PersistenceManager {
 		return input;
 	}
 	
-
+	/**
+	 * ließt eine Zeile in einer Text Datei und gibt diese Zurück
+	 * @return
+	 * @throws IOException
+	 */
 	private String liesZeile() throws IOException {
 		if(reader != null) {
 			return reader.readLine();
@@ -285,7 +320,10 @@ public class FilePersistenceManager implements PersistenceManager {
 			return "";
 		}
 	}
-
+	/**
+	 * schreibt eine Zeile in einer TextDatei
+	 * @param daten
+	 */
 	private void schreibeZeile(String daten) {
 		if(writer != null) {
 			writer.println(daten);

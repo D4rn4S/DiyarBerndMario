@@ -10,13 +10,22 @@ import Datenstrukturen.Kunde;
 import Datenstrukturen.Mitarbeiter;
 import Persistenz.FilePersistenceManager;
 import Persistenz.PersistenceManager;
-
+/**
+ * 
+ * @author Mario
+ *
+ */
 public class PersonenManager {
 	
 	private List<Mitarbeiter> mitarbeiterBestand = new ArrayList<Mitarbeiter>();
 	private List<Kunde> kundenBestand = new ArrayList<Kunde>();
 	private PersistenceManager pm = new FilePersistenceManager();
 	
+	/**
+	 * list die Datei aus in der die Mitarbeiter stehen
+	 * @param datei
+	 * @throws IOException
+	 */
 	public void liesMitarbeiter(String datei) throws IOException {
 		
 		pm.openForReading(datei);
@@ -31,6 +40,11 @@ public class PersonenManager {
 		
 	}
 	
+	/**
+	 * liest die Datei aus in der die Kunden stehen
+	 * @param datei
+	 * @throws IOException
+	 */
 public void liesKunden(String datei) throws IOException {
 		
 		pm.openForReading(datei);
@@ -46,7 +60,11 @@ public void liesKunden(String datei) throws IOException {
 	}
 	
 	
-	
+	/**
+	 * schriebt die Mitarbeiter in die Datei
+	 * @param datei
+	 * @throws IOException
+	 */
 	public void schreibeMitarbeiter(String datei) throws IOException {
 		
 		pm.openForWriting(datei);
@@ -58,7 +76,11 @@ public void liesKunden(String datei) throws IOException {
 		pm.close();
 		
 	}
-	
+	/**
+	 * schreibt die Kunden in die Datei
+	 * @param datei
+	 * @throws IOException
+	 */
 	public void schreibeKunden(String datei) throws IOException {
 		
 		pm.openForWriting(datei);
@@ -71,10 +93,21 @@ public void liesKunden(String datei) throws IOException {
 		
 	}
 	
-	
+	/**
+	 * fügt einen Mitarbeiter hinzu
+	 * @param m
+	 */
 	public void einfuegen(Mitarbeiter m) {mitarbeiterBestand.add(m);}
+	/**
+	 * fügt einen Kunden hinzu
+	 * @param k
+	 */
 	public void einfuegen(Kunde k) {kundenBestand.add(k);}
 	
+	/**
+	 * löscht einen Mitarbeiter
+	 * @param mNummer
+	 */
 	public void mloeschen(int mNummer) {
 		Iterator<Mitarbeiter> iter = mitarbeiterBestand.iterator();
 		while(iter.hasNext()) {
@@ -84,6 +117,10 @@ public void liesKunden(String datei) throws IOException {
 			}
 		}
 	}
+	/**
+	 * löscht einen Kunden
+	 * @param kNummer
+	 */
 	public void kloeschen(int kNummer) {
 		Iterator<Kunde> iter = kundenBestand.iterator();
 		while(iter.hasNext()) {
@@ -94,7 +131,11 @@ public void liesKunden(String datei) throws IOException {
 		}
 	}
 	
-	
+	/**
+	 * durchsucht die Mitarbeiterliste nach der NR
+	 * @param nr
+	 * @return
+	 */
 public List<Mitarbeiter> suchMitarbeiterNr(int nr){
 		
 		List<Mitarbeiter> suchErg = new ArrayList<Mitarbeiter>();
@@ -108,7 +149,11 @@ public List<Mitarbeiter> suchMitarbeiterNr(int nr){
 		}
 		return suchErg;
 	}
-
+	/**
+	 * durchsucht die Kundenliste nach einer NR
+	 * @param nr
+	 * @return
+	 */
 public List<Kunde> suchKundenNr(int nr){
 	
 	List<Kunde> suchErg = new ArrayList<Kunde>();
@@ -123,11 +168,17 @@ public List<Kunde> suchKundenNr(int nr){
 	return suchErg;
 }
 
-	
+	/**
+	 * gibt den Mitarbeiterbestand aus als Liste
+	 * @return
+	 */
 public List<Mitarbeiter> getMitarbeiterBestand() {
 	return new ArrayList<Mitarbeiter>(mitarbeiterBestand);
 }	
-
+	/**
+	 * gibt den Kundenbestand als liste aus
+	 * @return
+	 */
 public List<Kunde> getKundenBestand() {
 	return new ArrayList<Kunde>(kundenBestand);
 }	

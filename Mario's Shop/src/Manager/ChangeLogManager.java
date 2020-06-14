@@ -8,7 +8,11 @@ import Datenstrukturen.Artikel;
 import Datenstrukturen.Changelog;
 import Persistenz.FilePersistenceManager;
 import Persistenz.PersistenceManager;
-
+/**
+ * 
+ * @author Mario
+ *	der changelogManager schriebt die Datei vom Changelog und kann diese Auch auslesen
+ */
 public class ChangeLogManager {
 
 	List<String> log = new ArrayList<String>();

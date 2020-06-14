@@ -1,12 +1,20 @@
 package Datenstrukturen;
-
+/**
+ * 
+ * @author Mario
+ *
+ */
 public class tempArtikel {
 
 	//private double preis;
 	//private double zwischenpreis;
 	private int anzahl;
 	private Artikel a;
-	
+	/**
+	 * Beschriebung: ein TempArtikel beinhaltet einen Artikel und eine Anzahl. Die Anzahl gibt an wie oft sich dieser im Warenkorb befindet.
+	 * @param a
+	 * @param anzahl
+	 */
 	public tempArtikel(Artikel a, int anzahl) {
 		this.anzahl = anzahl;
 		this.a = a;
@@ -23,7 +31,9 @@ public class tempArtikel {
 		
 	}
 	
-	
+	/**
+	 * gibt an wie ein Temp artikel ausgegeben werden soll (als String)
+	 */
 	public String toString() {
 		double gPreis;
 		gPreis = (this.a.getPreis()*this.anzahl);

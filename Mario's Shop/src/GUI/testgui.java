@@ -116,10 +116,13 @@ public class testgui extends JFrame{
 	
 	/**
 	 * 
-	 * @param dArtikel
-	 * @param dMitarbeiter
-	 * @param dKunden
-	 * @param dLog
+	 * Verwendet von: Der Main Methode
+	 * Methodenbeschriebung: Der Konstrukter der GUI Erzeugt die Manager und ihre schnittstellen. Außerdem wird der Changelog und der Warenkorb erzeugt.
+	 * 
+	 * @param dArtikel ist die Datei in der die Artikel stehen
+	 * @param dMitarbeiter ist die Datei in der die Mitarbeiter stehen
+	 * @param dKunden ist die Datei in der die Kunden stehen
+	 * @param dLog ist die Datei in der der Log steht
 	 */
 	public testgui(String dArtikel, String dMitarbeiter, String dKunden, String dLog) {
 		
@@ -176,6 +179,11 @@ public class testgui extends JFrame{
 		
 	}
 	
+	
+	/**
+	 * Funktion wird nicht mehr benötigt in der GUI, kommt aus der CUI..
+	 * @return
+	 */
 	public String liesEingabe() {
 		//einlesen von Konsoleneingaben
 		String input = "";
@@ -200,7 +208,9 @@ public class testgui extends JFrame{
 	
 
 
-
+/**
+ *  startet das Programm, wird eigentlich auch nicht mehr richtig benötigt..
+ */
 	public void run() {
 		// Variable für Eingaben von der Konsole
 		String input = "";
@@ -214,6 +224,8 @@ public class testgui extends JFrame{
 
 
 	/**
+	 *  Beschreibung: Gibt das GUI aus, in dem man sich entweder anmelden oder Registrieren kann
+	 *  Verwendung: Es ist das erste Menue, welches beim starten erscheint.
 	 * 
 	 */
 	public void gibMenueAus() {
@@ -269,25 +281,36 @@ public class testgui extends JFrame{
 			gibMenueAus.getContentPane().add(Registrieren);
 
 	}
-	   // tabellen befüllen und aktualisieren
+	 
+	/**
+	 * Verwendet von: MitarbeiterMenue
+	 * Beschreibung: füllt die Tabelle in Mitarbeiter Fenster fuer die Artikel.
+	 * @param l ist die Liste die welche in die Tabelle gefüllt werden soll.
+	 */
+	// tabellen befüllen und aktualisieren
 	public void updateTabelle(List<Artikel> l) {
-		DefaultTableModel TabelleBefüllen = (DefaultTableModel) tabelle.getModel();
-		TabelleBefüllen.setRowCount(0);
-        Object rowData[] = new Object[5];
-        for(int i = 0; i < l.size(); i++)
+		DefaultTableModel TabelleBefüllen = (DefaultTableModel) tabelle.getModel(); //gibt an welche Tabelle befüllt werden soll.
+		TabelleBefüllen.setRowCount(0); //leert die aktuelle Tabelle
+        Object rowData[] = new Object[5]; //gibt an wie viele Spalten die Tabelle hat
+        for(int i = 0; i < l.size(); i++) //geht die Liste durch und speichert die Daten der Spalten
         {
             rowData[0] = l.get(i).getName();
             rowData[1] = l.get(i).getNummer();
             rowData[2] = l.get(i).getPreis();
             rowData[3] = l.get(i).getBestand();
             rowData[4] = l.get(i).getMindestbestand();
-            if(l.get(i).getBestand()<= l.get(i).getMindestbestand()) {
+            if(l.get(i).getBestand()<= l.get(i).getMindestbestand()) { //nur ein test
             	//TabelleBefüllen
             }
-            TabelleBefüllen.addRow(rowData);
+            TabelleBefüllen.addRow(rowData); //befüllt eine Zeile mit allen Spalten
         }
 	} 
 	
+	/**
+	 * Verwendet von: MitarbeiterMenue
+	 * Beschreibung: füllt die Tabelle für die Mitarbeiter im Benutzermanagement. Funktioniert genauso wie Update Tabelle
+	 * @param l gibt die Liste an welche in die Tabelle soll
+	 */
 	public void updateBenutzerMitarbeiterTabelle(List<Mitarbeiter> l) {
 		DefaultTableModel TabelleBefüllen = (DefaultTableModel) tabelle3.getModel();
 		TabelleBefüllen.setRowCount(0); //leert die tabelle
@@ -305,6 +328,11 @@ public class testgui extends JFrame{
         }
 	}
 	
+	/**
+	 * Verwendet von: MitarbeiterMenue
+	 * Beschreibung: füllt die Tabelle für die Kunden im BenutzerManagement. Funktioniert genauso wie die UpdateTabelle.
+	 * @param l gibt die Lsite an, welche in die Tabelle soll.
+	 */
 	public void updateBenutzerKundenTabelle(List<Kunde> l) {
 		DefaultTableModel TabelleBefüllen = (DefaultTableModel) tabelle2.getModel();
 		TabelleBefüllen.setRowCount(0); //leert die tabelle
@@ -323,7 +351,11 @@ public class testgui extends JFrame{
 	}
 	
 	
-	
+	/**
+	 * Verwendet von: KundenMenue
+	 * Beschreibung: fuellt die Tabelle für die Artikelliste im KundenMenue, funktioniert genauso wie die Update Tabelle
+	 * @param l gibt die Liste an, welche in die Tabelle soll.
+	 */
 	public void updateKundenTabelle(List<Artikel> l) {
 		DefaultTableModel TabelleBefüllen = (DefaultTableModel) tabelle.getModel();
 		TabelleBefüllen.setRowCount(0);
@@ -342,7 +374,11 @@ public class testgui extends JFrame{
 	}
 	
 	
-	
+	/**
+	 * Verwendet von: KundenMenue
+	 * Beschriebung: fuellt die Tabelle im Warenkorb vom Kunden.
+	 * @param l ist die Liste welche die Tabelle vom Warenkorb befüllen soll.
+	 */
 	public void updateKundenWarenkorbTabelle(List<tempArtikel> l) {
 		double gesamtpreis;
 		double test = 0;
@@ -369,7 +405,10 @@ public class testgui extends JFrame{
 	}
 	
 	
-	
+	/**
+	 *  Verwendet von: shopAnmelungMitarbeiter
+	 *  Beschriebung: Erzeugt die GUI für das MitarbeiterFenster. Hier werden alle Tabs erstellt und auch die Funktionen aufgerufen für das Mitarbeiter Menue.
+	 */
 	public void mitarbeiterMenue() {
 		
 		// mitarbeiter menue erstellt 
@@ -1705,6 +1744,11 @@ public class testgui extends JFrame{
 	
 	/*--------------------------------------------------------------------------------*/
 	
+	
+	/**
+	 *  Verwendet von: shopAnmeldungKunde
+	 *  Beschriebung: erzeugt die GUI für das KundenMenue. Hier sind auch alle funktionisaufrufe die in der GUI stattfinden.
+	 */
 	public void kundenMenue() {
 		
 		
@@ -2435,7 +2479,10 @@ public class testgui extends JFrame{
 		}  */
 	}                 
 	
-	
+	/**
+	 * verwendet von: gibMenueAus
+	 * Beschriebung: GUI fenster in dem Gewählt werden kann, ob man ein Mitarbeiter oder Kunde ist.
+	 */
 	public void shopAnmeldung() {
 		
 				//Fenster erstellen
@@ -2510,7 +2557,10 @@ public class testgui extends JFrame{
 	
 	
 	
-	
+	/**
+	 * verwendet von: shopAnmeldung
+	 * Beschriebung: Erzeugt die GUI in der Benutzername und Passwort vom Mitarbeiter eingetragen werden.
+	 */
 	public void shopAnmeldungMitarbeiter() {
 		
 		shopAnmeldungMitarbeiter = new JFrame();
@@ -2595,6 +2645,11 @@ public class testgui extends JFrame{
 		shopAnmeldungMitarbeiter.getContentPane().add(Anmelden);
 	}
 	
+	
+	/**
+	 * verwendet von: shopAnmeldung
+	 * Beschriebung: erzeugt die GUI in der Benutzername und Passwort für einen Kunden eingetragen werden können.
+	 */
 	public void shopAnmeldungKunde() {
 		
 		shopAnmeldungKunde = new JFrame();
@@ -2682,7 +2737,11 @@ public class testgui extends JFrame{
 	}
 	
 	
-	
+	/**
+	 * Verwendet von: MitarbeiterMenue & gibMenueAus
+	 * Beschreibung: Die GUI für die Kundenregistrierung wird erzeugt.
+	 * @param b gibt an ob man schon angemeldet ist oder ob das Programm noch vor der Anmeldung ist
+	 */
 	public void shopKundeRegistrierung(boolean b) {
 		
 		 // erstellt das Fenster für die Registrierung
@@ -2894,7 +2953,11 @@ public class testgui extends JFrame{
 	
 	
 	
-	
+	/**
+	 * verwendet von: MitarbeiterMenue
+	 * beschriebung: erzeugt das Registrierungsfenster für einen neuen Mitarbeiter
+	 * @param b gibt an ob die Funktion aus dem MitarbeiterMenue aufgerufen wird oder nicht
+	 */
 	public void shopMitarbeiterRegistrierung(boolean b) {
 		
 		 // erstellt das Fenster für die Registrierung
@@ -3104,8 +3167,11 @@ public class testgui extends JFrame{
 		
 	}
 	
-
-	private static void gibArtikellisteAus(List<Artikel> liste) {
+	/**
+	 * Beschreibung: wird nicht mehr benötigt, hat in der CUI eine Liste ausgegeben
+	 * @param liste ist die Liste die ausgegegeben werden soll
+	 */
+	private void gibArtikellisteAus(List<Artikel> liste) {
 		if (liste.isEmpty()) {
 			System.out.println("Liste ist leer.");
 		} else {
@@ -3115,6 +3181,14 @@ public class testgui extends JFrame{
 		}
 	}
 	
+	
+	/**
+	 * verwendet von: MitarbeiterMenue & KundenMenue
+	 * Beschriebung: Sortiert mit hilfe von einen Comperator die Artikelliste nach Namen
+	 * 
+	 * @param liste ist die Liste die Sortier werden woll
+	 * @return ist die Sortiere liste
+	 */
 	private List<Artikel> sortNameArtikelliste(List<Artikel> liste) {
 		if (liste.isEmpty()) {
 			System.out.println("Liste ist leer.");
@@ -3130,7 +3204,13 @@ public class testgui extends JFrame{
 			}
 		return liste;
 		}
-		
+	
+	/**
+	 * verwendet von: MitarbeiterMenue & KundenMenue
+	 * Beschriebung: Sortiert mit hilfe eines Comperators die Artikelliste nach Nummer
+	 * @param liste ist die Artikelliste
+	 * @return gibt die Sortiere Liste zurück
+	 */
 	private List<Artikel> sortNummerArtikelliste(List<Artikel> liste) {
 		if (liste.isEmpty()) {
 			System.out.println("Liste ist leer.");
@@ -3150,8 +3230,11 @@ public class testgui extends JFrame{
 		return liste;
 		}
 	
-	
-	private static void gibMitarbeiterlisteAus(List<Mitarbeiter> liste) {
+	/**
+	 * Beschriebung: wird nicht mehr benötigt, kommt aus der CUI
+	 * @param liste
+	 */
+	private void gibMitarbeiterlisteAus(List<Mitarbeiter> liste) {
 		if (liste.isEmpty()) {
 			System.out.println("Liste ist leer.");
 		} else {
@@ -3160,8 +3243,11 @@ public class testgui extends JFrame{
 			}
 		}
 	}
-
-	private static void gibKundenlisteAus(List<Kunde> liste) {
+	/**
+	 * Beschreibgung: wird nicht mehr benötigt, kommt aus der CUI
+	 * @param liste
+	 */
+	private void gibKundenlisteAus(List<Kunde> liste) {
 		if (liste.isEmpty()) {
 			System.out.println("Liste ist leer.");
 		} else {
@@ -3171,7 +3257,10 @@ public class testgui extends JFrame{
 		}
 	}
 	
-	private static void gibLogAus() {
+	/**
+	 * Beschreibung: wird nicht mehr benötigt, kommt aus der CUI
+	 */
+	private void gibLogAus() {
 		
 		try {
 			log = logmanager.liesLog("Log");
@@ -3189,7 +3278,7 @@ public class testgui extends JFrame{
 	}
 	
 	/**
-	 * 
+	 * Beschreibung: startet das Programm. Erstellt die GUI. Speichert alle Listen bevor das Programm beendet wird.
 	 * @param args
 	 */
 	public static void main(String[] args) {
