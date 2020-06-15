@@ -32,8 +32,8 @@ public class Lager {
 	}
 	
 	
-	public Artikel fuegeArtikelEin(String name, int nummer, double preis, int bestand, int mindestbestand){
-		Artikel a = new Artikel(name, nummer, preis, bestand, mindestbestand);
+	public Artikel fuegeArtikelEin(String name, int nummer, double preis, int bestand, int mindestbestand, int massengut){
+		Artikel a = new Artikel(name, nummer, preis, bestand, mindestbestand, massengut);
 		lagerManager.einfuegen(a);
 		return a;
 	}

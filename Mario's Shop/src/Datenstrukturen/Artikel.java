@@ -12,6 +12,7 @@ public class Artikel {
 	private double preis;
 	private int bestand;
 	private int mindestbestand;
+	private int massengut;
 	
 	/**
 	 * Beschriebung: der Konstrukter für einen Artikel.
@@ -20,14 +21,17 @@ public class Artikel {
 	 * @param preis
 	 * @param bestand
 	 * @param mindestbestand
+	 * @param massengut
 	 */
-	public Artikel(String name, int nummer, double preis, int bestand, int mindestbestand) {
+	public Artikel(String name, int nummer, double preis, int bestand, int mindestbestand, int massengut) {
 		this.nummer = nummer;
 		this.name = name;
 		this.preis = preis;
 		this.bestand = bestand;
 		this.mindestbestand = mindestbestand;
+		this.massengut = massengut;
 	}
+	
 	
 	/*public Artikel(String name, int nummer, double preis, int bestand, int mindestbestand) {
 		this(name, nummer, preis, mindestbestand);
@@ -37,7 +41,7 @@ public class Artikel {
 	 * Beschriebung: toString Methode für Artikel gibt an wie ein Artikel als String ausgegeben werden soll
 	 */
 	public String toString() {
-		return ("Name: " + name + " | Nummer: " + nummer + " | Preis: " + preis + " | Bestand: " + bestand);
+		return ("Name: " + name + " | Nummer: " + nummer + " | Preis: " + preis + " | Bestand: " + bestand + " | Massengut: " + massengut);
 	}
 	
 
@@ -82,6 +86,8 @@ public class Artikel {
 	public int getBestand() {return bestand;}
 	
 	public int getMindestbestand() { return mindestbestand;}
+	
+	public int getMassengut() {return massengut;}
 	
 	//setter Methoden
 	

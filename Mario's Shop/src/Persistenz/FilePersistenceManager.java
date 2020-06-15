@@ -104,9 +104,18 @@ public class FilePersistenceManager implements PersistenceManager {
 			e.printStackTrace();
 		}
 		int mindestbestand = Integer.parseInt(mindestbestandString);
+		
+		//einlesen von Massengut
+		String massengutString = "";
+		try {
+			massengutString = liesZeile();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		int massengut = Integer.parseInt(massengutString);
 	
 	
-		return new Artikel(name, nummer, preis, bestand, mindestbestand);
+		return new Artikel(name, nummer, preis, bestand, mindestbestand, massengut);
 	
 	}
 	
@@ -243,6 +252,7 @@ public class FilePersistenceManager implements PersistenceManager {
 		schreibeZeile(a.getPreis()+ "");
 		schreibeZeile(a.getBestand()+"");
 		schreibeZeile(a.getMindestbestand()+"");
+		schreibeZeile(a.getMassengut()+"");
 		
 		return true;
 	}

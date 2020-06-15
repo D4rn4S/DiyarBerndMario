@@ -29,9 +29,12 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
+
 import Datenstrukturen.Lager;
 import Datenstrukturen.Mitarbeiter;
 import Datenstrukturen.Verkaufsstand;
@@ -93,6 +96,7 @@ public class testgui extends JFrame{
 	private JTextField textArtikelNr;
 	private JTextField textArtikelNr1;
 	private JTextField textAnzahl1;
+	private JTextField textMassengut;
 	private JPasswordField textPasswort;
 	private JTextField textKundeNr;
 	private JTextField textMitarbeiterNr;
@@ -291,7 +295,7 @@ public class testgui extends JFrame{
 	public void updateTabelle(List<Artikel> l) {
 		DefaultTableModel TabelleBefüllen = (DefaultTableModel) tabelle.getModel(); //gibt an welche Tabelle befüllt werden soll.
 		TabelleBefüllen.setRowCount(0); //leert die aktuelle Tabelle
-        Object rowData[] = new Object[5]; //gibt an wie viele Spalten die Tabelle hat
+        Object rowData[] = new Object[6]; //gibt an wie viele Spalten die Tabelle hat
         for(int i = 0; i < l.size(); i++) //geht die Liste durch und speichert die Daten der Spalten
         {
             rowData[0] = l.get(i).getName();
@@ -299,6 +303,7 @@ public class testgui extends JFrame{
             rowData[2] = l.get(i).getPreis();
             rowData[3] = l.get(i).getBestand();
             rowData[4] = l.get(i).getMindestbestand();
+            rowData[5] = l.get(i).getMassengut();
             if(l.get(i).getBestand()<= l.get(i).getMindestbestand()) { //nur ein test
             	//TabelleBefüllen
             }
@@ -366,6 +371,7 @@ public class testgui extends JFrame{
             rowData[1] = l.get(i).getNummer();
             rowData[2] = l.get(i).getPreis();
             rowData[3] = l.get(i).getBestand();
+            rowData[4] = l.get(i).getMassengut();
             if(l.get(i).getBestand()<= l.get(i).getMindestbestand()) {
             	//TabelleBefüllen
             }
@@ -446,13 +452,13 @@ public class testgui extends JFrame{
 					new Object[][] {
 					},
 					new String[] {
-						"Name", "Nummer", "Preis", "Bestand", "Mindestbestand"
+						"Name", "Nummer", "Preis", "Bestand", "Mindestbestand", "Massengut"
 					}
 				) {
 					// die Klassen mit jeweils den Parametern
 					
 					Class[] columnTypes = new Class[] {
-						Object.class, Integer.class, Double.class, Integer.class, Object.class
+						Object.class, Integer.class, Double.class, Integer.class, Integer.class, Integer.class
 					};
 					public Class getColumnClass(int columnIndex) {
 						return columnTypes[columnIndex];
@@ -469,6 +475,7 @@ public class testgui extends JFrame{
 				tabelle.getColumnModel().getColumn(2).setPreferredWidth(40);
 				tabelle.getColumnModel().getColumn(3).setPreferredWidth(57);
 				tabelle.getColumnModel().getColumn(4).setPreferredWidth(90);
+				tabelle.getColumnModel().getColumn(5).setPreferredWidth(57);
 				Layout.setViewportView(tabelle);
 				
 					
@@ -489,7 +496,7 @@ public class testgui extends JFrame{
 						ArtikelHinzufuegenMenue = new JFrame();
 						ArtikelHinzufuegenMenue.setTitle("Artikel hinzufuegen");
 						ArtikelHinzufuegenMenue.setVisible(true);
-						ArtikelHinzufuegenMenue.setBounds(970, 150, 328, 299);
+						ArtikelHinzufuegenMenue.setBounds(970, 150, 328, 370);
 						ArtikelHinzufuegenMenue.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 						ArtikelHinzufuegenMenue.getContentPane().setLayout(null);
 						
@@ -548,8 +555,17 @@ public class testgui extends JFrame{
 						textMindestbestand.setBounds(37, 201, 96, 20);
 						ArtikelHinzufuegenMenue.getContentPane().add(textMindestbestand);
 						
+						JLabel Massengut = new JLabel("Massengut :");
+						Massengut.setBounds(37, 225, 96, 14);
+						ArtikelHinzufuegenMenue.getContentPane().add(Massengut);
+						
+						textMassengut = new JTextField(null);
+						textMassengut.setColumns(10);
+						textMassengut.setBounds(37, 250, 96, 20);
+						ArtikelHinzufuegenMenue.getContentPane().add(textMassengut);
+						
 						falscherArtikel = new JLabel("Bitte füllen Sie alle Felder.");
-						falscherArtikel.setBounds(81, 232, 170, 14);
+						falscherArtikel.setBounds(81, 282, 170, 14);
 						falscherArtikel.setForeground(Color.BLACK);
 						falscherArtikel.setFont(new Font("Tahoma", Font.PLAIN, 13));
 						ArtikelHinzufuegenMenue.getContentPane().add(falscherArtikel);
@@ -564,12 +580,13 @@ public class testgui extends JFrame{
 								String aPreis = "";
 								String aBestand = "";
 								String aMBestand = "";
+								String aMassengut = "";
 								
 								int aNum;
 								double aPre; 
 								int aBe; 
 								int aMb;
-								
+								int aMas;
 								
 								aName = textArtikel.getText();
 								System.out.println(aName);
@@ -590,6 +607,11 @@ public class testgui extends JFrame{
 								System.out.println(aMBestand);
 								aMb = Integer.parseInt(aMBestand);
 								
+								
+								
+								//textfeld für massengut fehlt noch
+								aMassengut = textMassengut.getText();
+								aMas = Integer.parseInt(aMassengut);
 								/* fehlermeldung wenn nicht alle Felder befüllt sind
 								if(textArtikel.getText().isEmpty()) {
 									System.out.println("lol");
@@ -608,7 +630,7 @@ public class testgui extends JFrame{
 								
 								if(!textNummer.getText().isEmpty()) {
 									changelog.schreibeLog("Der Artikel - Name: " + aName + " | Nummer: " + aNum + " | Preis: " + aPre + " | Bestand: " + aBe + " wurde erstellt.");
-									lager.fuegeArtikelEin(aName, aNum, aPre, aBe, aMb);
+									lager.fuegeArtikelEin(aName, aNum, aPre, aBe, aMb, aMas);
 									try {
 										lager.schreibeArtikel();
 									} catch (IOException e1) {
@@ -1776,7 +1798,7 @@ public class testgui extends JFrame{
 		// erstellt das Layout, wo die Tabelle entsteht
 		
 		JScrollPane Layout = new JScrollPane();
-		Layout.setBounds(320, 58, 319, 410);
+		Layout.setBounds(270, 58, 390, 410);
 		LagerTab.add(Layout);
 		
 		// erstellt die Tabelle
@@ -1785,13 +1807,13 @@ public class testgui extends JFrame{
 			new Object[][] {
 			},
 			new String[] {
-				"Name", "Nummer", "Preis","Auf Lager"
+				"Name", "Nummer", "Preis","Auf Lager", "Mindestanzahl"
 			}
 		) {
 			// die Klassen mit jeweils den Parametern
 			
 			Class[] columnTypes = new Class[] {
-				Object.class, Integer.class, Double.class, Integer.class
+				Object.class, Integer.class, Double.class, Integer.class, Integer.class
 			};
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
@@ -1803,7 +1825,7 @@ public class testgui extends JFrame{
 				return columnEditables[column];
 			}
 		});
-		tabelle.getColumnModel().getColumn(0).setPreferredWidth(45);
+		tabelle.getColumnModel().getColumn(0).setPreferredWidth(60);
 		tabelle.getColumnModel().getColumn(1).setPreferredWidth(55);
 		
 		Layout.setViewportView(tabelle);
@@ -1966,7 +1988,7 @@ public class testgui extends JFrame{
 					System.out.println(a.getNummer()==aNum && aAnz <= a.getBestand());
 					System.out.println(!( a.getNummer() == aNum));
 					System.out.println( a.getBestand() <= aAnz);
-					if(a.getNummer()==aNum && aAnz <= a.getBestand()) {	
+					if(a.getNummer()==aNum && aAnz <= a.getBestand() && aAnz >= a.getMassengut()) {	
 						warenkorb.addArtikel(aNum, aAnz);
 						changelog.schreibeLog("Der Artikel mit der Nummer: " + aNum +" wurde "+ aAnz +" zum Warenkorb hinzugefügt.");
 						warenkorb.anzeigen();
@@ -2844,10 +2866,12 @@ public class testgui extends JFrame{
 		KundeNr.setBounds(232, 219, 121, 14);
 		shopKundeRegistrierung.getContentPane().add(KundeNr);
 		
-		textKundeNr = new JTextField();
+		textKundeNr = new JTextField(""+newNumberKunde(verkaufsstand.gibAlleKunden()));
+		textKundeNr.setEditable(false);
 		textKundeNr.setColumns(10);
 		textKundeNr.setBounds(264, 248, 43, 20);
 		shopKundeRegistrierung.getContentPane().add(textKundeNr);
+		
 		
 		//  bei bereits existernder KundenNr!
 		
@@ -3060,7 +3084,8 @@ public class testgui extends JFrame{
 		KundeNr.setBounds(232, 219, 121, 14);
 		shopMitarbeiterRegistrierung.getContentPane().add(KundeNr);
 		
-		textMitarbeiterNr = new JTextField();
+		textMitarbeiterNr = new JTextField(""+newNumberMitarbeiter(buero.gibAlleMitarbeiter()));
+		textMitarbeiterNr.setEditable(false);
 		textMitarbeiterNr.setColumns(10);
 		textMitarbeiterNr.setBounds(264, 248, 43, 20);
 		shopMitarbeiterRegistrierung.getContentPane().add(textMitarbeiterNr);
@@ -3277,6 +3302,22 @@ public class testgui extends JFrame{
 		}
 	}
 	
+	
+	public int newNumberKunde(List<Kunde> liste) {
+		//gibt die höchste Kundenummer aus, er vergleicht alle Kunden in der liste mit GetKundenNr
+		Kunde maxByNumber = liste.stream().max(Comparator.comparing(Kunde::getKundenNr)).orElseThrow(NoSuchElementException::new);
+		//die Höchste KundenNr +1 
+		int newNumber = maxByNumber.getKundenNr() + 1;
+		//gibt die neue NUmmer zurück
+		return newNumber;
+	}
+	
+	public int newNumberMitarbeiter(List<Mitarbeiter> liste) {
+		Mitarbeiter maxByNumber = liste.stream().max(Comparator.comparing(Mitarbeiter::getMitarbeiterNr)).orElseThrow(NoSuchElementException::new);
+		int newNumber = maxByNumber.getMitarbeiterNr() + 1;
+		return newNumber;
+	}
+	
 	/**
 	 * Beschreibung: startet das Programm. Erstellt die GUI. Speichert alle Listen bevor das Programm beendet wird.
 	 * @param args
@@ -3289,6 +3330,7 @@ public class testgui extends JFrame{
 		
 		
 		gui.gibMenueAus();
+		//newNumber(verkaufsstand.gibAlleKunden());
 		
 		//speichert alle Daten vor dem Beenden des Programmes
 		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
