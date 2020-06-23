@@ -14,10 +14,13 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import java.awt.BorderLayout;
@@ -40,6 +43,13 @@ import Datenstrukturen.Mitarbeiter;
 import Datenstrukturen.Verkaufsstand;
 import Datenstrukturen.Warenkorb;
 import Datenstrukturen.tempArtikel;
+import Exceptions.FlascheAnmeldedatenException;
+import Exceptions.InvalidArtikelNameException;
+import Exceptions.InvalidArtikelNummerException;
+import Exceptions.InvalidKundenNummerException;
+import Exceptions.InvalidMitarbeiterNummerException;
+import Funktionen.AnmeldungKunde;
+import Funktionen.AnmeldungMitarbeiter;
 import Manager.ChangeLogManager;
 import Datenstrukturen.Artikel;
 import Datenstrukturen.Buero;
@@ -54,6 +64,7 @@ import Datenstrukturen.Kunde;
  *
  */
 public class testgui extends JFrame{
+	
 	
 	private static Lager lager;
 	private static Buero buero;
@@ -116,7 +127,26 @@ public class testgui extends JFrame{
 	private JFrame mitaLoeschen;
 	private JTextField textMitarbeiterNummer;
 	private JFrame mitarbeiterScreach;
-	
+	private Object tabelleFeld;
+	private JSpinner spinnerAnzahl;
+	private JFrame Rechnung;
+    private JTable table;
+    private JLabel labelDatum;
+    private JLabel labelBearbeiter;
+    private JLabel labelName;
+    private JLabel labelEmail;
+    private JLabel labelEmailName;
+    private JLabel labelKundeNr;
+    private JLabel labelNr;
+    private JScrollPane scollGesamtpreis;
+    private JLabel labelGesamtpreis;
+    private JLabel labelPreis;
+    private JLabel labelDanke;
+    private JLabel labelMfg;
+    private JLabel labelKundenname;
+    private JLabel labelAdresse;
+    private JLabel labelAdresse1;
+
 	
 	/**
 	 * 
@@ -410,6 +440,87 @@ public class testgui extends JFrame{
         
 	}
 	
+	private boolean checkNumber(int aNum) throws InvalidArtikelNummerException {
+		boolean x = false;
+		for(Artikel a : lager.gibAlleArtikel()) {
+			System.out.println(a.getNummer() +  " | " + aNum);
+			if(a.getNummer() == aNum) {	
+				x = true;
+				break;
+			} else {
+				x = false;
+			}
+		}
+		if(!x) {
+			throw new InvalidArtikelNummerException();
+		}
+		return x;
+	}
+	
+	private boolean checkName(String aName) throws InvalidArtikelNameException {
+		boolean x = false;
+		for(Artikel a : lager.gibAlleArtikel()) {
+			if(a.getName().equals(aName)) {	
+				x = true;
+				break;
+			} else {
+				x = false;
+			}
+		}
+		if(!x) {
+			throw new InvalidArtikelNameException();
+		}
+		return x;
+	}
+	
+	private boolean checkNummerBestand(int aNum, int aBe) throws InvalidArtikelNummerException {
+		boolean x = false;
+		for(Artikel a : lager.gibAlleArtikel()) {
+			if(a.getNummer() == aNum) {	
+				a.setBestand(aBe);
+				x = true;
+				break;
+			} else {
+				x = false;
+			}
+		}
+		if(!x) {
+			throw new InvalidArtikelNummerException();
+		}
+		return x;
+	}
+	
+	private boolean checkNummerMitarbeiter(int mNum) throws InvalidMitarbeiterNummerException {
+		boolean x = false;
+		for(Mitarbeiter m : buero.gibAlleMitarbeiter()) {
+			if(m.getMitarbeiterNr() == mNum) {	
+				x = true;
+				break;
+			} else {
+				x = false;
+			}
+		}
+		if(!x) {
+			throw new InvalidMitarbeiterNummerException();
+		}
+		return x;
+	}
+	
+	private boolean checkNummerKunde(int kNum) throws InvalidKundenNummerException {
+		boolean x = false;
+		for(Kunde k : verkaufsstand.gibAlleKunden()) {
+			if(k.getKundenNr() == kNum) {	
+				x = true;
+				break;
+			} else {
+				x = false;
+			}
+		}
+		if(!x) {
+			throw new InvalidKundenNummerException(); 
+		}
+		return x;
+	}
 	
 	/**
 	 *  Verwendet von: shopAnmelungMitarbeiter
@@ -607,25 +718,23 @@ public class testgui extends JFrame{
 								System.out.println(aMBestand);
 								aMb = Integer.parseInt(aMBestand);
 								
-								
-								
-								//textfeld für massengut fehlt noch
 								aMassengut = textMassengut.getText();
 								aMas = Integer.parseInt(aMassengut);
-								/* fehlermeldung wenn nicht alle Felder befüllt sind
-								if(textArtikel.getText().isEmpty()) {
-									System.out.println("lol");
-								}  */
 								
 								
-								for(Artikel a : lager.gibAlleArtikel()) {
-									if(a.getNummer() == aNum) {	
-										falscherArtikel.setForeground(Color.RED);
-										falscherArtikel.setText("Die ArtikelNr existiert bereits!"); 
-										textNummer.setText(null);
-									    			    
+								try {
+									for(Artikel a : lager.gibAlleArtikel()) {
+										if(a.getNummer() == aNum) {	
+											falscherArtikel.setForeground(Color.RED);
+											falscherArtikel.setText("Die ArtikelNr existiert bereits!"); 
+											textNummer.setText(null);
+											throw new InvalidArtikelNummerException();			    
 									    
-									} 	
+										} 	
+									}
+								}
+								catch (InvalidArtikelNummerException ex) {
+									System.out.println(ex.getMessage());
 								}
 								
 								if(!textNummer.getText().isEmpty()) {
@@ -699,8 +808,8 @@ public class testgui extends JFrame{
 								System.out.println(aNummer);
 								aNum = Integer.parseInt(aNummer);
 								
-								for(Artikel a : lager.gibAlleArtikel()) {
-									if(a.getNummer() == aNum) {	
+								try {
+									if(checkNumber(aNum)) {
 										lager.loescheArtikel(aNum);
 										ArtikelLoeschenMenue.setVisible(false);
 										updateTabelle(lager.gibAlleArtikel());
@@ -710,10 +819,11 @@ public class testgui extends JFrame{
 										} catch (IOException e1) {
 											e1.printStackTrace();
 										}
-									} else {
-										ANumNichtvergeben.setText("Bitte geben Sie eine gültige Artikelnummer ein!");
-										textArtikelNummer.setText(null);
 									}
+								} catch(InvalidArtikelNummerException ex) {
+									System.out.println(ex.getMessage());
+									ANumNichtvergeben.setText("Bitte geben Sie eine gültige Artikelnummer ein!");
+									textArtikelNummer.setText(null);
 								}
 								
 						
@@ -772,18 +882,17 @@ public class testgui extends JFrame{
 								
 								aName = textArtikel2.getText();
 								
-								for(Artikel a : lager.gibAlleArtikel()) {
-									if(a.getName().equals(aName)) {	
+								try {
+									if(checkName(aName)) {
 										updateTabelle(lager.sucheNachName(aName));
 										artikelScreach.setVisible(false);
 										changelog.schreibeLog("Der Artikel mit dem Namen: " + aName +" wurde gesucht.");
-										break;
-									} else {
-										FalscherArtikel.setText("Ungültiger Name!");
-										textArtikel2.setText(null);
 									}
+								} catch (InvalidArtikelNameException ex) {
+									System.out.println(ex.getMessage());
+									FalscherArtikel.setText("Ungültiger Name!");
+									textArtikel2.setText(null);
 								}
-								
 								
 							}
 						});
@@ -870,10 +979,10 @@ public class testgui extends JFrame{
 				
 				//erstellt eine Texteingabe zum schreiben für bestand
 				
-				textBestand = new JTextField();
-				textBestand.setBounds(37, 92, 96, 20);
-				Raster.add(textBestand);
-				textBestand.setColumns(10);
+				JSpinner spinnerBestand = new JSpinner();
+				spinnerBestand.setBounds(52, 97, 60, 26);
+				Raster.add(spinnerBestand);
+				
 				
 				// erstellt label für Artikelname
 				
@@ -881,7 +990,7 @@ public class testgui extends JFrame{
 				lblNewLabel_1_1.setBounds(37, 16, 113, 14);
 				Raster.add(lblNewLabel_1_1);
 				
-				//erstellt eine Texteingabe zum schreiben für Artikelname
+				//erstellt eine Texteingabe zum schreiben für ArtikelNummer
 				
 				textArtikel = new JTextField();
 				textArtikel.setColumns(10);
@@ -903,6 +1012,7 @@ public class testgui extends JFrame{
 					
 					public void actionPerformed(ActionEvent e) {
 						
+						
 						String aNummer = "";
 						String aBestand ="";
 						int aBe;
@@ -911,16 +1021,16 @@ public class testgui extends JFrame{
 						aNummer = textArtikel.getText();
 						System.out.println(textArtikel.getText());
 						aNum = Integer.parseInt(aNummer);
-						aBestand = textBestand.getText();
-						aBe = Integer.parseInt(aBestand);
 						
-						for(Artikel a : lager.gibAlleArtikel()) {
-							if(a.getNummer() == aNum) {	
-								a.setBestand(aBe);
+						aBe = (Integer)spinnerBestand.getValue();
+						
+						
+						try {
+							if(checkNummerBestand(aNum, aBe)) {
 								changelog.schreibeLog("Bei dem Artikel mit der Nummer: " + aNum +" wurde der Bestand auf: "+aBe +" gesetzt.");
 								FalscheArtNr.setText(null);
 								textArtikel.setText(null);
-								textBestand.setText(null);
+								spinnerBestand.setValue((Integer)0);
 								updateTabelle(lager.gibAlleArtikel());
 								FalscheArtNr.setForeground(Color.black);
 								FalscheArtNr.setText("Bestand geändert!");
@@ -929,13 +1039,12 @@ public class testgui extends JFrame{
 								} catch (IOException e1) {
 									e1.printStackTrace();
 								}
-								break;
-							} else {
-								FalscheArtNr.setForeground(Color.RED);
-								FalscheArtNr.setText("Fehlerhafte Artikelnummer!");
-								textArtikel.setText(null);
-								textBestand.setText(null);
 							}
+						} catch (InvalidArtikelNummerException ex) {
+							FalscheArtNr.setForeground(Color.RED);
+							FalscheArtNr.setText("Fehlerhafte Artikelnummer!");
+							textArtikel.setText(null);
+							System.out.println(ex.getMessage());
 						}
 						
 					}
@@ -1096,17 +1205,19 @@ public class testgui extends JFrame{
 								mNummer = textMitarbeiterNr.getText();
 								mNum = Integer.parseInt(mNummer);
 								
-								for(Mitarbeiter m : buero.gibAlleMitarbeiter()) {
-									if(m.getMitarbeiterNr() == mNum) {	
+								try {
+									if(checkNummerMitarbeiter(mNum)) {
 										updateBenutzerMitarbeiterTabelle(buero.sucheNachNummer(mNum));
 										mitarbeiterScreach.setVisible(false);
 										changelog.schreibeLog("Der Artikel mit dem Namen: " + mNum +" wurde gesucht.");
-										break;
-									} else {
-										FalscherArtikel.setText("Ungültige Nr!");
-										textArtikel.setText(null);
 									}
+								} catch (InvalidMitarbeiterNummerException ex) {
+									FalscherArtikel.setText("Ungültige Nr!");
+									textArtikel.setText(null);
+									System.out.println(ex.getMessage());
 								}
+								
+								
 								
 								
 							}
@@ -1164,8 +1275,8 @@ public class testgui extends JFrame{
 								System.out.println(mNummer);
 								mNum = Integer.parseInt(mNummer);
 								
-								for(Mitarbeiter m : buero.gibAlleMitarbeiter()) {
-									if(m.getMitarbeiterNr() == mNum) {	
+								try {
+									if(checkNummerMitarbeiter(mNum)) {
 										buero.loescheMitarbeiter(mNum);
 										mitaLoeschen.setVisible(false);
 										updateBenutzerMitarbeiterTabelle(buero.gibAlleMitarbeiter());
@@ -1175,11 +1286,14 @@ public class testgui extends JFrame{
 										} catch (IOException e1) {
 											e1.printStackTrace();
 										}
-									} else {
-										mitaNrNichtvergeben.setText("Bitte geben Sie eine gültige Mitarbeiternummer ein!");
-										textMitarbeiterNummer.setText(null);
 									}
+								} catch (InvalidMitarbeiterNummerException ex) {
+									System.out.println(ex.getMessage());
+									mitaNrNichtvergeben.setText("Bitte geben Sie eine gültige Mitarbeiternummer ein!");
+									textMitarbeiterNummer.setText(null);
 								}
+								
+								
 								
 						
 							}
@@ -1250,18 +1364,17 @@ public class testgui extends JFrame{
 								kNummer = textKundeNr.getText();
 								kNum = Integer.parseInt(kNummer);
 								
-								for(Kunde k : verkaufsstand.gibAlleKunden()) {
-									if(k.getKundenNr() == kNum) {	
+								try {
+									if(checkNummerKunde(kNum)) {
 										updateBenutzerKundenTabelle(verkaufsstand.sucheNachNummer(kNum));
 										artikelScreach1.setVisible(false);
 										changelog.schreibeLog("Der Kunde mit der Nummer: " + kNum +" wurde gesucht.");
-										break;
-									} else {
-										FalscherArtikel.setText("Ungültige Nr!");
-										textKundeNr.setText(null);
 									}
+								} catch(InvalidKundenNummerException ex) {
+									FalscherArtikel.setText("Ungültige Nr!");
+									textKundeNr.setText(null);
+									System.out.println(ex.getMessage());
 								}
-								
 								
 							}
 						});
@@ -1317,6 +1430,25 @@ public class testgui extends JFrame{
 								System.out.println(kNummer);
 								kNum = Integer.parseInt(kNummer);
 								
+								try {
+									if(checkNummerKunde(kNum)) {
+										verkaufsstand.loescheKunde(kNum);
+										kundLoeschen.setVisible(false);
+										updateBenutzerKundenTabelle(verkaufsstand.gibAlleKunden());
+										changelog.schreibeLog("Der Kunde mit der Nummer: " + kNum +" wurde gelöscht.");
+										try {
+											verkaufsstand.schreibeKunden();
+										} catch (IOException e1) {
+											e1.printStackTrace();
+										}
+									}
+								} catch(InvalidKundenNummerException ex) {
+									System.out.println(ex.getMessage());
+									kundNrNichtvergeben.setText("Bitte geben Sie eine gültige Kundennummer ein!");
+									textKundenNummer.setText(null);
+								}
+								
+								/*
 								for(Kunde k : verkaufsstand.gibAlleKunden()) {
 									if(k.getKundenNr() == kNum) {	
 										verkaufsstand.loescheKunde(kNum);
@@ -1332,7 +1464,7 @@ public class testgui extends JFrame{
 										kundNrNichtvergeben.setText("Bitte geben Sie eine gültige Kundennummer ein!");
 										textKundenNummer.setText(null);
 									}
-								}
+								} */
 								
 						
 							}
@@ -1962,7 +2094,9 @@ public class testgui extends JFrame{
 		FalscherArt.setBounds(65, 263, 170, 14);
 		Raster.add(FalscherArt);
 		
-		
+		JSpinner spinnerAnzahl = new JSpinner();
+        spinnerAnzahl.setBounds(86, 166, 67, 23);
+        Raster.add(spinnerAnzahl);
 
 		
 		// erstellt button " artikel hinzufügen"
@@ -1980,9 +2114,9 @@ public class testgui extends JFrame{
 				aNum = Integer.parseInt(aNummer);
 				
 				String aAnzahl ="";
-				int aAnz;
-				aAnzahl = textAnzahl.getText();
-				aAnz = Integer.parseInt(aAnzahl);
+				
+				
+				int aAnz = (Integer)spinnerAnzahl.getValue();
 				
 				for(Artikel a : lager.gibAlleArtikel()) {
 					System.out.println(a.getNummer()==aNum && aAnz <= a.getBestand());
@@ -1995,7 +2129,7 @@ public class testgui extends JFrame{
 						FalscherArt.setForeground(Color.BLACK);
 						FalscherArt.setText("Artikel hinzugefügt.");
 						textArtikelNr.setText(null);
-						textAnzahl.setText(null);
+						spinnerAnzahl.setValue((Integer)0);
 						
 						// funktion zum laden in der Tabelle
 						
@@ -2005,7 +2139,7 @@ public class testgui extends JFrame{
 						FalscherArt.setForeground(Color.RED);
 						FalscherArt.setText("     Falsche Eingabe!");
 						textArtikelNr.setText(null);
-						textAnzahl.setText(null);
+						spinnerAnzahl.setValue((Integer)0);
 						
 					} 
 				}
@@ -2021,10 +2155,6 @@ public class testgui extends JFrame{
 		Anzahl.setBounds(76, 141, 113, 14);
 		Raster.add(Anzahl);
 		
-		textAnzahl = new JTextField();
-		textAnzahl.setBounds(76, 176, 96, 20);
-		Raster.add(textAnzahl);
-		textAnzahl.setColumns(10);
 		
 		JLabel ArtikelName = new JLabel("ArtikelNr:");
 		ArtikelName.setBounds(76, 74, 113, 14);
@@ -2123,6 +2253,159 @@ public class testgui extends JFrame{
 			
 			public void actionPerformed(ActionEvent e) {
 				
+				Rechnung = new JFrame();
+				Rechnung.setVisible(true);
+				Rechnung.setTitle("Rechnung");
+				Rechnung.setBounds(300, 150, 680, 564);
+				Rechnung.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				Rechnung.getContentPane().setLayout(null);
+				
+				
+				JScrollPane scrollPane = new JScrollPane();
+				scrollPane.setBounds(70, 141, 526, 283);
+				Rechnung.getContentPane().add(scrollPane);
+				
+				table = new JTable();
+				table.setModel(new DefaultTableModel(
+					new Object[][] {
+					},
+					new String[] {
+						"Name", "Nr", "Anzahl", "St\u00FCckpreis", "Preis"
+					}
+				) {
+					Class[] columnTypes = new Class[] {
+						Object.class, Integer.class, Integer.class, Integer.class, Integer.class
+					};
+					public Class getColumnClass(int columnIndex) {
+						return columnTypes[columnIndex];
+					}
+					boolean[] columnEditables = new boolean[] {
+						false, false, false, false, false
+					};
+					public boolean isCellEditable(int row, int column) {
+						return columnEditables[column];
+					}
+				});
+				table.getColumnModel().getColumn(0).setPreferredWidth(48);
+				table.getColumnModel().getColumn(1).setPreferredWidth(33);
+				table.getColumnModel().getColumn(2).setPreferredWidth(53);
+				table.getColumnModel().getColumn(3).setPreferredWidth(65);
+				table.getColumnModel().getColumn(4).setPreferredWidth(45);
+				scrollPane.setViewportView(table);
+				
+				// erstellt label für "Rechnung vom" 
+				
+				JLabel rechnungVom = new JLabel("Rechnung vom ");
+				rechnungVom.setFont(new Font("Tahoma", Font.PLAIN, 15));
+				rechnungVom.setBounds(70, 102, 156, 28);
+				Rechnung.getContentPane().add(rechnungVom);
+				
+				// erstellt label für das Datum 
+				
+				labelDatum = new JLabel("");
+				labelDatum.setFont(new Font("Tahoma", Font.PLAIN, 15));
+				labelDatum.setBounds(181, 102, 156, 28);
+				Rechnung.getContentPane().add(labelDatum);
+				
+				// erstellt label für den Bearbeiter
+				
+				labelBearbeiter = new JLabel("Bearbeiter:   ");
+				labelBearbeiter.setBounds(388, 36, 73, 14);
+				Rechnung.getContentPane().add(labelBearbeiter);
+				
+				// erstellt label für den Namen 
+				
+				labelName = new JLabel("Jendrik Bulke");
+				labelName.setBounds(513, 36, 83, 14);
+				Rechnung.getContentPane().add(labelName);
+				
+				// erstellt label für e mail 
+				
+				labelEmail = new JLabel("E-Mail:");
+				labelEmail.setBounds(388, 61, 73, 14);
+				Rechnung.getContentPane().add(labelEmail);
+				
+				// erstellt label für die mail 
+				
+				labelEmailName = new JLabel("Prog2@hs-bremen.de");
+				labelEmailName.setBounds(471, 61, 133, 14);
+				Rechnung.getContentPane().add(labelEmailName);
+				
+				// erstellt label für KundenNr
+				
+				labelKundeNr = new JLabel("KundenNr:");
+				labelKundeNr.setBounds(388, 83, 73, 14);
+				Rechnung.getContentPane().add(labelKundeNr);
+				
+				// erstellt label für die Nr des Kundens
+				
+				labelNr = new JLabel("");
+				labelNr.setBounds(564, 83, 40, 14);
+				Rechnung.getContentPane().add(labelNr);
+				
+				// erstell layout scrollPane für den Gesamtpreis , falls die zahlen zu groß werden 
+				
+				scollGesamtpreis = new JScrollPane();
+				scollGesamtpreis.setBounds(374, 435, 221, 41);
+				Rechnung.getContentPane().add(scollGesamtpreis);
+				
+				// erstellt das label für den Gesamtpreis
+				
+				labelGesamtpreis = new JLabel("Gesamtpreis");
+				labelGesamtpreis.setFont(new Font("Tahoma", Font.PLAIN, 14));
+				scollGesamtpreis.setRowHeaderView(labelGesamtpreis);
+				
+				// erstellt das label für die Zahlen ( der Preis) 
+				
+				labelPreis = new JLabel("");
+				labelPreis.setForeground(Color.RED);
+				scollGesamtpreis.setViewportView(labelPreis);
+				
+				// label für danke sagen
+				
+				labelDanke = new JLabel("Herzlichen Dank f\u00FCr Ihre Bestellung! ");
+				labelDanke.setBounds(70, 445, 254, 14);
+				Rechnung.getContentPane().add(labelDanke);
+				
+				// label für die mfg
+				
+				labelMfg = new JLabel("MfG Mario, Bernd und Diyar");
+				labelMfg.setBounds(80, 470, 215, 14);
+				Rechnung.getContentPane().add(labelMfg);
+				
+				// label für namen vom kunden
+				
+				labelKundenname = new JLabel("Herr Mustermann");
+				labelKundenname.setBounds(70, 11, 141, 14);
+				Rechnung.getContentPane().add(labelKundenname);
+				
+				// label für adresse vom kunden
+				
+				labelAdresse = new JLabel("49688 Lastrup");
+				labelAdresse.setBounds(70, 36, 141, 14);
+				Rechnung.getContentPane().add(labelAdresse);
+				
+				// label für addresse vom kunden
+				
+				labelAdresse1 = new JLabel("vorm heideland 3");
+				labelAdresse1.setBounds(70, 61, 141, 14);
+				Rechnung.getContentPane().add(labelAdresse1);
+				
+				// erstellt button "ok" 
+				
+				JButton btnNewButton = new JButton("OK");
+				btnNewButton.addActionListener(new ActionListener() {
+					
+				// funktion zum schließen des Fensters 
+					
+					public void actionPerformed(ActionEvent e) {
+					Rechnung.setVisible(false);
+					}
+				});
+				btnNewButton.setBounds(287, 484, 60, 23);
+				Rechnung.getContentPane().add(btnNewButton);
+			
+				
 				warenkorb.kaufen();
 				warenkorb.leeren();
 				try {
@@ -2134,6 +2417,9 @@ public class testgui extends JFrame{
 				gesamtPreisZahl.setText(null);
 				updateKundenWarenkorbTabelle(warenkorb.getWarenkorb());
 				updateKundenTabelle(lager.gibAlleArtikel());
+				
+				
+				
 			}
 		});
 		kaufen.setBounds(291, 406, 89, 35);
@@ -2637,34 +2923,22 @@ public class testgui extends JFrame{
 				passwort = textPasswort.getText();
 				System.out.print(passwort);
 				
-				for(Mitarbeiter m : liste) {
-					if(m.getUsername().equals(username) && m.getPasswort().equals(passwort)) {
-						einloggen = true;
-						break;
-					}
-				}
-				
-				System.out.println(einloggen);
-				if(!einloggen) {
-				
+				AnmeldungMitarbeiter a = new AnmeldungMitarbeiter();
+				try {
+					a.anmeldung(buero.gibAlleMitarbeiter(), username, passwort);
+					mitarbeiterMenue();
+					shopAnmeldungMitarbeiter.setVisible(false);
+					changelog.schreibeLog("Der Mitarbeiter " + username + " hat sich angemeldet.");
+					
+				} catch(FlascheAnmeldedatenException ex) {
 					FalscheIDundPw.setText("Benutzername oder Passwort sind falsch!");
 					changelog.schreibeLog("Es gab eine Fehlerhafte eingabe bei der Mitarbeiteranmeldung.");
-					System.out.println("");
-					
-				} else {
-				
-				
-			    shopAnmeldungMitarbeiter.setVisible(false);
-				changelog.schreibeLog("Der Mitarbeiter " + username + " hat sich angemeldet.");
-				System.out.println("");
-				mitarbeiterMenue();
-				}                
-				
+				}               
 			}
 		});
 		
 		Anmelden.setBounds(104, 115, 103, 23);
-		shopAnmeldungMitarbeiter.getContentPane().add(Anmelden);
+		shopAnmeldungMitarbeiter.getContentPane().add(Anmelden); 
 	}
 	
 	
@@ -2728,27 +3002,17 @@ public class testgui extends JFrame{
 				passwort = textPasswort.getText();
 				System.out.print(passwort);
 				
-				for(Kunde k : liste) {
-					if(k.getUsername().equals(username) && k.getPasswort().equals(passwort)) {
-						einloggen = true;
-						break;
-					}
-				}
-						
-				if(!einloggen) {
-				
-					FalscheIDundPw.setText("Benutzername oder Passwort sind falsch!");
-					
-					changelog.schreibeLog("Es kam zu einen Fehler bei der Kundenanmeldung.");
-					System.out.println("");
-					
-				} else {
+				AnmeldungKunde a = new AnmeldungKunde();
+				try {
+					a.anmeldung(verkaufsstand.gibAlleKunden(), username, passwort);
+					kundenMenue();
 					shopAnmeldungKunde.setVisible(false);
-			
-				changelog.schreibeLog("Der Kunde " + username + " hat sich angemeldet.");
-				System.out.println("");
-				kundenMenue();
-				}                   
+					changelog.schreibeLog("Der Mitarbeiter " + username + " hat sich angemeldet.");
+					
+				} catch(FlascheAnmeldedatenException ex) {
+					FalscheIDundPw.setText("Benutzername oder Passwort sind falsch!");
+					changelog.schreibeLog("Es gab eine Fehlerhafte eingabe bei der Mitarbeiteranmeldung.");
+				}               
 				
 			}
 		});
@@ -2940,15 +3204,7 @@ public class testgui extends JFrame{
 				System.out.print(kundenNummer);
 				
 				kundenNr = Integer.parseInt(kundenNummer);
-				
-				for(Kunde k : liste) {
-					if(k.getKundenNr() == kundenNr) {				
-					    FalscheKundenNr.setText("Die KundenNr existiert bereits!"); 
-					    textKundeNr.setText(null);
-					    			    
-					    
-					} 	
-				}
+			
 				
 				if(!textKundeNr.getText().isEmpty()) {
 					changelog.schreibeLog("Ein neuer Kunde wurde angelegt. Er hat die Nummer " + kundenNr + ". ");
@@ -2965,7 +3221,7 @@ public class testgui extends JFrame{
 						shopAnmeldungKunde();	
 					}
 					
-				}
+				} 
 			}
 
 			
@@ -3158,14 +3414,6 @@ public class testgui extends JFrame{
 				
 				mitarbeiterNr = Integer.parseInt(mitarbeiterNummer);
 				
-				for(Mitarbeiter m : buero.gibAlleMitarbeiter()) {
-					if(m.getMitarbeiterNr() == mitarbeiterNr) {				
-					    FalscheMitarbeiterNr.setText("Die MitarbeiterNr existiert bereits!"); 
-					    textMitarbeiterNr.setText(null);
-					    			    
-					    
-					} 	
-				}
 				
 				if(!textMitarbeiterNr.getText().isEmpty()) {
 					changelog.schreibeLog("Ein neuer Mitarbeiter wurde angelegt. Er hat die Nummer " + mitarbeiterNr + ". ");

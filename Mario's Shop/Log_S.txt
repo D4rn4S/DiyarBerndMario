@@ -1,4 +1,6 @@
-Juni 11, 2020 3:41:07 PM Datenstrukturen.Changelog schreibeLog
+Juni 16, 2020 4:00:22 PM Datenstrukturen.Changelog schreibeLog
 INFO: Das Programm wird gestartet.
-Juni 11, 2020 3:41:11 PM Datenstrukturen.Changelog schreibeLog
-INFO: Der Mitarbeiter ske hat sich angemeldet.
+Juni 16, 2020 4:00:25 PM Datenstrukturen.Changelog schreibeLog
+INFO: Der Mitarbeiter msc hat sich angemeldet.
+Juni 16, 2020 4:00:29 PM Datenstrukturen.Changelog schreibeLog
+INFO: Der Artikel mit der Nummer: 2 wurde 10 zum Warenkorb hinzugefügt.
