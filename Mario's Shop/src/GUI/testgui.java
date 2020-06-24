@@ -48,6 +48,8 @@ import Exceptions.InvalidArtikelNameException;
 import Exceptions.InvalidArtikelNummerException;
 import Exceptions.InvalidKundenNummerException;
 import Exceptions.InvalidMitarbeiterNummerException;
+import Exceptions.InvalidWarenkorbException;
+import Exceptions.InvalidWarenkorbNameException;
 import Funktionen.AnmeldungKunde;
 import Funktionen.AnmeldungMitarbeiter;
 import Manager.ChangeLogManager;
@@ -436,27 +438,67 @@ public class testgui extends JFrame{
             testString = String.valueOf(test);
             TabelleBefüllen.addRow(rowData);
             gesamtPreisZahl.setText("  " + testString + " €");
-        }
-        
+        }   
 	}
 	
+	/**
+	 * Verwendet von: KundenMenue Rechnung
+	 * Beschreibung: füllt die Liste in der Rechnung
+	 * @param l sit die Liste welche die Tabelle in der Rechnung befüllt
+	 */
+	public void updateKundenRechnungTabelle(List<tempArtikel> l) {
+		double gesamtpreis;
+		double test = 0;
+		String testString = "";
+		
+		DefaultTableModel TabelleBefüllen = (DefaultTableModel) table.getModel();
+		TabelleBefüllen.setRowCount(0);
+        Object rowData[] = new Object[5];
+        for(int i = 0; i < l.size(); i++)
+        {
+            rowData[0] = l.get(i).getArtikel().getName();
+            rowData[1] = l.get(i).getArtikel().getNummer();
+            rowData[2] = l.get(i).getAnzahl();
+            rowData[3] = l.get(i).getArtikel().getPreis();
+            rowData[4] = l.get(i).getArtikel().getPreis() * l.get(i).getAnzahl();
+            
+            gesamtpreis = l.get(i).getArtikel().getPreis()* l.get(i).getAnzahl();
+            test = gesamtpreis + test;
+            testString = String.valueOf(test);
+            TabelleBefüllen.addRow(rowData);
+            //labelGesamtpreis.setText("Gesamtpries:  " + testString + " €");
+        }   
+	}
+	
+	/**
+	 * 
+	 * @param aNum ist die Artikelnummer
+	 * @return true: Artikel zu der Nummer wurde gefunden. false: kein Artikel wurde gefunden Exception wird geworfen
+	 * @throws InvalidArtikelNummerException
+	 */
 	private boolean checkNumber(int aNum) throws InvalidArtikelNummerException {
 		boolean x = false;
-		for(Artikel a : lager.gibAlleArtikel()) {
+		for(Artikel a : lager.gibAlleArtikel()) { //geht die Artikelliste durch
 			System.out.println(a.getNummer() +  " | " + aNum);
-			if(a.getNummer() == aNum) {	
-				x = true;
+			if(a.getNummer() == aNum) {	 //prüft ob artikelnummer und aNum passen
+				x = true; //falls ja true
 				break;
 			} else {
-				x = false;
+				x = false; //false nein false
 			}
 		}
 		if(!x) {
-			throw new InvalidArtikelNummerException();
+			throw new InvalidArtikelNummerException(); //wirft die Exception
 		}
 		return x;
 	}
 	
+	/**
+	 * 
+	 * @param aName ist der Artikelname
+	 * @return true: Ein Name wurde gefunden.  false: kein Artikel mit dem Namen wurde gefunden.
+	 * @throws InvalidArtikelNameException
+	 */
 	private boolean checkName(String aName) throws InvalidArtikelNameException {
 		boolean x = false;
 		for(Artikel a : lager.gibAlleArtikel()) {
@@ -473,6 +515,13 @@ public class testgui extends JFrame{
 		return x;
 	}
 	
+	/**
+	 * 
+	 * @param aNum die Artikelnummer
+	 * @param aBe der Artikelbestand
+	 * @return true: Artikelnummer und Nummer stimmen überein, bestand wird erhöht. false: Exception wird geworfen
+	 * @throws InvalidArtikelNummerException
+	 */
 	private boolean checkNummerBestand(int aNum, int aBe) throws InvalidArtikelNummerException {
 		boolean x = false;
 		for(Artikel a : lager.gibAlleArtikel()) {
@@ -490,6 +539,12 @@ public class testgui extends JFrame{
 		return x;
 	}
 	
+	/**
+	 * 
+	 * @param mNum ist die MitarbeiterNummer
+	 * @return true: Mitarbeiternummer und Nummer stimmen überein. False: Exception wird geworfen
+	 * @throws InvalidMitarbeiterNummerException
+	 */
 	private boolean checkNummerMitarbeiter(int mNum) throws InvalidMitarbeiterNummerException {
 		boolean x = false;
 		for(Mitarbeiter m : buero.gibAlleMitarbeiter()) {
@@ -506,6 +561,12 @@ public class testgui extends JFrame{
 		return x;
 	}
 	
+	/**
+	 * 
+	 * @param kNum die Kundennummer
+	 * @return true: Kundennummer und Nummer stimmen überein. False: Exception wird geworfen
+	 * @throws InvalidKundenNummerException
+	 */
 	private boolean checkNummerKunde(int kNum) throws InvalidKundenNummerException {
 		boolean x = false;
 		for(Kunde k : verkaufsstand.gibAlleKunden()) {
@@ -518,6 +579,101 @@ public class testgui extends JFrame{
 		}
 		if(!x) {
 			throw new InvalidKundenNummerException(); 
+		}
+		return x;
+	}
+	
+	/**
+	 * 
+	 * @param aName Name des Artikels
+	 * @return true: Artikelname und Name stimmen überein. False: Exception wird geworfen
+	 * @throws InvalidArtikelNameException
+	 */
+	private boolean checkNameKunde(String aName) throws InvalidArtikelNameException {
+		boolean x = false;
+		for(Artikel a : lager.gibAlleArtikel()) {
+			System.out.println(a.getName() + " | " + aName);
+			if(a.getName().equals(aName)) {	
+				x = true;
+				break;
+			} else {
+				x = false;
+			}
+		}
+		if(!x) {
+			throw new InvalidArtikelNameException();
+		}
+		return x;
+	}
+	
+	/**
+	 * 
+	 * @param aNum die Artikelnummer
+	 * @param aAnz die Artikelanzahl
+	 * @return ture: Artikelnummer und Nummer & Anzahl und Bestand stimmen überein. false: Exception wird geworfen
+	 * @throws InvalidWarenkorbException
+	 */
+	private boolean checkWarenkorb(int aNum, int aAnz) throws InvalidWarenkorbException {
+		boolean x = false;
+		for(Artikel a : lager.gibAlleArtikel()) {
+			System.out.println(a.getNummer()==aNum && aAnz <= a.getBestand());
+			System.out.println(!( a.getNummer() == aNum));
+			System.out.println( a.getBestand() <= aAnz);
+			if(a.getNummer()==aNum && aAnz <= a.getBestand() && aAnz >= a.getMassengut()) {	
+				x = true;
+				break;
+			} else {
+				x = false;				
+			} 
+		}
+		if(!x) {
+			throw new InvalidWarenkorbException();
+		}
+		return x;
+	}
+	
+	/**
+	 * 
+	 * @param aNum die Artikelnummer
+	 * @param aAnz die Artikelanzahl
+	 * @return true: Artikelnummer und Anzahl stimmen mit den werten überein. False: Exception wird geworfen.
+	 * @throws InvalidWarenkorbException
+	 */
+	private boolean checkWarenkorbDelete(int aNum, int aAnz) throws InvalidWarenkorbException {
+		boolean x = false;
+		for(tempArtikel a : warenkorb.getWarenkorb()) {
+			if(a.getArtikel().getNummer() == aNum && a.getAnzahl()>= aAnz) {
+				x = true;
+				break;
+			} else {
+				x = false;
+			}
+			
+		}
+		if(!x) {
+			throw new InvalidWarenkorbException();
+		}
+		return x;
+	}
+	
+	/**
+	 * 
+	 * @param aName der Artikelname
+	 * @return true: ein Artikel wurde in der Suche gefunden. False: Exception wird geworfen.
+	 * @throws InvalidWarenkorbNameException
+	 */
+	private boolean checkWarenkorbSearch(String aName) throws InvalidWarenkorbNameException{
+		boolean x = false;
+		for(tempArtikel a : warenkorb.getWarenkorb()) {
+			if(a.getArtikel().getName().equals(aName)) {	
+				x = true;
+				break;
+			} else {
+				x = false;
+			}
+		}
+		if(!x) {
+			throw new InvalidWarenkorbNameException();
 		}
 		return x;
 	}
@@ -723,18 +879,18 @@ public class testgui extends JFrame{
 								
 								
 								try {
-									for(Artikel a : lager.gibAlleArtikel()) {
-										if(a.getNummer() == aNum) {	
+									for(Artikel a : lager.gibAlleArtikel()) { //geht alle Artikel durch
+										if(a.getNummer() == aNum) {	 //wenn Artikelnummer schon vorhanden ist 
 											falscherArtikel.setForeground(Color.RED);
 											falscherArtikel.setText("Die ArtikelNr existiert bereits!"); 
 											textNummer.setText(null);
-											throw new InvalidArtikelNummerException();			    
+											throw new InvalidArtikelNummerException(); //dann wirf die Exception
 									    
 										} 	
 									}
 								}
 								catch (InvalidArtikelNummerException ex) {
-									System.out.println(ex.getMessage());
+									System.out.println(ex.getMessage()); //fängt die Exception und gibt sie in der Console aus 
 								}
 								
 								if(!textNummer.getText().isEmpty()) {
@@ -808,8 +964,8 @@ public class testgui extends JFrame{
 								System.out.println(aNummer);
 								aNum = Integer.parseInt(aNummer);
 								
-								try {
-									if(checkNumber(aNum)) {
+								try { // try und catch ob die Artikelnummer richtig ist 
+									if(checkNumber(aNum)) { //fals ja lösche Artikel
 										lager.loescheArtikel(aNum);
 										ArtikelLoeschenMenue.setVisible(false);
 										updateTabelle(lager.gibAlleArtikel());
@@ -820,7 +976,7 @@ public class testgui extends JFrame{
 											e1.printStackTrace();
 										}
 									}
-								} catch(InvalidArtikelNummerException ex) {
+								} catch(InvalidArtikelNummerException ex) { //falls nein fange die Exception und gib fehlermeldung
 									System.out.println(ex.getMessage());
 									ANumNichtvergeben.setText("Bitte geben Sie eine gültige Artikelnummer ein!");
 									textArtikelNummer.setText(null);
@@ -845,7 +1001,7 @@ public class testgui extends JFrame{
 				ArtikelSuchen.addActionListener(new ActionListener() {
 					
 					//Funktion zum öffnen eines neuen Fensters, um artikel suchen zu können
-					
+
 					public void actionPerformed(ActionEvent e) {
 						
 						artikelScreach = new JFrame();
@@ -882,13 +1038,13 @@ public class testgui extends JFrame{
 								
 								aName = textArtikel2.getText();
 								
-								try {
-									if(checkName(aName)) {
+								try { //try und catch ob der Name richtig ist 
+									if(checkName(aName)) { //falls ja suche danach
 										updateTabelle(lager.sucheNachName(aName));
 										artikelScreach.setVisible(false);
 										changelog.schreibeLog("Der Artikel mit dem Namen: " + aName +" wurde gesucht.");
 									}
-								} catch (InvalidArtikelNameException ex) {
+								} catch (InvalidArtikelNameException ex) { //falls nein fange die Exception und gib fehlermeldung
 									System.out.println(ex.getMessage());
 									FalscherArtikel.setText("Ungültiger Name!");
 									textArtikel2.setText(null);
@@ -2008,19 +2164,17 @@ public class testgui extends JFrame{
 						
 						aName = textArtikel.getText();
 						
-						for(Artikel a : aliste) {
-							if(a.getName().equals(aName)) {	
+						try {
+							if(checkNameKunde(aName)){
 								updateTabelle(lager.sucheNachName(aName));
 								artikelScreach.setVisible(false);
 								changelog.schreibeLog("Der Artikel mit dem Namen: " + aName +" wurde gesucht.");
-							} else {
-								FalscherArtikel.setText("Bitte geben Sie ein gültigen Artikelnamen an!");
-								textArtikel.setText(null);
 							}
+						} catch(InvalidArtikelNameException ex) {
+							System.out.println(ex.getMessage());
+							FalscherArtikel.setText("Bitte geben Sie ein gültigen Artikelnamen an!");
+							textArtikel.setText(null);
 						}
-						
-						updateTabelle(lager.sucheNachName(aName));
-						artikelScreach.setVisible(false);
 					}
 				});
 				Suchen.setBounds(81, 143, 104, 32);
@@ -2118,11 +2272,8 @@ public class testgui extends JFrame{
 				
 				int aAnz = (Integer)spinnerAnzahl.getValue();
 				
-				for(Artikel a : lager.gibAlleArtikel()) {
-					System.out.println(a.getNummer()==aNum && aAnz <= a.getBestand());
-					System.out.println(!( a.getNummer() == aNum));
-					System.out.println( a.getBestand() <= aAnz);
-					if(a.getNummer()==aNum && aAnz <= a.getBestand() && aAnz >= a.getMassengut()) {	
+				try {
+					if(checkWarenkorb(aNum, aAnz)) {
 						warenkorb.addArtikel(aNum, aAnz);
 						changelog.schreibeLog("Der Artikel mit der Nummer: " + aNum +" wurde "+ aAnz +" zum Warenkorb hinzugefügt.");
 						warenkorb.anzeigen();
@@ -2134,18 +2285,15 @@ public class testgui extends JFrame{
 						// funktion zum laden in der Tabelle
 						
 						updateKundenWarenkorbTabelle(warenkorb.getWarenkorb());
-						break;
-					} else {
-						FalscherArt.setForeground(Color.RED);
-						FalscherArt.setText("     Falsche Eingabe!");
-						textArtikelNr.setText(null);
-						spinnerAnzahl.setValue((Integer)0);
-						
-					} 
+					}
+				} catch (InvalidWarenkorbException ex) {
+					FalscherArt.setForeground(Color.RED);
+					FalscherArt.setText("     Falsche Eingabe!");
+					textArtikelNr.setText(null);
+					spinnerAnzahl.setValue((Integer)0);
+					System.out.println(ex.getMessage());
 				}
-				   
-				
-				
+					   
 			}
 		});
 		ArtikelHinzufügen.setBounds(49, 229, 152, 23);
@@ -2293,6 +2441,9 @@ public class testgui extends JFrame{
 				table.getColumnModel().getColumn(4).setPreferredWidth(45);
 				scrollPane.setViewportView(table);
 				
+				updateKundenRechnungTabelle(warenkorb.getWarenkorb());
+				
+				
 				// erstellt label für "Rechnung vom" 
 				
 				JLabel rechnungVom = new JLabel("Rechnung vom ");
@@ -2400,26 +2551,21 @@ public class testgui extends JFrame{
 					
 					public void actionPerformed(ActionEvent e) {
 					Rechnung.setVisible(false);
+					warenkorb.kaufen();
+					warenkorb.leeren();
+					try {
+						lager.schreibeArtikel();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					gesamtPreisZahl.setText(null);
+					updateKundenWarenkorbTabelle(warenkorb.getWarenkorb());
+					updateKundenTabelle(lager.gibAlleArtikel());
 					}
 				});
 				btnNewButton.setBounds(287, 484, 60, 23);
 				Rechnung.getContentPane().add(btnNewButton);
-			
-				
-				warenkorb.kaufen();
-				warenkorb.leeren();
-				try {
-					lager.schreibeArtikel();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				gesamtPreisZahl.setText(null);
-				updateKundenWarenkorbTabelle(warenkorb.getWarenkorb());
-				updateKundenTabelle(lager.gibAlleArtikel());
-				
-				
-				
 			}
 		});
 		kaufen.setBounds(291, 406, 89, 35);
@@ -2447,10 +2593,8 @@ public class testgui extends JFrame{
 				aAnzahl = textArtikelNr1.getText();
 				aAnz = Integer.parseInt(aAnzahl);
 				
-				for(tempArtikel a : warenkorb.getWarenkorb()) {
-					
-					
-					if(a.getArtikel().getNummer() == aNum && a.getAnzahl()>= aAnz) {
+				try {
+					if(checkWarenkorbDelete(aNum, aAnz)) {
 						warenkorb.delArtikel(aNum, aAnz);
 						changelog.schreibeLog("Der Artikel mit der Nummer: " + aNum +" wurde "+ aAnz +" zum aus dem Warenkorb entfernt.");
 						falscheEingabe.setForeground(Color.BLACK);
@@ -2458,19 +2602,13 @@ public class testgui extends JFrame{
 						textArtikelNr1.setText(null);
 						textAnzahl1.setText(null);
 						updateKundenWarenkorbTabelle(warenkorb.getWarenkorb());
-						break;
-					} else if(!(a.getArtikel().getNummer() == aNum)) {
-						falscheEingabe.setForeground(Color.RED);
-						falscheEingabe.setText("Falsche ArtikelNr!");
-						textArtikelNr1.setText(null);
-						textAnzahl1.setText(null);
-					} else if(!(a.getAnzahl()>= aAnz)) {
-						falscheEingabe.setForeground(Color.RED);
-						falscheEingabe.setText("Anzahl zu groß!");
-						textArtikelNr1.setText(null);
-						textAnzahl1.setText(null);
 					}
-					
+				} catch(InvalidWarenkorbException ex) {
+					System.out.println(ex.getMessage());
+					falscheEingabe.setForeground(Color.RED);
+					falscheEingabe.setText("Fehlerhafte Eingabe!");
+					textArtikelNr1.setText(null);
+					textAnzahl1.setText(null);
 				}
 				
 			}
@@ -2587,18 +2725,17 @@ public class testgui extends JFrame{
 						
 						aName = textArtikel.getText();
 						
-						for(tempArtikel a : warenkorb.getWarenkorb()) {
-							if(a.getArtikel().getName().equals(aName)) {	
+						try {
+							if(checkWarenkorbSearch(aName)) {
 								updateKundenWarenkorbTabelle(warenkorb.sucheNachName(aName));
 								artikelScreach.setVisible(false);
 								changelog.schreibeLog("Der Artikel mit dem Namen: " + aName +" wurde gesucht.");
-								break;
-							} else {
-								FalscherArtikel.setText("Ungültiger Name!");
-								textArtikel.setText(null);
 							}
+						} catch(InvalidWarenkorbNameException ex) {
+							System.out.println(ex.getMessage());
+							FalscherArtikel.setText("Ungültiger Name!");
+							textArtikel.setText(null);
 						}
-						
 						
 					}
 				});
@@ -2838,28 +2975,6 @@ public class testgui extends JFrame{
 				
 				btnNewButton_1.setBounds(73, 165, 105, 23);
 				shopAnmeldung.getContentPane().add(btnNewButton_1);
-			
-	
-		/*
-		
-		String input = "";
-		System.out.println("");
-		System.out.println("Bist du ein Kunde oder Mitarbeiter? Bitte wähle für Kunde 'K' und für Mitarbeiter 'M': ");
-		System.out.println("");
-		System.out.print(">>");
-		input = liesEingabe();
-		switch(input) {
-		case "K": //Kunde
-			shopAnmeldungKunde();
-			break;
-		case "M": //Mitarbeiter
-			shopAnmeldungMitarbeiter();
-			break;
-		default:
-			System.out.println("Fehlerhafte eingabe!");
-			changelog.schreibeLog("Es kam zu einer Fehlerhaften eingabe im Startmenue.");
-			gibMenueAus(); 
-		}    */
 	}
 	
 	
