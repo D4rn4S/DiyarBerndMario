@@ -67,7 +67,8 @@ import Datenstrukturen.Kunde;
  */
 public class testgui extends JFrame{
 	
-	
+	private int aktuellerKunde;
+	private int aktuellerMitarbeiter;
 	private static Lager lager;
 	private static Buero buero;
 	private static Verkaufsstand verkaufsstand;
@@ -2484,7 +2485,7 @@ public class testgui extends JFrame{
 				
 				// erstellt label für KundenNr
 				
-				labelKundeNr = new JLabel("KundenNr:");
+				labelKundeNr = new JLabel("KundenNr: " + verkaufsstand.sucheNachNummer(aktuellerKunde).get(0).getKundenNr());
 				labelKundeNr.setBounds(388, 83, 73, 14);
 				Rechnung.getContentPane().add(labelKundeNr);
 				
@@ -2526,19 +2527,19 @@ public class testgui extends JFrame{
 				
 				// label für namen vom kunden
 				
-				labelKundenname = new JLabel("Herr Mustermann");
+				labelKundenname = new JLabel("Herr " + verkaufsstand.sucheNachNummer(aktuellerKunde).get(0).getNachname());
 				labelKundenname.setBounds(70, 11, 141, 14);
 				Rechnung.getContentPane().add(labelKundenname);
 				
 				// label für adresse vom kunden
 				
-				labelAdresse = new JLabel("49688 Lastrup");
+				labelAdresse = new JLabel(verkaufsstand.sucheNachNummer(aktuellerKunde).get(0).getPlz() +" "+ verkaufsstand.sucheNachNummer(aktuellerKunde).get(0).getWohnort());
 				labelAdresse.setBounds(70, 36, 141, 14);
 				Rechnung.getContentPane().add(labelAdresse);
 				
 				// label für addresse vom kunden
 				
-				labelAdresse1 = new JLabel("vorm heideland 3");
+				labelAdresse1 = new JLabel(verkaufsstand.sucheNachNummer(aktuellerKunde).get(0).getStrasse());
 				labelAdresse1.setBounds(70, 61, 141, 14);
 				Rechnung.getContentPane().add(labelAdresse1);
 				
@@ -3041,6 +3042,8 @@ public class testgui extends JFrame{
 				AnmeldungMitarbeiter a = new AnmeldungMitarbeiter();
 				try {
 					a.anmeldung(buero.gibAlleMitarbeiter(), username, passwort);
+					aktuellerMitarbeiter = a.getNummer();
+					System.out.println(aktuellerMitarbeiter);
 					mitarbeiterMenue();
 					shopAnmeldungMitarbeiter.setVisible(false);
 					changelog.schreibeLog("Der Mitarbeiter " + username + " hat sich angemeldet.");
@@ -3120,6 +3123,8 @@ public class testgui extends JFrame{
 				AnmeldungKunde a = new AnmeldungKunde();
 				try {
 					a.anmeldung(verkaufsstand.gibAlleKunden(), username, passwort);
+					aktuellerKunde = a.getNummer();
+					System.out.println("|"+aktuellerKunde+"|");
 					kundenMenue();
 					shopAnmeldungKunde.setVisible(false);
 					changelog.schreibeLog("Der Mitarbeiter " + username + " hat sich angemeldet.");
