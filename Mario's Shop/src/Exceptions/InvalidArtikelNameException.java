@@ -1,5 +1,9 @@
 package Exceptions;
-
+/**
+ * Exception für Fehlerhafte Artikelnamen
+ * @author Mario
+ *
+ */
 public class InvalidArtikelNameException extends Exception {
 
 	public InvalidArtikelNameException() {

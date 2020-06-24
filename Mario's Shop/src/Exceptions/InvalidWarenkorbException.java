@@ -1,5 +1,10 @@
 package Exceptions;
 
+/**
+ * Exception für Fehlerhafte eingaben im Warenkorb
+ * @author Mario
+ *
+ */
 public class InvalidWarenkorbException extends Exception {
 
 	public InvalidWarenkorbException() {

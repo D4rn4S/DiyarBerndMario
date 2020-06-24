@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -2454,7 +2455,7 @@ public class testgui extends JFrame{
 				
 				// erstellt label für das Datum 
 				
-				labelDatum = new JLabel("");
+				labelDatum = new JLabel(new Date().toGMTString());
 				labelDatum.setFont(new Font("Tahoma", Font.PLAIN, 15));
 				labelDatum.setBounds(181, 102, 156, 28);
 				Rechnung.getContentPane().add(labelDatum);
