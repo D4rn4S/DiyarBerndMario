@@ -468,7 +468,8 @@ public class testgui extends JFrame{
             test = gesamtpreis + test;
             testString = String.valueOf(test);
             TabelleBefüllen.addRow(rowData);
-            //labelGesamtpreis.setText("Gesamtpries:  " + testString + " €");
+            labelPreis.setText(" " + testString + " €");
+            System.out.println(testString);
         }   
 	}
 	
@@ -2407,7 +2408,7 @@ public class testgui extends JFrame{
 				Rechnung.setVisible(true);
 				Rechnung.setTitle("Rechnung");
 				Rechnung.setBounds(300, 150, 680, 564);
-				Rechnung.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				Rechnung.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				Rechnung.getContentPane().setLayout(null);
 				
 				
@@ -2443,12 +2444,9 @@ public class testgui extends JFrame{
 				table.getColumnModel().getColumn(4).setPreferredWidth(45);
 				scrollPane.setViewportView(table);
 				
-				updateKundenRechnungTabelle(warenkorb.getWarenkorb());
-				
-				
 				// erstellt label für "Rechnung vom" 
 				
-				JLabel rechnungVom = new JLabel("Rechnung vom ");
+				JLabel rechnungVom = new JLabel("Rechnung vom: ");
 				rechnungVom.setFont(new Font("Tahoma", Font.PLAIN, 15));
 				rechnungVom.setBounds(70, 102, 156, 28);
 				Rechnung.getContentPane().add(rechnungVom);
@@ -2457,7 +2455,7 @@ public class testgui extends JFrame{
 				
 				labelDatum = new JLabel(new Date().toGMTString());
 				labelDatum.setFont(new Font("Tahoma", Font.PLAIN, 15));
-				labelDatum.setBounds(181, 102, 156, 28);
+				labelDatum.setBounds(181, 102, 180, 28);
 				Rechnung.getContentPane().add(labelDatum);
 				
 				// erstellt label für den Bearbeiter
@@ -2486,13 +2484,13 @@ public class testgui extends JFrame{
 				
 				// erstellt label für KundenNr
 				
-				labelKundeNr = new JLabel("KundenNr: " + verkaufsstand.sucheNachNummer(aktuellerKunde).get(0).getKundenNr());
+				labelKundeNr = new JLabel("KundenNr: ");
 				labelKundeNr.setBounds(388, 83, 73, 14);
 				Rechnung.getContentPane().add(labelKundeNr);
 				
 				// erstellt label für die Nr des Kundens
 				
-				labelNr = new JLabel("");
+				labelNr = new JLabel("" + verkaufsstand.sucheNachNummer(aktuellerKunde).get(0).getKundenNr());
 				labelNr.setBounds(564, 83, 40, 14);
 				Rechnung.getContentPane().add(labelNr);
 				
@@ -2504,7 +2502,7 @@ public class testgui extends JFrame{
 				
 				// erstellt das label für den Gesamtpreis
 				
-				labelGesamtpreis = new JLabel("Gesamtpreis");
+				labelGesamtpreis = new JLabel("Gesamtpreis: ");
 				labelGesamtpreis.setFont(new Font("Tahoma", Font.PLAIN, 14));
 				scollGesamtpreis.setRowHeaderView(labelGesamtpreis);
 				
@@ -2544,6 +2542,7 @@ public class testgui extends JFrame{
 				labelAdresse1.setBounds(70, 61, 141, 14);
 				Rechnung.getContentPane().add(labelAdresse1);
 				
+				updateKundenRechnungTabelle(warenkorb.getWarenkorb());
 				// erstellt button "ok" 
 				
 				JButton btnNewButton = new JButton("OK");
