@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Datenstrukturen.Artikel;
+import Datenstrukturen.ChangelogNeu;
 import Datenstrukturen.Kunde;
 import Datenstrukturen.Mitarbeiter;
 
@@ -23,6 +24,8 @@ public class FilePersistenceManager implements PersistenceManager {
 
 	private BufferedReader reader = null;
 	private PrintWriter writer = null;
+	
+	
 	
 	/**
 	 * erzeugt einen Buffered Reder der etwas einlesen kann aus einer Datei
@@ -338,6 +341,115 @@ public class FilePersistenceManager implements PersistenceManager {
 		if(writer != null) {
 			writer.println(daten);
 		}
+	}
+	
+	
+	public ChangelogNeu ladeChangelogNeu() throws IOException{
+		
+		//einlesen des Usernamens
+		String username = liesZeile();
+		if(username == null) {
+			return null;
+		}
+				
+		//einlesen des passworts
+		String passwort = liesZeile();
+		if(passwort == null) {
+			return null;
+		}
+		
+		//einlesen des vornamens
+		String vorname = liesZeile();
+		if(vorname == null) {
+			return null;
+		}
+		 //einlesen des nachnamen
+		String nachname = liesZeile();
+		if(nachname == null) {
+			return null;
+		}
+		
+		//einelsen des wohnorts
+		String wohnort = liesZeile();
+		if(wohnort == null) {
+			return null;
+		}
+				
+		//einlesen der plz
+		String plz = liesZeile();
+		if(plz == null) {
+			return null;
+		}
+			
+		//einlesen der strasse
+		String strasse = liesZeile();
+		if(strasse == null) {
+			return null;
+		}
+				
+		//einlesen der Nr
+		String nrString = liesZeile();
+		int nr = Integer.parseInt(nrString);
+				
+		//einelesen der Nachricht
+		String message = liesZeile();
+		if(message == null) {
+			return null;
+		}
+		
+		//einlesen der Zeit
+		String Zeit = liesZeile();
+		if(Zeit == null) {
+			return null;
+		}
+		
+		//einelsen des Typs
+		String typString = liesZeile();
+		boolean typ = Boolean.parseBoolean(typString);
+		
+		
+		if(typ) {
+			Mitarbeiter m = new Mitarbeiter(username, passwort, vorname, nachname, wohnort, plz, strasse,nr);
+			return new ChangelogNeu(m, message, typ);
+		} else {
+			Kunde k = new Kunde(username, passwort, vorname, nachname, wohnort, plz, strasse,nr);
+			return new ChangelogNeu(k, message, typ);
+		}
+		
+		
+		
+	}
+
+	public boolean speichereChangelog(ChangelogNeu c) {
+		if(c.getTyp()) {
+			schreibeZeile(c.getMitarbeiter().getUsername());
+			schreibeZeile(c.getMitarbeiter().getPasswort());
+			schreibeZeile(c.getMitarbeiter().getVorname());
+			schreibeZeile(c.getMitarbeiter().getNachname());
+			schreibeZeile(c.getMitarbeiter().getWohnort());
+			schreibeZeile(c.getMitarbeiter().getPlz());
+			schreibeZeile(c.getMitarbeiter().getStrasse());
+			schreibeZeile(c.getMitarbeiter().getMitarbeiterNr()+"");
+			schreibeZeile(c.getMessage());
+			System.out.println(c.getMessage());
+			schreibeZeile(c.getTyp()+"");
+			schreibeZeile(c.getZeit());
+		} else {
+			schreibeZeile(c.getKunde().getUsername());
+			schreibeZeile(c.getKunde().getPasswort());
+			schreibeZeile(c.getKunde().getVorname());
+			schreibeZeile(c.getKunde().getNachname());
+			schreibeZeile(c.getKunde().getWohnort());
+			schreibeZeile(c.getKunde().getPlz());
+			schreibeZeile(c.getKunde().getStrasse());
+			schreibeZeile(c.getKunde().getKundenNr()+"");
+			schreibeZeile(c.getMessage());
+			System.out.println(c.getMessage());
+			schreibeZeile(c.getTyp()+"");
+			schreibeZeile(c.getZeit());
+		}
+		
+		return true;
 	}
 	
 

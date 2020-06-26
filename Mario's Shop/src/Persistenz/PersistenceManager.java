@@ -3,6 +3,7 @@ package Persistenz;
 
 import java.io.IOException;
 
+import Datenstrukturen.ChangelogNeu;
 import Datenstrukturen.Mitarbeiter;
 
 
@@ -32,5 +33,9 @@ public boolean speichereKunde(Datenstrukturen.Kunde k) throws IOException ;
 public String liesLog() throws IOException;
 
 public boolean speichereLog(String log) throws IOException ;
+
+public ChangelogNeu ladeChangelogNeu() throws IOException;
+
+public boolean speichereChangelog(ChangelogNeu c) throws IOException;
 
 }

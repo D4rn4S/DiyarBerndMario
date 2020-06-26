@@ -1,57 +1,75 @@
 package Datenstrukturen;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Date;
 
 public class ChangelogNeu {
 
-	
-		
-		private String Nachricht;
 		private Mitarbeiter m;
 		private Kunde k;
-		private Date d;
+		private String message;
+		private String strDate;
+		private boolean typ; //true: Mitarbeiter | false: Kunde
+		private String Zeit;
 		
-		public ChangelogNeu(Mitarbeiter m,) {
-			this.anzahl = anzahl;
-			this.a = a;
-		}
-		
-		public boolean euqals(Object o) {
-			System.out.println("call");
-			if (o instanceof tempArtikel) {
-				System.out.println("equals");
-				return (this.a.getNummer() == ((tempArtikel) o).getArtikel().getNummer()); 
-			} else {
-				return false;
-			}
+		public ChangelogNeu(Mitarbeiter m, String message, boolean typ) {
+			this.m = m;
+			this.message = message;
+			this.typ = typ;
 			
+			Date date = Calendar.getInstance().getTime();  
+	        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");  
+	        String Zeit = dateFormat.format(date);  
+	        this.Zeit = Zeit;
 		}
 		
-		/**
-		 * gibt an wie ein Temp artikel ausgegeben werden soll (als String)
-		 */
-		public String toString() {
-			double gPreis;
-			gPreis = (this.a.getPreis()*this.anzahl);
-			return (this.a.toString() + " | Anzahl: " + anzahl + " | Stückpreis: " + this.a.getPreis() + "€ | Preis: " + gPreis + "€");
+		public ChangelogNeu(Kunde k, String nachricht, boolean typ) {
+			this.k = k;
+			this.message = message;
+			this.typ = typ;
+			Date date = Calendar.getInstance().getTime();  
+	        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");  
+	        String Zeit = dateFormat.format(date);  
+	        this.Zeit = Zeit;
 		}
+		
+		public ChangelogNeu(Mitarbeiter m, String message, boolean typ, String Zeit) {
+			this.m = m;
+			this.message = message;
+			this.typ = typ;
+			this.Zeit = Zeit;
+		}
+		
+		public ChangelogNeu(Kunde k, String nachricht, boolean typ, String Zeit) {
+			this.k = k;
+			this.message = message;
+			this.typ = typ;
+			this.Zeit = Zeit;
+		}
+		
+		/*
+		public String toString() {	
+			return("" + this.Zeit + " | Mitarbeiter: " + m.getMitarbeiterNr() + "|" + m.getVorname() + "|" + m.getNachname() + "| Nachricht: " + message);
+		}
+		
+		public String toStrting() {
+			return("" + this.Zeit + " | Kunde: " + k.getKundenNr() + "|" + k.getVorname() + "|" + k.getNachname() + "| Nachricht: " + message);
+		} */
 		
 		//getter Methoden
-		public Artikel getArtikel() {return this.a;}
 		
-		public int getAnzahl() {return this.anzahl;}
+		public Mitarbeiter getMitarbeiter() { return this.m; }
 		
-		//setter Methoden
+		public Kunde getKunde() {return this.k;}
 		
-		public void setAnzahl(int zahl) {this.anzahl = zahl;}
+		public String getMessage() { return message;}
 		
-	}
-
-	
-	
-	
-	
-	
-	
-	
+		public String getZeit() {return this.Zeit;}
+		
+		public boolean getTyp() { return this.typ;}
+		
+			
 }
