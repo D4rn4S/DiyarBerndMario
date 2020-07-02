@@ -1,58 +1,58 @@
 package Manager;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-import java.util.*;
-
-import Datenstrukturen.Artikel;
 import Datenstrukturen.Changelog;
 import Persistenz.FilePersistenceManager;
 import Persistenz.PersistenceManager;
-/**
- * 
- * @author Mario
- *	der changelogManager schriebt die Datei vom Changelog und kann diese Auch auslesen
- */
-public class ChangeLogManager {
 
-	List<String> log = new ArrayList<String>();
-	String input = "";
-	private PersistenceManager pm = new FilePersistenceManager();
-	
-	public ChangeLogManager() {}
-	
-	
-	public List<String> liesLog(String datei) throws IOException {
-		pm.openForReading(datei+"_S.txt");
-		String input = "";
+public class ChangelogManager {
 		
+	private List<Changelog> changelog = new ArrayList<Changelog>();
+	private PersistenceManager pm = new FilePersistenceManager();
+		
+	public void liesDaten(String datei) throws IOException {
+			
+		pm.openForReading(datei+"_S.txt");
+		Changelog c;
+			
 		do {
-			input = pm.liesLog();
-			if(input != null) {
-				log.add(input);
+			c = pm.ladeChangelogNeu();
+			if(c != null) {
+				einfuegen(c);
 			}
-		} while (input != null);
-	
-	return log;
+		} while(c != null);
+			
 	}
-	
+		
 	public void schreibeDaten(String datei) throws IOException {
 		
 		pm.openForWriting(datei+"_S.txt");
 		
-		for(String l : log) {
-			pm.speichereLog(l);
+		for(Changelog c : changelog) {
+			pm.speichereChangelog(c);
 		}
-		
-		pm.close();
-		
+	
+			pm.close();
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
+	public void einfuegen(Changelog c) {changelog.add(c); System.out.println(c);}
+
+
+	public List<Changelog> getChangelog() {
+		return new ArrayList<Changelog>(changelog);
+	}	
+		
+	public void gibLogAus() {
+		System.out.println(changelog);
+	}
+		
+		
 }
+
+	
+	
+	
+

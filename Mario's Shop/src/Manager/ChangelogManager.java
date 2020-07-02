@@ -4,19 +4,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import Datenstrukturen.ChangelogNeu;
+import Datenstrukturen.Changelog;
 import Persistenz.FilePersistenceManager;
 import Persistenz.PersistenceManager;
 
-public class ChangelogManagerNeu {
+public class ChangelogManager {
 		
-	private List<ChangelogNeu> changelog = new ArrayList<ChangelogNeu>();
+	private List<Changelog> changelog = new ArrayList<Changelog>();
 	private PersistenceManager pm = new FilePersistenceManager();
 		
 	public void liesDaten(String datei) throws IOException {
 			
 		pm.openForReading(datei+"_S.txt");
-		ChangelogNeu c;
+		Changelog c;
 			
 		do {
 			c = pm.ladeChangelogNeu();
@@ -31,18 +31,18 @@ public class ChangelogManagerNeu {
 		
 		pm.openForWriting(datei+"_S.txt");
 		
-		for(ChangelogNeu c : changelog) {
+		for(Changelog c : changelog) {
 			pm.speichereChangelog(c);
 		}
 	
 			pm.close();
 	}
 
-	public void einfuegen(ChangelogNeu c) {changelog.add(c); System.out.println(c);}
+	public void einfuegen(Changelog c) {changelog.add(c); System.out.println(c);}
 
 
-	public List<ChangelogNeu> getChangelog() {
-		return new ArrayList<ChangelogNeu>(changelog);
+	public List<Changelog> getChangelog() {
+		return new ArrayList<Changelog>(changelog);
 	}	
 		
 	public void gibLogAus() {

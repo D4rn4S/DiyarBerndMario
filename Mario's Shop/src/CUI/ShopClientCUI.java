@@ -20,7 +20,7 @@ import Datenstrukturen.Changelog;
 import Datenstrukturen.Kunde;
 
 
-public class ShopCUI {
+public class ShopClientCUI {
 	
 	private static Lager lager;
 	private static Buero buero;
@@ -33,7 +33,7 @@ public class ShopCUI {
 	private List<Kunde> kliste;
 	private List<Mitarbeiter> mliste;
 
-	public ShopCUI(String dArtikel, String dMitarbeiter, String dKunden, String dLog) {
+	public ShopClientCUI(String dArtikel, String dMitarbeiter, String dKunden, String dLog) {
 		
 		try {
 			lager = new Lager(dArtikel);
@@ -1011,9 +1011,9 @@ public class ShopCUI {
 	
 	public static void main(String[] args) {
 		
-		ShopCUI cui;
+		ShopClientCUI cui;
 		
-		cui = new ShopCUI("Art","Mit","Kund","Log");
+		cui = new ShopClientCUI("Art","Mit","Kund","Log");
 		
 		
 		cui.run();

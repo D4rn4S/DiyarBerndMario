@@ -58,11 +58,11 @@ import Exceptions.InvalidWarenkorbNameException;
 import Funktionen.AnmeldungKunde;
 import Funktionen.AnmeldungMitarbeiter;
 import Manager.ChangeLogManager;
-import Manager.ChangelogManagerNeu;
+import Manager.ChangelogManager;
 import Datenstrukturen.Artikel;
 import Datenstrukturen.Buero;
 import Datenstrukturen.Changelog;
-import Datenstrukturen.ChangelogNeu;
+import Datenstrukturen.Changelog;
 import Datenstrukturen.Kunde;
 
 
@@ -72,7 +72,7 @@ import Datenstrukturen.Kunde;
  * @author Mario
  *
  */
-public class testgui extends JFrame{
+public class ShopClientGUI extends JFrame{
 	
 	private static Mitarbeiter system;
 	private int aktuellerKunde;
@@ -80,7 +80,7 @@ public class testgui extends JFrame{
 	private static Lager lager;
 	private static Buero buero;
 	private static Verkaufsstand verkaufsstand;
-	private static ChangelogManagerNeu logmanager;
+	private static ChangelogManager logmanager;
 	private static Warenkorb warenkorb;
 	static List<String> log = new ArrayList<String>();
 	private List<Artikel> aliste;
@@ -131,6 +131,7 @@ public class testgui extends JFrame{
 	private JTable tabelle1;
 	private JTable tabelle2;
 	private JTable tabelle3;
+	private JTable tabelle4;
 	private JLabel gesamtPreisZahl;
 	private JFrame kundLoeschen;
 	private JFrame artikelScreach1;
@@ -168,7 +169,7 @@ public class testgui extends JFrame{
 	 * @param dKunden ist die Datei in der die Kunden stehen
 	 * @param dLog ist die Datei in der der Log steht
 	 */
-	public testgui(String dArtikel, String dMitarbeiter, String dKunden, String dLog) {
+	public ShopClientGUI(String dArtikel, String dMitarbeiter, String dKunden, String dLog) {
 		
 		try {
 			lager = new Lager(dArtikel);
@@ -195,7 +196,7 @@ public class testgui extends JFrame{
 		
 		
 		
-		logmanager = new ChangelogManagerNeu();
+		logmanager = new ChangelogManager();
 		
 		try {
 			logmanager.liesDaten("Log");
@@ -470,6 +471,23 @@ public class testgui extends JFrame{
             labelPreis.setText(" " + testString + " €");
             System.out.println(testString);
         }   
+	}
+	
+	public void updateChangelogTabelle(List<Changelog> l) {
+		DefaultTableModel TabelleBefüllen = (DefaultTableModel) tabelle4.getModel(); //gibt an welche Tabelle befüllt werden soll.
+		TabelleBefüllen.setRowCount(0); //leert die aktuelle Tabelle
+        Object rowData[] = new Object[5]; //gibt an wie viele Spalten die Tabelle hat
+        for(int i = 0; i < l.size(); i++) //geht die Liste durch und speichert die Daten der Spalten
+        {
+            rowData[0] = l.get(i).getZeit();
+            rowData[1] = "Nummer";
+            rowData[2] = "vorname";
+            rowData[3] = "nachname";
+            rowData[4] = l.get(i).getMessage();
+            
+           
+            TabelleBefüllen.addRow(rowData); //befüllt eine Zeile mit allen Spalten
+        }
 	}
 	
 	/**
@@ -885,7 +903,7 @@ public class testgui extends JFrame{
 										if(a.getNummer() == aNum) {	 //wenn Artikelnummer schon vorhanden ist 
 											falscherArtikel.setForeground(Color.RED);
 											falscherArtikel.setText("Die ArtikelNr existiert bereits!");
-											logmanager.einfuegen(new ChangelogNeu(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), "Es wurde versucht ein bereits vorhandener Artikel einzufügen!", true));
+											logmanager.einfuegen(new Changelog(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), "Es wurde versucht ein bereits vorhandener Artikel einzufügen!", true));
 											textNummer.setText(null);
 											throw new InvalidArtikelNummerException(); //dann wirf die Exception
 									    
@@ -898,7 +916,7 @@ public class testgui extends JFrame{
 								
 								if(!textNummer.getText().isEmpty()) {
 									lager.fuegeArtikelEin(aName, aNum, aPre, aBe, aMb, aMas);
-									logmanager.einfuegen(new ChangelogNeu(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), "Der Artikel: " + aName + " wurd hinzugefügt.", true));
+									logmanager.einfuegen(new Changelog(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), "Der Artikel: " + aName + " wurd hinzugefügt.", true));
 									try {
 										lager.schreibeArtikel();
 									} catch (IOException e1) {
@@ -970,7 +988,7 @@ public class testgui extends JFrame{
 								try { // try und catch ob die Artikelnummer richtig ist 
 									if(checkNumber(aNum)) { //fals ja lösche Artikel
 										lager.loescheArtikel(aNum);
-										logmanager.einfuegen(new ChangelogNeu(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), "Der Artikel mit der Nummer: " + aNum + " wurde gelöscht!", true));
+										logmanager.einfuegen(new Changelog(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), "Der Artikel mit der Nummer: " + aNum + " wurde gelöscht!", true));
 										ArtikelLoeschenMenue.setVisible(false);
 										updateTabelle(lager.gibAlleArtikel());
 										try {
@@ -982,7 +1000,7 @@ public class testgui extends JFrame{
 								} catch(InvalidArtikelNummerException ex) { //falls nein fange die Exception und gib fehlermeldung
 									System.out.println(ex.getMessage());
 									ANumNichtvergeben.setText("Bitte geben Sie eine gültige Artikelnummer ein!");
-									logmanager.einfuegen(new ChangelogNeu(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), ex.getMessage(), true));
+									logmanager.einfuegen(new Changelog(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), ex.getMessage(), true));
 									textArtikelNummer.setText(null);
 								}
 								
@@ -1051,7 +1069,7 @@ public class testgui extends JFrame{
 									System.out.println(ex.getMessage());
 									FalscherArtikel.setText("Ungültiger Name!");
 									textArtikel2.setText(null);
-									logmanager.einfuegen(new ChangelogNeu(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), ex.getMessage() + "bei der Suche", true));
+									logmanager.einfuegen(new Changelog(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), ex.getMessage() + "bei der Suche", true));
 								}
 								
 							}
@@ -1193,7 +1211,7 @@ public class testgui extends JFrame{
 								updateTabelle(lager.gibAlleArtikel());
 								FalscheArtNr.setForeground(Color.black);
 								FalscheArtNr.setText("Bestand geändert!");
-								logmanager.einfuegen(new ChangelogNeu(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), "Der Artikel: " + aNum + " wurde um die Anzahl: " + aBe + " erhöht", true));
+								logmanager.einfuegen(new Changelog(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), "Der Artikel: " + aNum + " wurde um die Anzahl: " + aBe + " erhöht", true));
 								try {
 									lager.schreibeArtikel();
 								} catch (IOException e1) {
@@ -1205,7 +1223,7 @@ public class testgui extends JFrame{
 							FalscheArtNr.setText("Fehlerhafte Artikelnummer!");
 							textArtikel.setText(null);
 							System.out.println(ex.getMessage());
-							logmanager.einfuegen(new ChangelogNeu(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), ex.getMessage() + "beim Bestand erhöhen", true));
+							logmanager.einfuegen(new Changelog(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), ex.getMessage() + "beim Bestand erhöhen", true));
 						}
 						
 					}
@@ -1228,6 +1246,149 @@ public class testgui extends JFrame{
 				Maintab.addTab("Changelog", null, panel_2, null);
 				panel_2.setLayout(null);
 				
+	/*Changelog ( Ereignis) tab erstellt*/
+				
+				JPanel panel2 = new JPanel();
+				Maintab.addTab("Changelog", null, panel_2, null);
+				panel_2.setLayout(null);
+				
+				/* erstellt das layout für die Tabelle (damit die tabelle scrollbar ist*/
+				
+				JScrollPane scrollLayout = new JScrollPane();
+				scrollLayout.setBounds(37, 59, 452, 357);
+				panel_2.add(scrollLayout);
+				
+				// erstellt Tabelle mit deren Eigenschaften (array)
+				tabelle4 = new JTable();
+				tabelle4.setModel(new DefaultTableModel(
+					new Object[][] {},
+				
+					// array-liste für die namen String
+					
+					new String[] {
+						"Datum", "BenutzerNr", "Vorname", "Nachname", "Meldung"
+					}) {
+					Class[] columnTypes = new Class[] {
+						String.class, String.class, String.class, String.class, String.class
+					};
+					public Class getColumnClass(int columnIndex) {
+						return columnTypes[columnIndex];
+					}
+				});
+				tabelle4.getColumnModel().getColumn(0).setPreferredWidth(52);
+				tabelle4.getColumnModel().getColumn(1).setPreferredWidth(68);
+				tabelle4.getColumnModel().getColumn(2).setPreferredWidth(60);
+				tabelle4.getColumnModel().getColumn(3).setPreferredWidth(65);
+				tabelle4.getColumnModel().getColumn(4).setPreferredWidth(80);
+				scrollLayout.setViewportView(tabelle4);
+				
+				
+				updateChangelogTabelle(logmanager.getChangelog());
+				// erstellt button "sortieren"
+				
+				JButton datumSortieren = new JButton("Datum sortieren");
+				datumSortieren.addActionListener(new ActionListener() {
+					
+				// funktion zum sortieren des Datums
+					
+					public void actionPerformed(ActionEvent e) {
+					}
+				});
+				
+				// größe/ position des buttons
+				
+				datumSortieren.setBounds(518, 115, 123, 23);
+				panel_2.add(datumSortieren);
+				
+				
+				
+				// erstellt button "suchen"
+				
+				JButton nameSuchen = new JButton("Name suchen");
+			/*	nameSuchen.addActionListener(new ActionListener() {
+					
+				// funktion zum öffnen eines neuen Fensters
+					
+					public void actionPerformed(ActionEvent e) {
+						
+						// erstellt ein neues Fenster für namen suchen
+						
+						nameScreach = new JFrame();
+						nameScreach.setTitle("Name suchen");
+						nameScreach.setVisible(true);
+						nameScreach.setBounds(970, 150, 304, 246);
+						nameScreach.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+						nameScreach.getContentPane().setLayout(null);
+						
+						// erstellt JLabel für namen suchen 
+						
+						JLabel nameSuchen = new JLabel("Welchen Namen Suchen Sie?");
+						nameSuchen.setFont(new Font("Tahoma", Font.PLAIN, 14));
+						nameSuchen.setBounds(50, 11, 193, 31);
+						nameScreach.getContentPane().add(nameSuchen);
+						
+						// erstellt label um den benutzer zu verdeutlichen, das er einen namen eintragen soll
+						
+						JLabel name = new JLabel("Geben Sie einen Namen ein :");
+						name.setBounds(10, 68, 282, 14);
+						nameScreach.getContentPane().add(name);
+						
+						// eine texteingabe (hier wird der name rein geschrieben)
+						
+						textName = new JTextField();
+						textName.setBounds(81, 93, 104, 20);
+						nameScreach.getContentPane().add(textName);
+						textName.setColumns(10);
+						
+						// wenn ein nicht vorhandender Name auftaucht, kommt eine fehlermeldung
+						
+						JLabel FalscherName = new JLabel("");
+						FalscherName.setForeground(Color.RED);
+						FalscherName.setBounds(26, 186, 240, 14);
+						nameScreach.getContentPane().add(FalscherName);
+						
+						// erstellt button "suchen"
+						
+						JButton Suchen = new JButton("Suchen");
+						Suchen.addActionListener(new ActionListener() {
+							
+						// funktion zum suchen eines Namens
+							public void actionPerformed(ActionEvent e) {
+								
+								String aName = "";
+								
+								aName = textName.getText();
+								
+								try { //try und catch ob der Name richtig ist 
+									if(checkName(aName)) { //falls ja suche danach
+										
+										updateTabelle(lager.sucheNachName(aName));
+										nameScreach.setVisible(false);
+									}
+								 //falls nein fange die Exception und gib fehlermeldung
+									
+								} catch (InvalidArtikelNameException ex) { 
+									System.out.println(ex.getMessage());
+									FalscherName.setText("Ungültiger Name!");
+									textName.setText(null);
+									logmanager.einfuegen(new ChangelogNeu(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), ex.getMessage() + "bei der Suche", true));
+								}
+								
+							}
+						});
+						Suchen.setBounds(81, 143, 104, 32);
+						nameScreach.getContentPane().add(Suchen);
+						
+						
+						
+						
+					
+				});   */
+				
+				 // größe /position des buttons
+				
+				nameSuchen.setBounds(518, 182, 123, 23);
+				panel_2.add(nameSuchen);
 				/*-------------------------------------------------------------------------------------*/
 				
 				
@@ -1375,7 +1536,7 @@ public class testgui extends JFrame{
 									FalscherArtikel.setText("Ungültige Nr!");
 									textArtikel.setText(null);
 									System.out.println(ex.getMessage());
-									logmanager.einfuegen(new ChangelogNeu(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), "Fehler bei der Suche! " +  ex.getMessage(), true));
+									logmanager.einfuegen(new Changelog(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), "Fehler bei der Suche! " +  ex.getMessage(), true));
 								}
 								
 								
@@ -1441,7 +1602,7 @@ public class testgui extends JFrame{
 										buero.loescheMitarbeiter(mNum);
 										mitaLoeschen.setVisible(false);
 										updateBenutzerMitarbeiterTabelle(buero.gibAlleMitarbeiter());
-										logmanager.einfuegen(new ChangelogNeu(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), "Der Mitarbeiter mit der Nummer: " + mNum + " wurde gelöscht.", true));
+										logmanager.einfuegen(new Changelog(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), "Der Mitarbeiter mit der Nummer: " + mNum + " wurde gelöscht.", true));
 										try {
 											buero.schreibeMitarbeiter();
 										} catch (IOException e1) {
@@ -1451,7 +1612,7 @@ public class testgui extends JFrame{
 								} catch (InvalidMitarbeiterNummerException ex) {
 									System.out.println(ex.getMessage());
 									mitaNrNichtvergeben.setText("Bitte geben Sie eine gültige Mitarbeiternummer ein!");
-									logmanager.einfuegen(new ChangelogNeu(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), "Fehlerhafte Mitarbeiternummer beim löschen!", true));
+									logmanager.einfuegen(new Changelog(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), "Fehlerhafte Mitarbeiternummer beim löschen!", true));
 									textMitarbeiterNummer.setText(null);
 								}
 								
@@ -1595,7 +1756,7 @@ public class testgui extends JFrame{
 									if(checkNummerKunde(kNum)) {
 										verkaufsstand.loescheKunde(kNum);
 										kundLoeschen.setVisible(false);
-										logmanager.einfuegen(new ChangelogNeu(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), "Der Kunde mit der Nummer: " + kNum +" wurde gelöscht", true));
+										logmanager.einfuegen(new Changelog(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), "Der Kunde mit der Nummer: " + kNum +" wurde gelöscht", true));
 										updateBenutzerKundenTabelle(verkaufsstand.gibAlleKunden());
 										try {
 											verkaufsstand.schreibeKunden();
@@ -1605,7 +1766,7 @@ public class testgui extends JFrame{
 									}
 								} catch(InvalidKundenNummerException ex) {
 									System.out.println(ex.getMessage());
-									logmanager.einfuegen(new ChangelogNeu(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), "Fehler beim löschen eines Kunden", true));
+									logmanager.einfuegen(new Changelog(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), "Fehler beim löschen eines Kunden", true));
 									kundNrNichtvergeben.setText("Bitte geben Sie eine gültige Kundennummer ein!");
 									textKundenNummer.setText(null);
 								}
@@ -2179,7 +2340,7 @@ public class testgui extends JFrame{
 							System.out.println(ex.getMessage());
 							FalscherArtikel.setText("Bitte geben Sie ein gültigen Artikelnamen an!");
 							textArtikel.setText(null);
-							logmanager.einfuegen(new ChangelogNeu(verkaufsstand.sucheNachNummer(aktuellerKunde).get(0), "Es gab einen Fehler bei der Artikelsuche", false));
+							logmanager.einfuegen(new Changelog(verkaufsstand.sucheNachNummer(aktuellerKunde).get(0), "Es gab einen Fehler bei der Artikelsuche", false));
 						}
 					}
 				});
@@ -2286,7 +2447,7 @@ public class testgui extends JFrame{
 						FalscherArt.setText("Artikel hinzugefügt.");
 						textArtikelNr.setText(null);
 						spinnerAnzahl.setValue((Integer)0);
-						logmanager.einfuegen(new ChangelogNeu(verkaufsstand.sucheNachNummer(aktuellerKunde).get(0), "Der Artikel: " + aNum + "wurde " + aAnz + "x den Warenkorb hinzugefügt.", false));
+						logmanager.einfuegen(new Changelog(verkaufsstand.sucheNachNummer(aktuellerKunde).get(0), "Der Artikel: " + aNum + "wurde " + aAnz + "x den Warenkorb hinzugefügt.", false));
 						
 						// funktion zum laden in der Tabelle
 						
@@ -2297,7 +2458,7 @@ public class testgui extends JFrame{
 					FalscherArt.setText("     Falsche Eingabe!");
 					textArtikelNr.setText(null);
 					spinnerAnzahl.setValue((Integer)0);
-					logmanager.einfuegen(new ChangelogNeu(verkaufsstand.sucheNachNummer(aktuellerKunde).get(0), "Fehlerhafte eingabe Beim hinzufügen zum Warenkorb", false));
+					logmanager.einfuegen(new Changelog(verkaufsstand.sucheNachNummer(aktuellerKunde).get(0), "Fehlerhafte eingabe Beim hinzufügen zum Warenkorb", false));
 					System.out.println(ex.getMessage());
 				}
 					   
@@ -2556,7 +2717,7 @@ public class testgui extends JFrame{
 					
 					public void actionPerformed(ActionEvent e) {
 					Rechnung.setVisible(false);
-					logmanager.einfuegen(new ChangelogNeu(verkaufsstand.sucheNachNummer(aktuellerKunde).get(0), "Der Warenkorb wurde gekauft!", false));
+					logmanager.einfuegen(new Changelog(verkaufsstand.sucheNachNummer(aktuellerKunde).get(0), "Der Warenkorb wurde gekauft!", false));
 					warenkorb.kaufen();
 					warenkorb.leeren();
 					try {
@@ -2602,7 +2763,7 @@ public class testgui extends JFrame{
 				try {
 					if(checkWarenkorbDelete(aNum, aAnz)) {
 						warenkorb.delArtikel(aNum, aAnz);
-						logmanager.einfuegen(new ChangelogNeu(verkaufsstand.sucheNachNummer(aktuellerKunde).get(0), "Der Artikel: " + aNum + "wurde " + aAnz + "x aus den Warenkorb entfernt", false));
+						logmanager.einfuegen(new Changelog(verkaufsstand.sucheNachNummer(aktuellerKunde).get(0), "Der Artikel: " + aNum + "wurde " + aAnz + "x aus den Warenkorb entfernt", false));
 						falscheEingabe.setForeground(Color.BLACK);
 						falscheEingabe.setText("Artikel entfernt.");
 						textArtikelNr1.setText(null);
@@ -2612,7 +2773,7 @@ public class testgui extends JFrame{
 				} catch(InvalidWarenkorbException ex) {
 					System.out.println(ex.getMessage());
 					falscheEingabe.setForeground(Color.RED);
-					logmanager.einfuegen(new ChangelogNeu(verkaufsstand.sucheNachNummer(aktuellerKunde).get(0), "Fehlerhafte eingabe beim Entfernen aus dem Warenkorb!", false));
+					logmanager.einfuegen(new Changelog(verkaufsstand.sucheNachNummer(aktuellerKunde).get(0), "Fehlerhafte eingabe beim Entfernen aus dem Warenkorb!", false));
 					falscheEingabe.setText("Fehlerhafte Eingabe!");
 					textArtikelNr1.setText(null);
 					textAnzahl1.setText(null);
@@ -2675,7 +2836,7 @@ public class testgui extends JFrame{
 			// funktion zum leeren des warenkorbs
 			
 			public void actionPerformed(ActionEvent e) {
-				logmanager.einfuegen(new ChangelogNeu(verkaufsstand.sucheNachNummer(aktuellerKunde).get(0), "Hat den Warenkorb geleert!", false));
+				logmanager.einfuegen(new Changelog(verkaufsstand.sucheNachNummer(aktuellerKunde).get(0), "Hat den Warenkorb geleert!", false));
 				warenkorb.leeren();
 				gesamtPreisZahl.setText(null);
 				updateKundenWarenkorbTabelle(warenkorb.getWarenkorb());
@@ -2741,7 +2902,7 @@ public class testgui extends JFrame{
 							System.out.println(ex.getMessage());
 							FalscherArtikel.setText("Ungültiger Name!");
 							textArtikel.setText(null);
-							logmanager.einfuegen(new ChangelogNeu(verkaufsstand.sucheNachNummer(aktuellerKunde).get(0), "Fehlerhafte eingabe in der Suche im Warenkorb!", false));
+							logmanager.einfuegen(new Changelog(verkaufsstand.sucheNachNummer(aktuellerKunde).get(0), "Fehlerhafte eingabe in der Suche im Warenkorb!", false));
 						}
 						
 					}
@@ -3052,13 +3213,13 @@ public class testgui extends JFrame{
 					System.out.println(aktuellerMitarbeiter);
 					mitarbeiterMenue();
 					shopAnmeldungMitarbeiter.setVisible(false);
-					logmanager.einfuegen(new ChangelogNeu(buero.sucheNachNummer(a.getNummer()).get(0), "hat sich angemeldet.", true));
+					logmanager.einfuegen(new Changelog(buero.sucheNachNummer(a.getNummer()).get(0), "hat sich angemeldet.", true));
 					logmanager.gibLogAus();
 					
 					
 				} catch(FlascheAnmeldedatenException ex) {
 					FalscheIDundPw.setText("Benutzername oder Passwort sind falsch!");
-					logmanager.einfuegen(new ChangelogNeu(system, "Fehler bei der Anmeldung!", true));
+					logmanager.einfuegen(new Changelog(system, "Fehler bei der Anmeldung!", true));
 				}               
 			}
 		});
@@ -3135,11 +3296,11 @@ public class testgui extends JFrame{
 					System.out.println("|"+aktuellerKunde+"|");
 					kundenMenue();
 					shopAnmeldungKunde.setVisible(false);
-					logmanager.einfuegen(new ChangelogNeu(verkaufsstand.sucheNachNummer(a.getNummer()).get(0), "hat sich angemeldet.", false));
+					logmanager.einfuegen(new Changelog(verkaufsstand.sucheNachNummer(a.getNummer()).get(0), "hat sich angemeldet.", false));
 					
 				} catch(FlascheAnmeldedatenException ex) {
 					FalscheIDundPw.setText("Benutzername oder Passwort sind falsch!");
-					logmanager.einfuegen(new ChangelogNeu(system, "Fehler bei der Anmeldung!", true));
+					logmanager.einfuegen(new Changelog(system, "Fehler bei der Anmeldung!", true));
 				}               
 				
 			}
@@ -3346,9 +3507,9 @@ public class testgui extends JFrame{
 					System.out.println("Kunde wurde angelegt.");
 					if(!b) {
 						shopAnmeldungKunde();
-						logmanager.einfuegen(new ChangelogNeu(system, "Der Kunde: "+ username + " | " + kundenNr + " wurde angelegt.", true));
+						logmanager.einfuegen(new Changelog(system, "Der Kunde: "+ username + " | " + kundenNr + " wurde angelegt.", true));
 					} else {
-						logmanager.einfuegen(new ChangelogNeu(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), "Der Kunde: "+ username + " | " + kundenNr + " wurde angelegt.", true));
+						logmanager.einfuegen(new Changelog(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), "Der Kunde: "+ username + " | " + kundenNr + " wurde angelegt.", true));
 					}
 					
 				} 
@@ -3553,7 +3714,7 @@ public class testgui extends JFrame{
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					logmanager.einfuegen(new ChangelogNeu(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), "Der Mitarbeiter: "+ username + " | " + mitarbeiterNr + " wurde angelegt.", true));
+					logmanager.einfuegen(new Changelog(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), "Der Mitarbeiter: "+ username + " | " + mitarbeiterNr + " wurde angelegt.", true));
 					shopMitarbeiterRegistrierung.setVisible(false);
 					System.out.println("Mitarbeiter wurde angelegt.");
 					if(!b) {
@@ -3703,9 +3864,9 @@ public class testgui extends JFrame{
 	 */
 	public static void main(String[] args) {
 		
-		testgui gui;
+		ShopClientGUI gui;
 		
-		gui = new testgui("Art","Mit","Kund","Log");
+		gui = new ShopClientGUI("Art","Mit","Kund","Log");
 		
 		
 		gui.gibMenueAus();

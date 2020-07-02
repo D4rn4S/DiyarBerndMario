@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Datenstrukturen.Artikel;
-import Datenstrukturen.ChangelogNeu;
+import Datenstrukturen.Changelog;
 import Datenstrukturen.Kunde;
 import Datenstrukturen.Mitarbeiter;
 
@@ -344,7 +344,7 @@ public class FilePersistenceManager implements PersistenceManager {
 	}
 	
 	
-	public ChangelogNeu ladeChangelogNeu() throws IOException{
+	public Changelog ladeChangelogNeu() throws IOException{
 		
 		//einlesen des Usernamens
 		String username = liesZeile();
@@ -410,17 +410,17 @@ public class FilePersistenceManager implements PersistenceManager {
 		
 		if(typ) {
 			Mitarbeiter m = new Mitarbeiter(username, passwort, vorname, nachname, wohnort, plz, strasse,nr);
-			return new ChangelogNeu(m, message, typ);
+			return new Changelog(m, message, typ);
 		} else {
 			Kunde k = new Kunde(username, passwort, vorname, nachname, wohnort, plz, strasse,nr);
-			return new ChangelogNeu(k, message, typ);
+			return new Changelog(k, message, typ);
 		}
 		
 		
 		
 	}
 
-	public boolean speichereChangelog(ChangelogNeu c) {
+	public boolean speichereChangelog(Changelog c) {
 		if(c.getTyp()) {
 			schreibeZeile(c.getMitarbeiter().getUsername());
 			schreibeZeile(c.getMitarbeiter().getPasswort());

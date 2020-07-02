@@ -8,7 +8,7 @@ CarlSeveringStraﬂe
 2
 null
 false
-26-06-2020 01:51:40
+02-07-2020 03:00:11
 msc
 123
 Mario
@@ -19,7 +19,7 @@ CarlSeveringStraﬂe
 1
 null
 false
-26-06-2020 01:51:45
+02-07-2020 03:00:11
 msc
 123
 Mario
@@ -30,7 +30,7 @@ CarlSeveringStraﬂe
 1
 null
 false
-26-06-2020 01:51:49
+02-07-2020 03:00:11
 msc
 123
 Mario
@@ -41,7 +41,7 @@ CarlSeveringStraﬂe
 1
 null
 false
-26-06-2020 01:51:54
+02-07-2020 03:00:11
 msc
 123
 Mario
@@ -52,4 +52,81 @@ CarlSeveringStraﬂe
 1
 null
 false
-26-06-2020 01:51:57
+02-07-2020 03:00:11
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraﬂe
+2
+null
+false
+02-07-2020 03:00:11
+msc
+123
+Mario
+Schulz
+Bremen
+28329
+CarlSeveringStraﬂe
+1
+null
+false
+02-07-2020 03:00:11
+msc
+123
+Mario
+Schulz
+Bremen
+28329
+CarlSeveringStraﬂe
+1
+null
+false
+02-07-2020 03:00:11
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraﬂe
+2
+null
+false
+02-07-2020 03:00:11
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraﬂe
+2
+null
+false
+02-07-2020 03:00:11
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraﬂe
+2
+hat sich angemeldet.
+true
+02-07-2020 03:00:15
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraﬂe
+2
+Der Artikel: 3 wurde um die Anzahl: 9 erhˆht
+true
+02-07-2020 03:00:19
