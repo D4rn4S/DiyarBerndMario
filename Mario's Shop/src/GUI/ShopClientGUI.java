@@ -480,13 +480,20 @@ public class ShopClientGUI extends JFrame{
         for(int i = 0; i < l.size(); i++) //geht die Liste durch und speichert die Daten der Spalten
         {
             rowData[0] = l.get(i).getZeit();
-            rowData[1] = "Nummer";
-            rowData[2] = "vorname";
-            rowData[3] = "nachname";
+            if(l.get(i).getTyp()) { //mitarbeiter
+            	rowData[1] = l.get(i).getMitarbeiter().getMitarbeiterNr();
+                rowData[2] = l.get(i).getMitarbeiter().getVorname();
+                rowData[3] = l.get(i).getMitarbeiter().getNachname();
+            } else {
+            	rowData[1] = l.get(i).getKunde().getKundenNr();
+                rowData[2] = l.get(i).getKunde().getVorname();
+                rowData[3] = l.get(i).getKunde().getNachname();
+            }
             rowData[4] = l.get(i).getMessage();
             
            
             TabelleBefüllen.addRow(rowData); //befüllt eine Zeile mit allen Spalten
+            System.out.println(l.get(i).getMessage());
         }
 	}
 	

@@ -397,23 +397,25 @@ public class FilePersistenceManager implements PersistenceManager {
 			return null;
 		}
 		
+		//einelsen des Typs
+		String typString = liesZeile();
+		boolean typ = Boolean.parseBoolean(typString);
+		
 		//einlesen der Zeit
 		String Zeit = liesZeile();
 		if(Zeit == null) {
 			return null;
 		}
 		
-		//einelsen des Typs
-		String typString = liesZeile();
-		boolean typ = Boolean.parseBoolean(typString);
+		
 		
 		
 		if(typ) {
 			Mitarbeiter m = new Mitarbeiter(username, passwort, vorname, nachname, wohnort, plz, strasse,nr);
-			return new Changelog(m, message, typ);
+			return new Changelog(m, message, typ, Zeit);
 		} else {
 			Kunde k = new Kunde(username, passwort, vorname, nachname, wohnort, plz, strasse,nr);
-			return new Changelog(k, message, typ);
+			return new Changelog(k, message, typ, Zeit);
 		}
 		
 		
@@ -444,7 +446,7 @@ public class FilePersistenceManager implements PersistenceManager {
 			schreibeZeile(c.getKunde().getStrasse());
 			schreibeZeile(c.getKunde().getKundenNr()+"");
 			schreibeZeile(c.getMessage());
-			System.out.println(c.getMessage());
+			System.out.println(c.getMessage() + "Beim kunden");
 			schreibeZeile(c.getTyp()+"");
 			schreibeZeile(c.getZeit());
 		}

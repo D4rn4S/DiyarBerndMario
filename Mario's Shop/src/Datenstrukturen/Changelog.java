@@ -26,7 +26,7 @@ public class Changelog {
 	        this.Zeit = Zeit;
 		}
 		
-		public Changelog(Kunde k, String nachricht, boolean typ) {
+		public Changelog(Kunde k, String message, boolean typ) {
 			this.k = k;
 			this.message = message;
 			this.typ = typ;
@@ -43,18 +43,19 @@ public class Changelog {
 			this.Zeit = Zeit;
 		}
 		
-		public Changelog(Kunde k, String nachricht, boolean typ, String Zeit) {
+		public Changelog(Kunde k, String message, boolean typ, String Zeit) {
 			this.k = k;
 			this.message = message;
 			this.typ = typ;
 			this.Zeit = Zeit;
 		}
 		
-		/*
+		
 		public String toString() {	
-			return("" + this.Zeit + " | Mitarbeiter: " + m.getMitarbeiterNr() + "|" + m.getVorname() + "|" + m.getNachname() + "| Nachricht: " + message);
+			return("Nachricht: " + message);
 		}
 		
+		/*
 		public String toStrting() {
 			return("" + this.Zeit + " | Kunde: " + k.getKundenNr() + "|" + k.getVorname() + "|" + k.getNachname() + "| Nachricht: " + message);
 		} */

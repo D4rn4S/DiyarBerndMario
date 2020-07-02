@@ -6,53 +6,9 @@ Bremen
 28329
 CarlSeveringStraﬂe
 2
-null
-false
-02-07-2020 04:00:54
-msc
-123
-Mario
-Schulz
-Bremen
-28329
-CarlSeveringStraﬂe
-1
-null
-false
-02-07-2020 04:00:54
-msc
-123
-Mario
-Schulz
-Bremen
-28329
-CarlSeveringStraﬂe
-1
-null
-false
-02-07-2020 04:00:54
-msc
-123
-Mario
-Schulz
-Bremen
-28329
-CarlSeveringStraﬂe
-1
-null
-false
-02-07-2020 04:00:54
-msc
-123
-Mario
-Schulz
-Bremen
-28329
-CarlSeveringStraﬂe
-1
-null
-false
-02-07-2020 04:00:54
+hat sich angemeldet.
+true
+02-07-2020 05:14:24
 ske
 123
 Stephanie
@@ -61,9 +17,9 @@ Bremen
 28329
 CarlSeveringStraﬂe
 2
-null
-false
-02-07-2020 04:00:54
+Der Artikel: 3 wurde um die Anzahl: 34 erhˆht
+true
+02-07-2020 05:14:33
 msc
 123
 Mario
@@ -72,9 +28,9 @@ Bremen
 28329
 CarlSeveringStraﬂe
 1
-null
+hat sich angemeldet.
 false
-02-07-2020 04:00:54
+02-07-2020 05:15:41
 msc
 123
 Mario
@@ -83,53 +39,20 @@ Bremen
 28329
 CarlSeveringStraﬂe
 1
-null
+Der Artikel: 3wurde 3x den Warenkorb hinzugef¸gt.
 false
-02-07-2020 04:00:54
-ske
+02-07-2020 05:15:45
+msc
 123
-Stephanie
-Kerperin
+Mario
+Schulz
 Bremen
 28329
 CarlSeveringStraﬂe
-2
-null
+1
+Der Warenkorb wurde gekauft!
 false
-02-07-2020 04:00:54
-ske
-123
-Stephanie
-Kerperin
-Bremen
-28329
-CarlSeveringStraﬂe
-2
-null
-false
-02-07-2020 04:00:54
-ske
-123
-Stephanie
-Kerperin
-Bremen
-28329
-CarlSeveringStraﬂe
-2
-null
-false
-02-07-2020 04:00:54
-ske
-123
-Stephanie
-Kerperin
-Bremen
-28329
-CarlSeveringStraﬂe
-2
-null
-false
-02-07-2020 04:00:54
+02-07-2020 05:15:48
 ske
 123
 Stephanie
@@ -140,4 +63,4 @@ CarlSeveringStraﬂe
 2
 hat sich angemeldet.
 true
-02-07-2020 04:01:03
+02-07-2020 05:15:55
