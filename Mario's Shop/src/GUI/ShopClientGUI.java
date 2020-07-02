@@ -57,7 +57,7 @@ import Exceptions.InvalidWarenkorbException;
 import Exceptions.InvalidWarenkorbNameException;
 import Funktionen.AnmeldungKunde;
 import Funktionen.AnmeldungMitarbeiter;
-import Manager.ChangeLogManager;
+import Manager.ChangelogManager;
 import Manager.ChangelogManager;
 import Datenstrukturen.Artikel;
 import Datenstrukturen.Buero;
