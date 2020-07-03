@@ -53,6 +53,7 @@ import Exceptions.InvalidArtikelNameException;
 import Exceptions.InvalidArtikelNummerException;
 import Exceptions.InvalidKundenNummerException;
 import Exceptions.InvalidMitarbeiterNummerException;
+import Exceptions.InvalidNameChangelogException;
 import Exceptions.InvalidWarenkorbException;
 import Exceptions.InvalidWarenkorbNameException;
 import Funktionen.AnmeldungKunde;
@@ -97,7 +98,9 @@ public class ShopClientGUI extends JFrame{
 	private JFrame kundenMenue;
 	private JFrame ArtikelLoeschenMenue;
 	private JFrame artikelScreach;
+	private JFrame nameScreach;
 	private JTextField textVorname;
+	private JTextField textName2;
 	private JTextField textNachname;
 	private JTextField textWohnort;
 	private JTextField textStraße;
@@ -541,6 +544,7 @@ public class ShopClientGUI extends JFrame{
 		}
 		return x;
 	}
+	
 	
 	/**
 	 * 
@@ -1243,159 +1247,130 @@ public class ShopClientGUI extends JFrame{
 				
 				/*-------------------------------------------------------------------------------------*/
 				
-				JPanel panel_1 = new JPanel();
-				Maintab.addTab("Warenkorb", null, panel_1, null);
-				panel_1.setLayout(null);
-				
-				/*-------------------------------------------------------------------------------------*/
+				// erstellt tab changelog
 				
 				JPanel panel_2 = new JPanel();
 				Maintab.addTab("Changelog", null, panel_2, null);
 				panel_2.setLayout(null);
 				
-	/*Changelog ( Ereignis) tab erstellt*/
+				// erstellt das layout zum scrollen der tabelle
 				
-				JPanel panel2 = new JPanel();
-				Maintab.addTab("Changelog", null, panel_2, null);
-				panel_2.setLayout(null);
+				JScrollPane scrollPane_1 = new JScrollPane();
+				scrollPane_1.setBounds(29, 30, 604, 392);
+				panel_2.add(scrollPane_1);
 				
-				/* erstellt das layout für die Tabelle (damit die tabelle scrollbar ist*/
+				// erstellt die tabelle
 				
-				JScrollPane scrollLayout = new JScrollPane();
-				scrollLayout.setBounds(37, 59, 452, 357);
-				panel_2.add(scrollLayout);
-				
-				// erstellt Tabelle mit deren Eigenschaften (array)
 				tabelle4 = new JTable();
 				tabelle4.setModel(new DefaultTableModel(
-					new Object[][] {},
-				
-					// array-liste für die namen String
-					
+					new Object[][] {
+					},
 					new String[] {
-						"Datum", "BenutzerNr", "Vorname", "Nachname", "Meldung"
-					}) {
+						"Datum", "Nr", "Vorname", "Nachname", "Meldung"
+					}
+				) {
 					Class[] columnTypes = new Class[] {
-						String.class, String.class, String.class, String.class, String.class
+						String.class, Integer.class, String.class, String.class, String.class
 					};
 					public Class getColumnClass(int columnIndex) {
 						return columnTypes[columnIndex];
 					}
 				});
-				tabelle4.getColumnModel().getColumn(0).setPreferredWidth(52);
-				tabelle4.getColumnModel().getColumn(1).setPreferredWidth(68);
-				tabelle4.getColumnModel().getColumn(2).setPreferredWidth(60);
-				tabelle4.getColumnModel().getColumn(3).setPreferredWidth(65);
-				tabelle4.getColumnModel().getColumn(4).setPreferredWidth(80);
-				scrollLayout.setViewportView(tabelle4);
+				tabelle4.getColumnModel().getColumn(0).setPreferredWidth(53);
+				tabelle4.getColumnModel().getColumn(1).setPreferredWidth(33);
+				tabelle4.getColumnModel().getColumn(2).setPreferredWidth(62);
+				tabelle4.getColumnModel().getColumn(3).setPreferredWidth(67);
+				tabelle4.getColumnModel().getColumn(4).setPreferredWidth(60);
+				scrollPane_1.setViewportView(tabelle4);
 				
 				
 				updateChangelogTabelle(logmanager.getChangelog());
-				// erstellt button "sortieren"
-				
-				JButton datumSortieren = new JButton("Datum sortieren");
-				datumSortieren.addActionListener(new ActionListener() {
-					
-				// funktion zum sortieren des Datums
-					
-					public void actionPerformed(ActionEvent e) {
-					}
-				});
-				
-				// größe/ position des buttons
-				
-				datumSortieren.setBounds(518, 115, 123, 23);
-				panel_2.add(datumSortieren);
+				// erstellt button name suchen
 				
 				
-				
-				// erstellt button "suchen"
-				
-				JButton nameSuchen = new JButton("Name suchen");
-			/*	nameSuchen.addActionListener(new ActionListener() {
-					
-				// funktion zum öffnen eines neuen Fensters
-					
+				JButton btnNewButton_2 = new JButton("Nach Name suchen");
+				btnNewButton_2.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						
-						// erstellt ein neues Fenster für namen suchen
 						
 						nameScreach = new JFrame();
-						nameScreach.setTitle("Name suchen");
+						nameScreach.setTitle("Namen suchen");
 						nameScreach.setVisible(true);
 						nameScreach.setBounds(970, 150, 304, 246);
 						nameScreach.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 						nameScreach.getContentPane().setLayout(null);
 						
-						// erstellt JLabel für namen suchen 
+						JLabel Nameanlegen = new JLabel("Welchen Namen suchen Sie?");
+						Nameanlegen.setFont(new Font("Tahoma", Font.PLAIN, 14));
+						Nameanlegen.setBounds(50, 11, 193, 31);
+						nameScreach.getContentPane().add(Nameanlegen);
 						
-						JLabel nameSuchen = new JLabel("Welchen Namen Suchen Sie?");
-						nameSuchen.setFont(new Font("Tahoma", Font.PLAIN, 14));
-						nameSuchen.setBounds(50, 11, 193, 31);
-						nameScreach.getContentPane().add(nameSuchen);
+						JLabel Artikelname = new JLabel("Geben Sie eine Namen ein:");
+						Artikelname.setBounds(60, 68, 282, 14);
+						nameScreach.getContentPane().add(Artikelname);
 						
-						// erstellt label um den benutzer zu verdeutlichen, das er einen namen eintragen soll
-						
-						JLabel name = new JLabel("Geben Sie einen Namen ein :");
-						name.setBounds(10, 68, 282, 14);
-						nameScreach.getContentPane().add(name);
-						
-						// eine texteingabe (hier wird der name rein geschrieben)
-						
-						textName = new JTextField();
-						textName.setBounds(81, 93, 104, 20);
-						nameScreach.getContentPane().add(textName);
-						textName.setColumns(10);
-						
-						// wenn ein nicht vorhandender Name auftaucht, kommt eine fehlermeldung
+						textName2 = new JTextField();
+						textName2.setBounds(81, 93, 104, 20);
+						nameScreach.getContentPane().add(textName2);
+						textName2.setColumns(10);
 						
 						JLabel FalscherName = new JLabel("");
 						FalscherName.setForeground(Color.RED);
 						FalscherName.setBounds(26, 186, 240, 14);
 						nameScreach.getContentPane().add(FalscherName);
 						
-						// erstellt button "suchen"
-						
 						JButton Suchen = new JButton("Suchen");
 						Suchen.addActionListener(new ActionListener() {
-							
-						// funktion zum suchen eines Namens
 							public void actionPerformed(ActionEvent e) {
 								
-								String aName = "";
 								
-								aName = textName.getText();
+								String lName = "";
+								
+								lName = textName2.getText();
 								
 								try { //try und catch ob der Name richtig ist 
-									if(checkName(aName)) { //falls ja suche danach
 										
-										updateTabelle(lager.sucheNachName(aName));
+										updateChangelogTabelle(logmanager.suchChangeloglName(lName));
 										nameScreach.setVisible(false);
-									}
-								 //falls nein fange die Exception und gib fehlermeldung
-									
-								} catch (InvalidArtikelNameException ex) { 
+								} catch (InvalidNameChangelogException ex) { //falls nein fange die Exception und gib fehlermeldung
 									System.out.println(ex.getMessage());
 									FalscherName.setText("Ungültiger Name!");
-									textName.setText(null);
-									logmanager.einfuegen(new ChangelogNeu(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), ex.getMessage() + "bei der Suche", true));
+									textName2.setText(null);
+									logmanager.einfuegen(new Changelog(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), ex.getMessage() + "bei der Suche im Changelog", true));
 								}
 								
 							}
-						});
+						}); 
 						Suchen.setBounds(81, 143, 104, 32);
-						nameScreach.getContentPane().add(Suchen);
+						nameScreach.getContentPane().add(Suchen);	
 						
-						
-						
-						
-					
-				});   */
+					}
+				});
 				
-				 // größe /position des buttons
+				btnNewButton_2.setBounds(66, 445, 180, 23);
+				panel_2.add(btnNewButton_2);
 				
-				nameSuchen.setBounds(518, 182, 123, 23);
-				panel_2.add(nameSuchen);
+				// erstellt button nach datum sortieren
+				
+				JButton btnNewButton_3 = new JButton("Nach Datum sortieren");
+				btnNewButton_3.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						updateChangelogTabelle(sortDateChangelogliste(logmanager.getChangelog()));
+					}
+				});
+				btnNewButton_3.setBounds(287, 445, 180, 23);
+				panel_2.add(btnNewButton_3);
+				
+				// erstellt button aktualisieren
+				
+				JButton btnNewButton_4 = new JButton("Aktualisieren");
+				btnNewButton_4.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						updateChangelogTabelle(logmanager.getChangelog());
+					}
+				});
+				btnNewButton_4.setBounds(500, 445, 133, 23);
+				panel_2.add(btnNewButton_4);
 				/*-------------------------------------------------------------------------------------*/
 				
 				
@@ -3800,7 +3775,26 @@ public class ShopClientGUI extends JFrame{
 				
 			}
 		return liste;
+	}
+	
+	private List<Changelog> sortDateChangelogliste(List<Changelog> liste) {
+		if (liste.isEmpty()) {
+			System.out.println("Liste ist leer.");
+		} else {
+			
+			Collections.sort(liste, new Comparator<Changelog>() {
+				  @Override
+				  public int compare(Changelog u1, Changelog u2) {
+					  return u1.getZeit().compareTo(u2.getZeit());
+				  }
+			});
+				
 		}
+		return liste;
+	}
+	
+	
+	
 	
 	/**
 	 * Beschriebung: wird nicht mehr benötigt, kommt aus der CUI

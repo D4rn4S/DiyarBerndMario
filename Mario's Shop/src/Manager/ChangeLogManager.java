@@ -2,9 +2,12 @@ package Manager;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import Datenstrukturen.Artikel;
 import Datenstrukturen.Changelog;
+import Exceptions.InvalidNameChangelogException;
 import Persistenz.FilePersistenceManager;
 import Persistenz.PersistenceManager;
 
@@ -48,7 +51,31 @@ public class ChangelogManager {
 	public void gibLogAus() {
 		System.out.println(changelog);
 	}
+	
+public List<Changelog> suchChangeloglName(String name) throws InvalidNameChangelogException{
 		
+		List<Changelog> suchErg = new ArrayList<Changelog>();
+		Iterator<Changelog> iter = changelog.iterator();
+		
+		while(iter.hasNext()) {
+			Changelog a = iter.next();
+			if(a.getTyp()) {
+				if(a.getMitarbeiter().getVorname().equals(name)) {
+					suchErg.add(a);
+					
+				}
+			} else {
+				if(a.getKunde().getVorname().equals(name)) {
+					suchErg.add(a);
+				}
+			}
+		}
+		
+		if(suchErg.isEmpty()) {
+			throw new InvalidNameChangelogException();
+		} 
+		return suchErg;
+	}
 		
 }
 
