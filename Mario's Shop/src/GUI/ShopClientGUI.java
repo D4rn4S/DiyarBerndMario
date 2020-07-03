@@ -296,8 +296,11 @@ public class ShopClientGUI extends JFrame{
 			
 			JButton Anmelden = new JButton("Anmelden");
 			Anmelden.addActionListener(new ActionListener() {
+				
+			// funktion zum laden nächsten fenster "anmeldung" und schließt das alte fenster 
+				
 				public void actionPerformed(ActionEvent e) {
-					
+			
 					gibMenueAus.setVisible(false);
 					shopAnmeldung();
 						
@@ -306,12 +309,14 @@ public class ShopClientGUI extends JFrame{
 			Anmelden.setBounds(225, 165, 105, 23);
 			gibMenueAus.getContentPane().add(Anmelden);
 			
-			//button Kunde
+			
+			//button Registrierung
 			
 			JButton Registrieren = new JButton("Registrieren");
 			Registrieren.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					
+			// funktion zum schließen dess alten fensters und öffnet das registrierungsfenster 	
 					gibMenueAus.setVisible(false);
 					shopKundeRegistrierung(false);
 					
@@ -329,12 +334,13 @@ public class ShopClientGUI extends JFrame{
 	 * @param l ist die Liste die welche in die Tabelle gefüllt werden soll.
 	 */
 	// tabellen befüllen und aktualisieren
+	
 	public void updateTabelle(List<Artikel> l) {
 		DefaultTableModel TabelleBefüllen = (DefaultTableModel) tabelle.getModel(); //gibt an welche Tabelle befüllt werden soll.
-		TabelleBefüllen.setRowCount(0); //leert die aktuelle Tabelle
-        Object rowData[] = new Object[6]; //gibt an wie viele Spalten die Tabelle hat
-        for(int i = 0; i < l.size(); i++) //geht die Liste durch und speichert die Daten der Spalten
-        {
+		TabelleBefüllen.setRowCount(0); 	//leert die aktuelle Tabelle
+        Object rowData[] = new Object[6]; 	//gibt an wie viele Spalten die Tabelle hat
+        for(int i = 0; i < l.size(); i++){ 	//geht die Liste durch und speichert die Daten der Spalten
+        
             rowData[0] = l.get(i).getName();
             rowData[1] = l.get(i).getNummer();
             rowData[2] = l.get(i).getPreis();
@@ -353,12 +359,15 @@ public class ShopClientGUI extends JFrame{
 	 * Beschreibung: füllt die Tabelle für die Mitarbeiter im Benutzermanagement. Funktioniert genauso wie Update Tabelle
 	 * @param l gibt die Liste an welche in die Tabelle soll
 	 */
+	
+	// tabellen befüllen und aktualisieren
+	
 	public void updateBenutzerMitarbeiterTabelle(List<Mitarbeiter> l) {
 		DefaultTableModel TabelleBefüllen = (DefaultTableModel) tabelle3.getModel();
-		TabelleBefüllen.setRowCount(0); //leert die tabelle
-        Object rowData[] = new Object[7];
-        for(int i = 0; i < l.size(); i++)
-        {
+		TabelleBefüllen.setRowCount(0); 	//leert die tabelle
+        Object rowData[] = new Object[7]; 	//gibt an wie viele Spalten die Tabelle hat
+        for(int i = 0; i < l.size(); i++){	 //geht die Liste durch und speichert die Daten der Spalten
+        
             rowData[0] = l.get(i).getMitarbeiterNr();
             rowData[1] = l.get(i).getUsername();
             rowData[2] = l.get(i).getVorname();
@@ -375,12 +384,15 @@ public class ShopClientGUI extends JFrame{
 	 * Beschreibung: füllt die Tabelle für die Kunden im BenutzerManagement. Funktioniert genauso wie die UpdateTabelle.
 	 * @param l gibt die Lsite an, welche in die Tabelle soll.
 	 */
+	
+	// tabellen befüllen und aktualisieren
+	
 	public void updateBenutzerKundenTabelle(List<Kunde> l) {
 		DefaultTableModel TabelleBefüllen = (DefaultTableModel) tabelle2.getModel();
-		TabelleBefüllen.setRowCount(0); //leert die tabelle
-        Object rowData[] = new Object[7];
-        for(int i = 0; i < l.size(); i++)
-        {
+		TabelleBefüllen.setRowCount(0); 	//leert die tabelle
+        Object rowData[] = new Object[7]; 	//gibt an wie viele Spalten die Tabelle hat
+        for(int i = 0; i < l.size(); i++){ 	//geht die Liste durch und speichert die Daten der Spalten
+  
             rowData[0] = l.get(i).getKundenNr();
             rowData[1] = l.get(i).getUsername();
             rowData[2] = l.get(i).getVorname();
@@ -398,12 +410,16 @@ public class ShopClientGUI extends JFrame{
 	 * Beschreibung: fuellt die Tabelle für die Artikelliste im KundenMenue, funktioniert genauso wie die Update Tabelle
 	 * @param l gibt die Liste an, welche in die Tabelle soll.
 	 */
+	
+	// tabellen befüllen und aktualisieren
+	
 	public void updateKundenTabelle(List<Artikel> l) {
 		DefaultTableModel TabelleBefüllen = (DefaultTableModel) tabelle.getModel();
-		TabelleBefüllen.setRowCount(0);
-        Object rowData[] = new Object[5];
-        for(int i = 0; i < l.size(); i++)
-        {
+		TabelleBefüllen.setRowCount(0);		//leert die tabelle
+        Object rowData[] = new Object[5];	//gibt an wie viele Spalten die Tabelle hat
+        for(int i = 0; i < l.size(); i++){	//geht die Liste durch und speichert die Daten der Spalten
+        	  
+        	
             rowData[0] = l.get(i).getName();
             rowData[1] = l.get(i).getNummer();
             rowData[2] = l.get(i).getPreis();
@@ -422,16 +438,19 @@ public class ShopClientGUI extends JFrame{
 	 * Beschriebung: fuellt die Tabelle im Warenkorb vom Kunden.
 	 * @param l ist die Liste welche die Tabelle vom Warenkorb befüllen soll.
 	 */
+	
+	// tabellen befüllen und aktualisieren
+	
 	public void updateKundenWarenkorbTabelle(List<tempArtikel> l) {
 		double gesamtpreis;
 		double test = 0;
 		String testString = "";
 		
 		DefaultTableModel TabelleBefüllen = (DefaultTableModel) tabelle1.getModel();
-		TabelleBefüllen.setRowCount(0);
-        Object rowData[] = new Object[5];
-        for(int i = 0; i < l.size(); i++)
-        {
+		TabelleBefüllen.setRowCount(0);			//leert die tabelle
+        Object rowData[] = new Object[5];		//gibt an wie viele Spalten die Tabelle hat
+        for(int i = 0; i < l.size(); i++){		//geht die Liste durch und speichert die Daten der Spalten
+        	
             rowData[0] = l.get(i).getArtikel().getName();
             rowData[1] = l.get(i).getArtikel().getNummer();
             rowData[2] = l.get(i).getAnzahl();
@@ -451,6 +470,8 @@ public class ShopClientGUI extends JFrame{
 	 * Beschreibung: füllt die Liste in der Rechnung
 	 * @param l sit die Liste welche die Tabelle in der Rechnung befüllt
 	 */
+	
+	
 	public void updateKundenRechnungTabelle(List<tempArtikel> l) {
 		double gesamtpreis;
 		double test = 0;
@@ -715,7 +736,7 @@ public class ShopClientGUI extends JFrame{
 	 */
 	public void mitarbeiterMenue() {
 		
-		// mitarbeiter menue erstellt 
+		// mitarbeiter menue erstellt ( mit titel, fenstergröße, schließen des fenster, sowie layout festgesetzt ) 
 		
 		mitarbeiterMenue = new JFrame();
 		mitarbeiterMenue.setVisible(true);
@@ -730,7 +751,7 @@ public class ShopClientGUI extends JFrame{
 				Maintab.setBounds(0, 0, 668, 507);
 				mitarbeiterMenue.getContentPane().add(Maintab);
 				
-	/*-------------------------------------------------------------------------------------*/
+	/*---------------------------------------------------------------------------------------------------------------------------------------------------------*/
 				
 				 // lager tab erstellt
 				
@@ -768,6 +789,9 @@ public class ShopClientGUI extends JFrame{
 						return columnEditables[column];
 					}
 				});
+				
+				// setzt die größe der spalte des fensters mit den namen fest 
+				
 				tabelle.getColumnModel().getColumn(0).setPreferredWidth(45);
 				tabelle.getColumnModel().getColumn(1).setPreferredWidth(55);
 				tabelle.getColumnModel().getColumn(2).setPreferredWidth(40);
@@ -798,23 +822,33 @@ public class ShopClientGUI extends JFrame{
 						ArtikelHinzufuegenMenue.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 						ArtikelHinzufuegenMenue.getContentPane().setLayout(null);
 						
+						// erstellt label für artikel anlegen (größe , font etc..) 
+						
 						JLabel Artikelanlegen = new JLabel("Legen Sie ein neuen Artikel an!");
 						Artikelanlegen.setFont(new Font("Tahoma", Font.PLAIN, 14));
 						Artikelanlegen.setBounds(56, 11, 197, 31);
 						ArtikelHinzufuegenMenue.getContentPane().add(Artikelanlegen);
 						
+						// erstellt label Artikelname
+						
 						JLabel Artikelname = new JLabel("Artikelname :");
 						 Artikelname.setBounds(37, 64, 96, 14);
 						 ArtikelHinzufuegenMenue.getContentPane().add(Artikelname);
 						
+						 // erstell eine texteingabe für den artikelname
+						 
 						textArtikel= new JTextField(null);
 						textArtikel.setBounds(37, 89, 96, 20);
 						ArtikelHinzufuegenMenue.getContentPane().add(textArtikel);
 						textArtikel.setColumns(10);
 						
+						// erstellt label für die artikelnummer 
+						
 						JLabel lblArtikelnummer = new JLabel("Artikelnummer :");
 						lblArtikelnummer.setBounds(37, 120, 96, 14);
 						ArtikelHinzufuegenMenue.getContentPane().add(lblArtikelnummer);
+						
+						// erstellt die texteingabe für die artikelnummer 
 						
 						textNummer = new JTextField(null);
 						textNummer.setColumns(10);
@@ -822,20 +856,26 @@ public class ShopClientGUI extends JFrame{
 						ArtikelHinzufuegenMenue.getContentPane().add(textNummer);
 						
 						
+				        // erstellt label für den Preis
 						
 						JLabel Preis = new JLabel("Preis :");
 						Preis.setBounds(187, 64, 96, 14);
 						ArtikelHinzufuegenMenue.getContentPane().add(Preis);
+						
+						// erstellt die texteingabe für den Preis 
 						
 						textPreis = new JTextField(null);
 						textPreis.setColumns(10);
 						textPreis.setBounds(187, 89, 96, 20);
 						ArtikelHinzufuegenMenue.getContentPane().add(textPreis);
 						
+						 // erstellt den Label bestand 
 						
 						JLabel Bestand = new JLabel("Bestand");
 						Bestand.setBounds(187, 120, 96, 14);
 						ArtikelHinzufuegenMenue.getContentPane().add(Bestand);
+						
+						 // erstellt eine texteingabe für den bestand 
 						
 						textBestand = new JTextField(null);
 						textBestand.setColumns(10);
@@ -843,24 +883,34 @@ public class ShopClientGUI extends JFrame{
 						ArtikelHinzufuegenMenue.getContentPane().add(textBestand);
 						
 						
+						 // erstellt label für mindestbestand 
 						
 						JLabel Mindestbestand = new JLabel("Mindestbestand :");
 						Mindestbestand.setBounds(37, 176, 96, 14);
 						ArtikelHinzufuegenMenue.getContentPane().add(Mindestbestand);
+						
+						// erstellt texteingabe für mindestbestand 
 						
 						textMindestbestand = new JTextField(null);
 						textMindestbestand.setColumns(10);
 						textMindestbestand.setBounds(37, 201, 96, 20);
 						ArtikelHinzufuegenMenue.getContentPane().add(textMindestbestand);
 						
+						// erstellt label massengut
+						
 						JLabel Massengut = new JLabel("Massengut :");
 						Massengut.setBounds(37, 225, 96, 14);
 						ArtikelHinzufuegenMenue.getContentPane().add(Massengut);
+						
+						// erstellt texteingabe für massengut 
 						
 						textMassengut = new JTextField(null);
 						textMassengut.setColumns(10);
 						textMassengut.setBounds(37, 250, 96, 20);
 						ArtikelHinzufuegenMenue.getContentPane().add(textMassengut);
+						
+						
+						// falls man nicht alle felder ausgefüllt hat, kommt dieser label 
 						
 						falscherArtikel = new JLabel("Bitte füllen Sie alle Felder.");
 						falscherArtikel.setBounds(81, 282, 170, 14);
@@ -868,6 +918,7 @@ public class ShopClientGUI extends JFrame{
 						falscherArtikel.setFont(new Font("Tahoma", Font.PLAIN, 13));
 						ArtikelHinzufuegenMenue.getContentPane().add(falscherArtikel);
 					
+						// erstellt button hinzufügen + funktion zum hinzufügen der artikeln
 						
 						JButton Hinzufügen = new JButton("Hinzuf\u00FCgen");
 						Hinzufügen.addActionListener(new ActionListener() {
@@ -959,6 +1010,8 @@ public class ShopClientGUI extends JFrame{
 					
 					public void actionPerformed(ActionEvent e) {
 						
+						// erstellt neues fenster für  artikel löschen 
+						
 						ArtikelLoeschenMenue = new JFrame();
 						ArtikelLoeschenMenue.setTitle("Loeschen eines Artikels");
 						ArtikelLoeschenMenue.setVisible(true);
@@ -966,24 +1019,34 @@ public class ShopClientGUI extends JFrame{
 						ArtikelLoeschenMenue.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 						ArtikelLoeschenMenue.getContentPane().setLayout(null);
 						
+						// erstellt label für löschen eines Artikel 
+						
 						JLabel ArtikelLöschen = new JLabel("L\u00F6schen Sie ein Artikel!");
 						ArtikelLöschen.setFont(new Font("Tahoma", Font.PLAIN, 14));
 						ArtikelLöschen.setBounds(68, 11, 160, 31);
 						ArtikelLoeschenMenue.getContentPane().add(ArtikelLöschen);
+						
+						// ersstellt label für falsshe eingabe ( bleibt vorerst leer) 
 						
 						JLabel ANumNichtvergeben = new JLabel("  ");
 						ANumNichtvergeben.setForeground(Color.RED);
 						ANumNichtvergeben.setBounds(10, 186, 280, 14);
 						ArtikelLoeschenMenue.getContentPane().add(ANumNichtvergeben);
 						
+						// erstellt label für geben ssie eine artikle nummer ein 
+						
 						JLabel eingeben = new JLabel("Geben Sie die Artikelnummer des Artikels ein :");
 						eingeben.setBounds(10, 68, 282, 14);
 						ArtikelLoeschenMenue.getContentPane().add(eingeben);
+						
+						// text eingabe für die artikelnummer die man dort eingibt 
 						
 						textArtikelNummer = new JTextField();
 						textArtikelNummer.setBounds(107, 93, 54, 20);
 						ArtikelLoeschenMenue.getContentPane().add(textArtikelNummer);
 						textArtikelNummer.setColumns(10);
+						
+						// erstellt den button löschen, um artikel zu löschen 
 						
 						JButton Loeschen = new JButton("L\u00F6schen");
 						Loeschen.addActionListener(new ActionListener() {
@@ -1037,6 +1100,8 @@ public class ShopClientGUI extends JFrame{
 
 					public void actionPerformed(ActionEvent e) {
 						
+						// erstellt ein fensster artikel suchen 
+						
 						artikelScreach = new JFrame();
 						artikelScreach.setTitle("Artikel suchen");
 						artikelScreach.setVisible(true);
@@ -1044,24 +1109,34 @@ public class ShopClientGUI extends JFrame{
 						artikelScreach.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 						artikelScreach.getContentPane().setLayout(null);
 						
+						// erstellt ein label für welchen artikel man sucht 
+						
 						JLabel Artikelanlegen = new JLabel("Welchen Artikel Suchen Sie?");
 						Artikelanlegen.setFont(new Font("Tahoma", Font.PLAIN, 14));
 						Artikelanlegen.setBounds(50, 11, 193, 31);
 						artikelScreach.getContentPane().add(Artikelanlegen);
 						
+						// erstellt ein label für den namen des artikels
+						
 						JLabel Artikelname = new JLabel("Geben Sie den Artikelname des Artikels ein :");
 						Artikelname.setBounds(10, 68, 282, 14);
 						artikelScreach.getContentPane().add(Artikelname);
+						
+						// erstellt eine texteingabe, wo man den namen rein schreiben kann 
 						
 						textArtikel2 = new JTextField();
 						textArtikel2.setBounds(81, 93, 104, 20);
 						artikelScreach.getContentPane().add(textArtikel2);
 						textArtikel2.setColumns(10);
 						
+						// falls man ein falschen namen eingetragen hat( bleibt vorerst leer, in der funktion selber wirds gefüllt ) 
+						
 						JLabel FalscherArtikel = new JLabel("");
 						FalscherArtikel.setForeground(Color.RED);
 						FalscherArtikel.setBounds(26, 186, 240, 14);
 						artikelScreach.getContentPane().add(FalscherArtikel);
+						
+						// erstellt button suchen und eine funktion zum suchen eines artikels
 						
 						JButton Suchen = new JButton("Suchen");
 						Suchen.addActionListener(new ActionListener() {
@@ -1098,7 +1173,7 @@ public class ShopClientGUI extends JFrame{
 				
 				
 				
-				// erstellen button" Artikel anzeigen"
+				// erstellen button" Artikel anzeigen und funktion damit die tablle aktualisiert wird"
 				
 				JButton Anzeigen = new JButton("Artikel anzeigen");
 				Anzeigen.addActionListener(new ActionListener() {
@@ -1122,6 +1197,7 @@ public class ShopClientGUI extends JFrame{
 					
 					//Funktion zum öffnen eines neuen Fensters, um artikel zu sortieren zu können
 					public void actionPerformed(ActionEvent e) {
+						
 						updateTabelle(sortNummerArtikelliste(lager.gibAlleArtikel()));
 					}
 				});
@@ -1186,12 +1262,15 @@ public class ShopClientGUI extends JFrame{
 				textArtikel.setBounds(37, 41, 96, 20);
 				Raster.add(textArtikel);
 				
+				// erstellt label für falscher eingabe ( vorerst bleibt es leer) 
+				
 				JLabel FalscheArtNr = new JLabel(" ");
 				FalscheArtNr.setForeground(Color.RED);
 				FalscheArtNr.setBounds(7, 168, 170, 14);
 				Raster.add(FalscheArtNr);
 				
 				System.out.println(textArtikel.getText());
+				
 				// erstellt button " bestand aendern"
 				
 				JButton Bestandaendern = new JButton("Bestand \u00E4ndern");
@@ -1245,7 +1324,7 @@ public class ShopClientGUI extends JFrame{
 				
 				
 				
-				/*-------------------------------------------------------------------------------------*/
+				/*-------------------------------------------------------------------------------------------------------------------*/
 				
 				// erstellt tab changelog
 				
@@ -1264,7 +1343,7 @@ public class ShopClientGUI extends JFrame{
 				tabelle4 = new JTable();
 				tabelle4.setModel(new DefaultTableModel(
 					new Object[][] {
-					},
+					},															// erstellt mehrere arrays für die tabellen 
 					new String[] {
 						"Datum", "Nr", "Vorname", "Nachname", "Meldung"
 					}
@@ -1371,7 +1450,8 @@ public class ShopClientGUI extends JFrame{
 				});
 				btnNewButton_4.setBounds(500, 445, 133, 23);
 				panel_2.add(btnNewButton_4);
-				/*-------------------------------------------------------------------------------------*/
+				
+				/*----------------------------------------------------------------------------------------------------------------*/
 				
 				
 				JPanel 	Benutzermanagement = new JPanel();
@@ -1409,6 +1489,9 @@ public class ShopClientGUI extends JFrame{
 						return columnEditables[column];
 					}
 				});
+				
+				// setzt die größe der spalte des fensters mit den namen fest 
+				
 				tabelle2.getColumnModel().getColumn(0).setPreferredWidth(62);
 				tabelle2.getColumnModel().getColumn(1).setPreferredWidth(63);
 				tabelle2.getColumnModel().getColumn(2).setPreferredWidth(58);
@@ -1455,6 +1538,9 @@ public class ShopClientGUI extends JFrame{
 						return columnEditables[column];
 					}
 				});
+				
+				// setzt die größe der spalte des fensters mit den namen fest 
+				
 				tabelle3.getColumnModel().getColumn(1).setPreferredWidth(61);
 				tabelle3.getColumnModel().getColumn(2).setPreferredWidth(58);
 				tabelle3.getColumnModel().getColumn(3).setPreferredWidth(64);
@@ -1473,6 +1559,7 @@ public class ShopClientGUI extends JFrame{
 				mitarbeiterSuchen.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 					
+						// erstellt neue fenster für mitarbeiter suchen 
 						
 						mitarbeiterScreach = new JFrame();
 						mitarbeiterScreach.setTitle("Mitarbeiter suchen");
@@ -1481,24 +1568,33 @@ public class ShopClientGUI extends JFrame{
 						mitarbeiterScreach.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 						mitarbeiterScreach.getContentPane().setLayout(null);
 						
+						// erstellt label welchen mitarbeiter man sucht 
+						
 						JLabel mitarbeitersuche = new JLabel("Welchen Mitarbeiter suchen Sie?");
 						mitarbeitersuche.setFont(new Font("Tahoma", Font.PLAIN, 14));
 						mitarbeitersuche.setBounds(50, 11, 193, 31);
 						mitarbeiterScreach.getContentPane().add(mitarbeitersuche);
 						
+						// erstellt label, dass man eine mitarbeiterNr eingeben soll 
+						
 						JLabel mitarbeiterNr = new JLabel("Geben Sie die MitarbeiterNr ein :");
 						mitarbeiterNr.setBounds(50, 68, 282, 14);
 						mitarbeiterScreach.getContentPane().add(mitarbeiterNr);
+						
+						// erstellt eine texteingabe, wo man die mitarbeiterNr eintragen kann
 						
 						textMitarbeiterNr = new JTextField();
 						textMitarbeiterNr.setBounds(81, 93, 104, 20);
 						mitarbeiterScreach.getContentPane().add(textMitarbeiterNr);
 						textMitarbeiterNr.setColumns(10);
 						
+						// erstellt label bei falscher eingabge ( vorerst leer, in funktion wird sie gefüllt) 
 						JLabel FalscherArtikel = new JLabel("");
 						FalscherArtikel.setForeground(Color.RED);
 						FalscherArtikel.setBounds(26, 186, 240, 14);
 						mitarbeiterScreach.getContentPane().add(FalscherArtikel);
+						
+						// erstellt buton suchen + funktion zum suchen eines mitarbeiters 
 						
 						JButton suchen = new JButton("Suchen");
 						suchen.addActionListener(new ActionListener() {
@@ -1541,7 +1637,9 @@ public class ShopClientGUI extends JFrame{
 				JButton mitarbeiterLoeschen = new JButton("Mitarbeiter l\u00F6schen ");
 				mitarbeiterLoeschen.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-					
+						
+						// erstellt fenster für löschen einess mitarbeiters 
+						
 						mitaLoeschen = new JFrame();
 						mitaLoeschen.setTitle("Loeschen eines Mitarbeiter");
 						mitaLoeschen.setVisible(true);
@@ -1549,24 +1647,34 @@ public class ShopClientGUI extends JFrame{
 						mitaLoeschen.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 						mitaLoeschen.getContentPane().setLayout(null);
 						
+						// erstellt label mitarbeiter löschen 
+						
 						JLabel mitaLoesch = new JLabel("L\u00F6schen Sie ein Mitarbeiter!");
 						mitaLoesch.setFont(new Font("Tahoma", Font.PLAIN, 14));
 						mitaLoesch.setBounds(68, 11, 160, 31);
 						mitaLoeschen.getContentPane().add(mitaLoesch);
+						
+						// erstellt label was vorerst leer ist , bei falscher eingabe wird dies gefüllt 
 						
 						JLabel mitaNrNichtvergeben = new JLabel("  ");
 						mitaNrNichtvergeben.setForeground(Color.RED);
 						mitaNrNichtvergeben.setBounds(10, 186, 280, 14);
 						mitaLoeschen.getContentPane().add(mitaNrNichtvergeben);
 						
+						// erstellt label um den user aufzufordern eine MitarbeiterNr einzugeben 
+						
 						JLabel eingeben = new JLabel("Geben Sie die MitarbeiterNr des Mitarbeiter ein :");
 						eingeben.setBounds(10, 68, 282, 14);
 						mitaLoeschen.getContentPane().add(eingeben);
+						
+						// erstellt eine texteingabe, um die mitarbeiterNr eintragen zu können 
 						
 						textMitarbeiterNummer = new JTextField();
 						textMitarbeiterNummer.setBounds(107, 93, 54, 20);
 						mitaLoeschen.getContentPane().add(textMitarbeiterNummer);
 						textMitarbeiterNummer.setColumns(10);
+						
+						// erstellt button löschen + funktion zum löschen einess mitarbeiters 
 						
 						JButton Loeschen = new JButton("L\u00F6schen");
 						Loeschen.addActionListener(new ActionListener() {
@@ -1633,7 +1741,9 @@ public class ShopClientGUI extends JFrame{
 				JButton kundeSuchen = new JButton("Kunde suchen");
 				kundeSuchen.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-					
+					   
+						// erstellt ein neues fenster kunde suchen 
+						
 						artikelScreach1 = new JFrame();
 						artikelScreach1.setTitle("Kunden suchen");
 						artikelScreach1.setVisible(true);
@@ -1641,24 +1751,34 @@ public class ShopClientGUI extends JFrame{
 						artikelScreach1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 						artikelScreach1.getContentPane().setLayout(null);
 						
+						// erstellt label kunde suchen
+						
 						JLabel Artikelanlegen = new JLabel("Welchen Kunden suchen Sie?");
 						Artikelanlegen.setFont(new Font("Tahoma", Font.PLAIN, 14));
 						Artikelanlegen.setBounds(50, 11, 193, 31);
 						artikelScreach1.getContentPane().add(Artikelanlegen);
 						
+						// erstellt label kundenNr
+						
 						JLabel KundenNr = new JLabel("Geben Sie die KundenNr ein :");
 						KundenNr.setBounds(50, 68, 282, 14);
 						artikelScreach1.getContentPane().add(KundenNr);
+						
+						// erstellt texteingabe um kundenNr eintragen zu können 
 						
 						textKundeNr = new JTextField();
 						textKundeNr.setBounds(81, 93, 104, 20);
 						artikelScreach1.getContentPane().add(textKundeNr);
 						textKundeNr.setColumns(10);
 						
+						// erstellt label für falsche eingabe , vorerst leer 
+						
 						JLabel FalscherArtikel = new JLabel("");
 						FalscherArtikel.setForeground(Color.RED);
 						FalscherArtikel.setBounds(26, 186, 240, 14);
 						artikelScreach1.getContentPane().add(FalscherArtikel);
+						
+						// erstellt button suchen + funktion suchen 
 						
 						JButton suchen = new JButton("Suchen");
 						suchen.addActionListener(new ActionListener() {
@@ -1697,6 +1817,9 @@ public class ShopClientGUI extends JFrame{
 				JButton kundeLoeschen = new JButton("Kunde l\u00F6schen");
 				kundeLoeschen.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						
+						// erstellt eine neues fenster kunde löschen 
+						
 						kundLoeschen = new JFrame();
 						kundLoeschen.setTitle("Loeschen eines Kunden");
 						kundLoeschen.setVisible(true);
@@ -1704,24 +1827,34 @@ public class ShopClientGUI extends JFrame{
 						kundLoeschen.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 						kundLoeschen.getContentPane().setLayout(null);
 						
+						// erstellt label löschen 
+						
 						JLabel kundeLoeschArt = new JLabel("L\u00F6schen Sie ein Kunde!");
 						kundeLoeschArt.setFont(new Font("Tahoma", Font.PLAIN, 14));
 						kundeLoeschArt.setBounds(68, 11, 160, 31);
 						kundLoeschen.getContentPane().add(kundeLoeschArt);
+						
+						// erstellt label für falsche texteingabe, vorerst leer 
 						
 						JLabel kundNrNichtvergeben = new JLabel("  ");
 						kundNrNichtvergeben.setForeground(Color.RED);
 						kundNrNichtvergeben.setBounds(10, 186, 280, 14);
 						kundLoeschen.getContentPane().add(kundNrNichtvergeben);
 						
+						// erstellt label für kunden nr 
+						
 						JLabel eingeben = new JLabel("Geben Sie die KundenNr des Kunden ein :");
 						eingeben.setBounds(10, 68, 282, 14);
 						kundLoeschen.getContentPane().add(eingeben);
+						
+						// erssstellt eine texteingabe für die kundennummer 
 						
 						textKundenNummer = new JTextField();
 						textKundenNummer.setBounds(107, 93, 54, 20);
 						kundLoeschen.getContentPane().add(textKundenNummer);
 						textKundenNummer.setColumns(10);
+						
+						// erstellt button löschen + funktion zum löschen eines kunden
 						
 						JButton Loeschen = new JButton("L\u00F6schen");
 						Loeschen.addActionListener(new ActionListener() {
@@ -1849,357 +1982,13 @@ public class ShopClientGUI extends JFrame{
 				mitarbeiterMenue.getContentPane().add(Ausloggen);
 				
 				
-				
+				// erstellt ein heftiges label für die krassen creater xD 
 				
 				JLabel Creater = new JLabel("E-Shop creater : Mario Schulz, Bernd Henke, Dyar lol");
 				Creater.setBounds(40, 510, 442, 14);
 				mitarbeiterMenue.getContentPane().add(Creater);
 			}		
-	/*	
-		String input = "";
-		String aName = "";
-		String aNummer = "";
-		String aPreis = "";
-		String aBestand = "";
-		String aMindestbestand = "";
-		String mNummer = "";
-		String kNummer = "";
-		String aAnzahl = "";
-		int aAnz;
-		int kNum;
-		int mNum;
-		int aMin;
-		int aBes;
-		int aNum;
-		double aPre;
-		
-
-				
-		System.out.println("");
-		System.out.println("-----------------------------------------------");
-		System.out.println("1. Alle Artikel ausgeben: '1': ");
-		System.out.println("2. Einen Artikel löschen: '2': ");
-		System.out.println("3. Einen Artikel einfügen: '3': ");
-		System.out.println("4. Einen Artikel suchen: '4': ");
-		System.out.println("5. Artikel nach Namen Sortieren: '5': ");
-		System.out.println("6. Artikel nach Nummer Sortieren: '6': ");
-		System.out.println("7. Artikelliste sichern: '7': ");
-		System.out.println("8. Artikel zum Warenkorb hinzufügen: '8': ");
-		System.out.println("9. Artikel aus dem Warenkorb entfernen: '9': ");
-		System.out.println("10. Warenkorb leeren: '10': ");
-		System.out.println("11. Warenkorb anzeigen: '11': ");
-		System.out.println("12. Warenkorb kaufen: '12': ");
-		System.out.println("13. Changelog anzeigen: '13': ");
-		System.out.println("14. Neuen Mitarbeiter anlegen: '14': ");
-		System.out.println("15. Alle Mitarbeiter anzeigen: '15': ");
-		System.out.println("16. Einen Mitarbeiter löschen: '16': ");
-		System.out.println("17. Einen Mitarbeiter suchen: '17': ");
-		System.out.println("18. Einen Kunden anlegen: '18': ");
-		System.out.println("19. Einen Kunden löschen: '19': ");
-		System.out.println("20. Alle Kunden anzeigen: '20': ");
-		System.out.println("21. Einen Kunden suchen: '21': ");
-		System.out.println("22. Kundenliste sichern: '22': ");
-		System.out.println("23. Mitarbeiterliste sichern: '23': ");
-		System.out.println("24. Abmelden: '24': ");
-		System.out.println("25. ChangeLog ausgeben: '25': ");
-		System.out.println("26. ChangeLog speichern: '26': ");
-		System.out.println("-----------------------------------------------");
-		System.out.println("");
-		System.out.print(">>");
-		
-		input = liesEingabe();
-		switch(input) {
-		case "1": //artikel anzeigen
-			System.out.println("");
-			gibArtikellisteAus(aliste);
-			System.out.println("");
-			changelog.schreibeLog("Alle Artikel wurden Angezeigt");
-			mitarbeiterMenue();
-			break;
-		case "2": //artikel löschen
-			System.out.println("");
-			System.out.println("Bitte geben Sie die Artikelnummer des zu löschenden Artikels ein: ");
-			System.out.println("");
-			System.out.print(">>");
-			aNummer = liesEingabe();
-			aNum = Integer.parseInt(aNummer);
-			lager.loescheArtikel(aNum);
-			System.out.println("");
-			System.out.println("Der Artikel wurde erfolgreich gelöscht.");
-			changelog.schreibeLog("Der Artikel mit der Artikelnummer " + aNum + " wurde gelöscht");
-			System.out.println("");
-			mitarbeiterMenue();
-			break;
-		case "3": //Artikel einfgügen
-			System.out.println("");
-			System.out.println("Bitte geben Sie den Artikelnamen an: ");
-			System.out.println("");
-			System.out.print(">>");
-			aName = liesEingabe();
-			
-			System.out.println("");
-			System.out.println("Bitte geben Sie die Artikelnummer an: ");
-			System.out.println("");
-			System.out.print(">>");
-			aNummer = liesEingabe();
-			aNum = Integer.parseInt(aNummer);
-			
-			System.out.println("");
-			System.out.println("Bitte geben Sie den Artikelpreis an: ");
-			System.out.println("");
-			System.out.print(">>");
-			aPreis = liesEingabe();
-			aPre = Double.parseDouble(aPreis);
-			
-			System.out.println("");
-			System.out.println("Bitte geben Sie den Artikelbestand an: ");
-			System.out.println("");
-			System.out.print(">>");
-			aBestand = liesEingabe();
-			aBes = Integer.parseInt(aBestand);
-			
-			System.out.println("");
-			System.out.println("Bitte geben Sie den Artikelmidestbestand an: ");
-			System.out.println("");
-			System.out.print(">>");
-			aMindestbestand = liesEingabe();
-			aMin = Integer.parseInt(aMindestbestand);
-			
-			lager.fuegeArtikelEin(aName, aNum, aPre, aBes, aMin);
-			System.out.println("");
-			System.out.println("Der Artikel wurde erfolgreich angelegt.");
-			changelog.schreibeLog("Der Artikel - Name: " + aName + " | Nummer: " + aNum + " | Preis: " + aPre + " | Bestand: " + aBes + " wurde erstellt.");
-			System.out.println("");
-			mitarbeiterMenue();
-			break;
-		case "4": //Artikel suchen
-			System.out.println("");
-			System.out.println("Artikelname:    ");
-			aName = liesEingabe();
-			aliste = lager.sucheNachName(aName);
-			gibArtikellisteAus(aliste);
-			System.out.println("");
-			mitarbeiterMenue();
-			break;
-		case "5": //Artikel nach namen sortieren
-			sortNameArtikelliste(aliste);
-			System.out.println("");
-			mitarbeiterMenue();
-			break;
-		case "6": //Artikel nach Nummer sortieren
-			sortNummerArtikelliste(aliste);
-			System.out.println("");
-			mitarbeiterMenue();
-			break;
-		case "7": //Artikelliste sichern
-			try {
-				lager.schreibeArtikel();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			System.out.println("");
-			mitarbeiterMenue();
-			break;
-		case "8": //artikel den warenkorb hinzufügen
-			System.out.println("");
-			System.out.println("Bitte geben Sie die Artikelnummer des Artikels an: ");
-			System.out.println("");
-			System.out.print(">>");
-			aNummer = liesEingabe();
-			aNum = Integer.parseInt(aNummer);
-			
-			System.out.println("");
-			System.out.println("Bitte geben Sie die Anzahl der Artikel an: ");
-			System.out.println("");
-			System.out.print(">>");
-			aAnzahl = liesEingabe();
-			aAnz = Integer.parseInt(aAnzahl);
-			
-			System.out.println("");
-			warenkorb.addArtikel(aNum, aAnz);
-			System.out.println("Der Artikel wurde dem Warenkorb hinzugefügt.");
-			System.out.println("");
-			warenkorb.anzeigen();
-			System.out.println("");
-			mitarbeiterMenue();
-			break; 
-		case "9": //Artikel ausn Warenkorb nehmen
-			System.out.println("");
-			System.out.println("Bitte geben Sie die Artikelnummer des Artikels an: ");
-			System.out.println("");
-			System.out.print(">>");
-			aNummer = liesEingabe();
-			aNum = Integer.parseInt(aNummer);
-			
-			System.out.println("");
-			System.out.println("Bitte geben Sie die Anzahl der Artikel an: ");
-			System.out.println("");
-			System.out.print(">>");
-			aAnzahl = liesEingabe();
-			aAnz = Integer.parseInt(aAnzahl);
-			
-			System.out.println("");
-			warenkorb.delArtikel(aNum, aAnz);
-			System.out.println("Der Artikel wurde aus dem Warenkorb entfernt.");
-			System.out.println("");
-			warenkorb.anzeigen();
-			System.out.println("");
-			mitarbeiterMenue();
-			break;
-		case "10": // warenkorb leeren
-			System.out.println("");
-			System.out.println("Der Warenkorb wurde geleert.");
-			System.out.println("");
-			warenkorb.leeren();
-			mitarbeiterMenue();
-			break;
-		case "11": //Warenkorb anzeigen
-			System.out.println("");
-			warenkorb.anzeigen();
-			System.out.println("");
-			mitarbeiterMenue();
-			break;
-		case "12": //Warenkorb kaufen
-			System.out.println("");
-			warenkorb.kaufen();
-			System.out.println("");
-			mitarbeiterMenue();
-			break;
-		case "13": // Changelog anzeigen
-			break;
-		case "14": //neuen mitarbeiter anlegen
-			System.out.println("");
-			shopMitarbeiterRegistrierung();
-			System.out.println("");
-			mitarbeiterMenue();
-			break;
-		case "15": //alle Mitarbeiter anzeigen
-			System.out.println("");
-			gibMitarbeiterlisteAus(mliste);
-			System.out.println("");
-			mitarbeiterMenue();
-			break;
-		case "16": //Mitarbeiter löschen
-			System.out.println("");
-			System.out.println("Bitte geben Sie die Mitarbeiternummer des zu löschenden Mitarbeiters ein: ");
-			System.out.println("");
-			System.out.print(">>");
-			mNummer = liesEingabe();
-			mNum = Integer.parseInt(mNummer);
-			buero.loescheMitarbeiter(mNum);
-			System.out.println("");
-			System.out.println("Der Mitarbeiter wurde gelöscht.");
-			changelog.schreibeLog("Der Mitarbeiter mit der Mitarbeiternummer " + mNum + " wurde gelöscht");
-			System.out.println("");
-			mitarbeiterMenue();
-			break;
-		case "17": //Mitarbeiter suchen
-			System.out.println("");
-			System.out.println("Mitarbeitername:    ");
-			mNummer = liesEingabe();
-			mNum = Integer.parseInt(mNummer);
-			mliste = buero.sucheNachNummer(mNum);
-			gibMitarbeiterlisteAus(mliste);
-			System.out.println("");
-			mitarbeiterMenue();
-			break;
-		case "18": //neuen Kunden erstellen
-			System.out.println("");
-			shopKundeRegistrierung();
-			System.out.println("");
-			mitarbeiterMenue();
-			break;
-		case "19": //Kunden löschen
-			System.out.println("");
-			System.out.println("Bitte geben sie die Kundennummer des zu löschenden Kundens ein: ");
-			System.out.println("");
-			System.out.print(">>");
-			kNummer = liesEingabe();
-			kNum = Integer.parseInt(kNummer);
-			verkaufsstand.loescheKunde(kNum);
-			System.out.println("");
-			System.out.println("Der Kunde wurde erfolgreich gelöscht.");
-			changelog.schreibeLog("Der Kunde mit der Kundennummer " + kNum + " wurde gelöscht");
-			System.out.println("");
-			mitarbeiterMenue();
-			break;
-		case "20": //Alle Kunden anzeigen
-			System.out.println("");
-			gibKundenlisteAus(kliste);
-			System.out.println("");
-			mitarbeiterMenue();
-			break;
-		case "21": //Kunden suchen
-			System.out.println("");
-			System.out.println("Kundennummer:    ");
-			kNummer = liesEingabe();
-			kNum = Integer.parseInt(kNummer);
-			kliste = verkaufsstand.sucheNachNummer(kNum);
-			gibMitarbeiterlisteAus(mliste);
-			System.out.println("");
-			mitarbeiterMenue();
-			break;
-		case "22": //Kundenliste sichern
-			try {
-				verkaufsstand.schreibeKunden();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			System.out.println("");
-			System.out.println("Die Kundenliste wurde gesichert.");
-			changelog.schreibeLog("Die Kundenliste wurde gesichert");
-			System.out.println("");
-			mitarbeiterMenue();
-			break;
-		case "23": //Mitarbeiterliste sichern
-			try {
-				buero.schreibeMitarbeiter();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			System.out.println("");
-			System.out.println("Die Mitarbeiterliste wurde gesichert.");
-			changelog.schreibeLog("Die Mitarbeiterliste wurde gesichert");
-			System.out.println("");
-			mitarbeiterMenue();
-			break;
-		case "24": //logout
-			System.out.println("");
-			changelog.schreibeLog("Der Benutzer hat sich abgemeldet");
-			System.out.println("Sie werden jetzt Abgemeldet...");
-			System.out.println("");
-			shopAnmeldung();
-			break;
-		case "25": //changelog ausgeben
-			System.out.println("");
-			gibLogAus();
-			System.out.println("");
-			changelog.schreibeLog("Der Changelog wurde angezeigt...");
-			mitarbeiterMenue();
-			break;
-		case "26": //changelog speichern
-			System.out.println("");
-			try {
-				logmanager.schreibeDaten("Log");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			System.out.println("");
-			changelog.schreibeLog("Der Changelog wurde gespeichert...");
-			mitarbeiterMenue();
-			break;
-		default:
-			System.out.println("");
-			changelog.schreibeLog("Fehlerhafte eingabe im Mitarbeiter-Menue");
-			System.out.println("Fehlerhafte eingabe, bitte versuchen Sie es Erneut...");
-			System.out.println("");
-			mitarbeiterMenue();
-		}
-		    */
+	
 	
 	/*--------------------------------------------------------------------------------*/
 	
@@ -2210,6 +1999,7 @@ public class ShopClientGUI extends JFrame{
 	 */
 	public void kundenMenue() {
 		
+		// erstellt fenster für das kundenMenü
 		
 		kundenMenue = new JFrame();
 		kundenMenue.setVisible(true);
@@ -2228,15 +2018,15 @@ public class ShopClientGUI extends JFrame{
 		
 		 // tab sortiment erstellt
 		
-		JPanel LagerTab = new JPanel();
-		Maintab.addTab("Sortiment", null, LagerTab, null);
-		LagerTab.setLayout(null);
+		JPanel sortiment = new JPanel();
+		Maintab.addTab("Sortiment", null, sortiment, null);
+		sortiment.setLayout(null);
 		
 		// erstellt das Layout, wo die Tabelle entsteht
 		
 		JScrollPane Layout = new JScrollPane();
 		Layout.setBounds(270, 58, 390, 410);
-		LagerTab.add(Layout);
+		sortiment.add(Layout);
 		
 		// erstellt die Tabelle
 		tabelle = new JTable();
@@ -2262,6 +2052,9 @@ public class ShopClientGUI extends JFrame{
 				return columnEditables[column];
 			}
 		});
+		
+		// größe der spalten
+		
 		tabelle.getColumnModel().getColumn(0).setPreferredWidth(60);
 		tabelle.getColumnModel().getColumn(1).setPreferredWidth(55);
 		
@@ -2279,6 +2072,7 @@ public class ShopClientGUI extends JFrame{
 			
 			public void actionPerformed(ActionEvent e) {
 				
+				// erstellt neues fenster artike suchen 
 				artikelScreach = new JFrame();
 				artikelScreach.setTitle("Artikel suchen");
 				artikelScreach.setVisible(true);
@@ -2286,24 +2080,34 @@ public class ShopClientGUI extends JFrame{
 				artikelScreach.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				artikelScreach.getContentPane().setLayout(null);
 				
+				// erstellt label artikel suchen 
+				
 				JLabel Artikelanlegen = new JLabel("Welchen Artikel Suchen Sie?");
 				Artikelanlegen.setFont(new Font("Tahoma", Font.PLAIN, 14));
 				Artikelanlegen.setBounds(50, 11, 193, 31);
 				artikelScreach.getContentPane().add(Artikelanlegen);
 				
+				// erstellt label für den artikelname 
+				
 				JLabel Artikelname = new JLabel("Geben Sie den Artikelname des Artikels ein :");
 				Artikelname.setBounds(10, 68, 282, 14);
 				artikelScreach.getContentPane().add(Artikelname);
+				
+				// erstellt eine texteingabe, um den artikel namen eintippen zu können 
 				
 				textArtikel = new JTextField();
 				textArtikel.setBounds(81, 93, 104, 20);
 				artikelScreach.getContentPane().add(textArtikel);
 				textArtikel.setColumns(10);
 				
+				// erstellt label für falsche eingabe, vorerst leer in funktion wird gefüllt 
+				
 				JLabel FalscherArtikel = new JLabel("");
 				FalscherArtikel.setForeground(Color.RED);
 				FalscherArtikel.setBounds(26, 186, 240, 14);
 				artikelScreach.getContentPane().add(FalscherArtikel);
+				
+				// erstellt button suchen + funktion suchen eines artikels im sortiment 
 				
 				JButton Suchen = new JButton("Suchen");
 				Suchen.addActionListener(new ActionListener() {
@@ -2337,7 +2141,7 @@ public class ShopClientGUI extends JFrame{
 			
 		});
 		ArtikelSuchen.setBounds(513, 11, 126, 23);
-		LagerTab.add(ArtikelSuchen);
+		sortiment.add(ArtikelSuchen);
 		
 		
 		
@@ -2352,7 +2156,7 @@ public class ShopClientGUI extends JFrame{
 			}
 		});
 		ArtikelSoNum.setBounds(52, 417, 195, 23);
-		LagerTab.add(ArtikelSoNum);
+		sortiment.add(ArtikelSoNum);
 		
 		
 		
@@ -2368,7 +2172,7 @@ public class ShopClientGUI extends JFrame{
 			}
 		});
 		ArtikelSoNam.setBounds(51, 372, 196, 23);
-		LagerTab.add(ArtikelSoNam);
+		sortiment.add(ArtikelSoNam);
 		
 		// erstellt button " Artikel anzeigen" 
 		
@@ -2379,23 +2183,27 @@ public class ShopClientGUI extends JFrame{
 			}
 		});
 		btnArtikelAnzeigen.setBounds(319, 11, 153, 23);
-		LagerTab.add(btnArtikelAnzeigen);
+		sortiment.add(btnArtikelAnzeigen);
 		
-		// erstell layout um Artikel hinzufügen (Warenkorb) 
+		// erstell scrollPane (falls scrollbar) 
 		
 		JScrollPane Layout1 = new JScrollPane();
 		Layout1.setBounds(10, 58, 249, 291);
-		LagerTab.add(Layout1);
+		sortiment.add(Layout1);
 		
-		// erstell "Raster im layout, um buttons etc einfügen zu können
+		// erstell "Raster" bzw ein JPanel (layout) , um buttons etc einfügen zu können
 		
 		JPanel Raster = new JPanel();
 		Layout1.setViewportView(Raster);
 		Raster.setLayout(null);  
 		
+		// erstellt ein label bei falscher eingabe , vorerst leer 
+		
 		JLabel FalscherArt = new JLabel("  ");
 		FalscherArt.setBounds(65, 263, 170, 14);
 		Raster.add(FalscherArt);
+		
+		// erstellt ein Zähler, um die Anzahl x hoch klicken zu können 
 		
 		JSpinner spinnerAnzahl = new JSpinner();
         spinnerAnzahl.setBounds(86, 166, 67, 23);
@@ -2449,19 +2257,26 @@ public class ShopClientGUI extends JFrame{
 		ArtikelHinzufügen.setBounds(49, 229, 152, 23);
 		Raster.add(ArtikelHinzufügen);
 		
+		// erstellt label für anzahl 
+		
 		JLabel Anzahl = new JLabel("Anzahl :");
 		Anzahl.setBounds(76, 141, 113, 14);
 		Raster.add(Anzahl);
 		
+		// erstellt label für artikelnummer 
 		
 		JLabel ArtikelName = new JLabel("ArtikelNr:");
 		ArtikelName.setBounds(76, 74, 113, 14);
 		Raster.add(ArtikelName);
 		
+		// erstellt eine texteingabe um eine artikelNr eingeben zu können 
+		
 		textArtikelNr = new JTextField();
 		textArtikelNr.setColumns(10);
 		textArtikelNr.setBounds(76, 110, 96, 20);
 		Raster.add(textArtikelNr);
+		
+		// erstellt label für die überschrift 
 		
 		JLabel ueberschrift = new JLabel("Artikel zum Warenkorb hinzuf\u00FCgen");
 		ueberschrift.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -2471,7 +2286,7 @@ public class ShopClientGUI extends JFrame{
 
 		
 		
-		/*-------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------------------------------------*/
 		
 		// erstellt warenkorb tab
 		
@@ -2551,6 +2366,8 @@ public class ShopClientGUI extends JFrame{
 			
 			public void actionPerformed(ActionEvent e) {
 				
+				// erstellt neues fenster rechnung beim kaufen 
+				
 				Rechnung = new JFrame();
 				Rechnung.setVisible(true);
 				Rechnung.setTitle("Rechnung");
@@ -2558,10 +2375,13 @@ public class ShopClientGUI extends JFrame{
 				Rechnung.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				Rechnung.getContentPane().setLayout(null);
 				
+				// erstellt ein scrollpane , falls es scrollbar sein sollte ( rechnung zb sehr lang ) 
 				
 				JScrollPane scrollPane = new JScrollPane();
 				scrollPane.setBounds(70, 141, 526, 283);
 				Rechnung.getContentPane().add(scrollPane);
+				
+				// erstellt die tabelle 
 				
 				table = new JTable();
 				table.setModel(new DefaultTableModel(
@@ -2584,6 +2404,9 @@ public class ShopClientGUI extends JFrame{
 						return columnEditables[column];
 					}
 				});
+				
+				// größe der einzelnen componenten in der tabell
+				
 				table.getColumnModel().getColumn(0).setPreferredWidth(48);
 				table.getColumnModel().getColumn(1).setPreferredWidth(33);
 				table.getColumnModel().getColumn(2).setPreferredWidth(53);
@@ -2840,6 +2663,7 @@ public class ShopClientGUI extends JFrame{
 			
 			public void actionPerformed(ActionEvent e) {
 				
+				// erstellt ein neues fenster artikel suchen 
 				
 				artikelScreach = new JFrame();
 				artikelScreach.setVisible(true);
@@ -2848,24 +2672,34 @@ public class ShopClientGUI extends JFrame{
 				artikelScreach.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				artikelScreach.getContentPane().setLayout(null);
 				
+				// erstellt label artikel suchen 
+				
 				JLabel Artikelanlegen = new JLabel("Welchen Artikel Suchen Sie?");
 				Artikelanlegen.setFont(new Font("Tahoma", Font.PLAIN, 14));
 				Artikelanlegen.setBounds(50, 11, 193, 31);
 				artikelScreach.getContentPane().add(Artikelanlegen);
 				
+				// erstellt label artikelnamen eingeben 
+				
 				JLabel Artikelname = new JLabel("Geben Sie den Artikelname des Artikels ein :");
 				Artikelname.setBounds(10, 68, 282, 14);
 				artikelScreach.getContentPane().add(Artikelname);
+				
+				// erstellt texteingabe , um den namen des Artikel eintippen zu können 
 				
 				textArtikel = new JTextField();
 				textArtikel.setBounds(81, 93, 104, 20);
 				artikelScreach.getContentPane().add(textArtikel);
 				textArtikel.setColumns(10);
 				
+				// erstellt label bei falscher eingabe , vorerst leer 
+				
 				JLabel FalscherArtikel = new JLabel(" ");
 				FalscherArtikel.setForeground(Color.RED);
 				FalscherArtikel.setBounds(26, 186, 240, 14);
 				artikelScreach.getContentPane().add(FalscherArtikel);
+				
+				// erstellt button suchen + funktion zum suchen eines artikels 
 				
 				JButton Suchen = new JButton("Suchen");
 				Suchen.addActionListener(new ActionListener() {
@@ -2920,7 +2754,8 @@ public class ShopClientGUI extends JFrame{
 		Warenkorb.add(artikelAnzeigen);
 	
 		
-				
+		// erstellt button "ausloggen" + funktion ausloggen 
+		
 		JButton btnNewButton = new JButton("Ausloggen");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -2931,148 +2766,14 @@ public class ShopClientGUI extends JFrame{
 		btnNewButton.setBounds(549, 506, 119, 23);
 		kundenMenue.getContentPane().add(btnNewButton);
 		
+		// erstellt ein heftige label für die krassen creator des Projekts xDD 
+		
 		JLabel lblNewLabel = new JLabel("E-Shop creater : Mario Schulz, Bernd Henke, Dyar lol");
 		lblNewLabel.setBounds(40, 510, 442, 14);
 		kundenMenue.getContentPane().add(lblNewLabel);
 		
-	/*	String input = "";
-		String aName = "";
-		String aNummer ="";
-		int aNum;
-		String aAnzahl ="";
-		int aAnz;
-
-		List<Artikel> aliste;
-		aliste = lager.gibAlleArtikel();
-		
-		System.out.println("");
-		System.out.println("-----------------------------------------------");
-		System.out.println("1. Alle Artikel ausgeben: '1': ");
-		System.out.println("2. Einen Artikel suchen: '2': ");
-		System.out.println("3. Artikel nach Namen Sortieren: '3': ");
-		System.out.println("4. Artikel nach Nummer Sortieren: '4': ");
-		System.out.println("5. Artikel zum Warenkorb hinzufügen: '5': ");
-		System.out.println("6. Artikel aus dem Warenkorb entfernen: '6': ");
-		System.out.println("7. Warenkorb leeren: '7': ");
-		System.out.println("8. Warenkorb anzeigen: '8': ");
-		System.out.println("9. Warenkorb kaufen: '9': ");
-		System.out.println("10. Abmelden: '10': ");
-		System.out.println("-----------------------------------------------");
-		System.out.println("");
-		System.out.print(">>");
-		
-		input = liesEingabe();
-		switch(input) {
-		case "1": //alle artikel ausgeben
-			System.out.println("");
-			gibArtikellisteAus(aliste);
-			System.out.println("");
-			changelog.schreibeLog("Alle Artikel wurden Angezeigt");
-			kundenMenue();
-			break;
-		case "2": //einen Artikel suchen
-			System.out.println("");
-			System.out.println("Artikelname:    ");
-			aName = liesEingabe();
-			aliste = lager.sucheNachName(aName);
-			gibArtikellisteAus(aliste);
-			System.out.println("");
-			changelog.schreibeLog("Der Artikel " + aName + " wurde gesucht.");
-			kundenMenue();
-			break;
-		case "3": //Artikel nach Namen sortieren
-			sortNameArtikelliste(aliste);
-			System.out.println("");
-			changelog.schreibeLog("Der Kunde hat alle Artikel nach Namen sortiert.");
-			kundenMenue();
-			break;
-		case "4": //Artikel nach Nummer sortieren
-			sortNummerArtikelliste(aliste);
-			System.out.println("");
-			changelog.schreibeLog("Der Kunde hat alle Artikel nach Nummer sortiert.");
-			kundenMenue();
-			break;
-		case "5": //Artikel zum Warenkorb hinzufügen
-			System.out.println("");
-			System.out.println("Bitte geben Sie die Artikelnummer des Artikels an: ");
-			System.out.println("");
-			System.out.print(">>");
-			aNummer = liesEingabe();
-			aNum = Integer.parseInt(aNummer);
-			
-			System.out.println("");
-			System.out.println("Bitte geben Sie die Anzahl der Artikel an: ");
-			System.out.println("");
-			System.out.print(">>");
-			aAnzahl = liesEingabe();
-			aAnz = Integer.parseInt(aAnzahl);
-			
-			System.out.println("");
-			warenkorb.addArtikel(aNum, aAnz);
-			System.out.println("Der Artikel wurde dem Warenkorb hinzugefügt.");
-			System.out.println("");
-			warenkorb.anzeigen();
-			System.out.println("");
-			kundenMenue();
-			break;
-		case "6": //Artikel aus dem Warenkorb entfernen
-			System.out.println("");
-			System.out.println("Bitte geben Sie die Artikelnummer des Artikels an: ");
-			System.out.println("");
-			System.out.print(">>");
-			aNummer = liesEingabe();
-			aNum = Integer.parseInt(aNummer);
-			
-			System.out.println("");
-			System.out.println("Bitte geben Sie die Anzahl der Artikel an: ");
-			System.out.println("");
-			System.out.print(">>");
-			aAnzahl = liesEingabe();
-			aAnz = Integer.parseInt(aAnzahl);
-			
-			System.out.println("");
-			warenkorb.delArtikel(aNum, aAnz);
-			System.out.println("Der Artikel wurde aus dem Warenkorb entfernt.");
-			System.out.println("");
-			warenkorb.anzeigen();
-			System.out.println("");
-			kundenMenue();
-			break;
-		case "7": //Warenkorb leeren
-			System.out.println("");
-			System.out.println("Der Warenkorb wurde geleert.");
-			System.out.println("");
-			warenkorb.leeren();
-			System.out.println("");
-			kundenMenue();
-			break;
-		case "8": //Warenkorb anzeigen
-			System.out.println("");
-			warenkorb.anzeigen();
-			System.out.println("");
-			kundenMenue();
-			break;
-		case "9": //Warenkorb kaufen
-			System.out.println("");
-			warenkorb.kaufen();
-			System.out.println("");
-			kundenMenue();
-			break;
-		case "10": //Logout
-			System.out.println("Sie werden jetzt ausgeloggt..");
-			System.out.println("");
-			changelog.schreibeLog("Der Kunde hat sich abgemeldet.");
-			shopAnmeldung();
-			break;
-		
-		default:
-			System.out.println("");
-			System.out.println("Fehlerhafte eingabe, bitte versuchen sie es Erneut...");
-			changelog.schreibeLog("Es kam zu einer Fehlerhaften eingabe im Kunden-Menue.");
-			System.out.println("");
-			kundenMenue();
-		}  */
 	}                 
+	
 	
 	/**
 	 * verwendet von: gibMenueAus
@@ -3080,7 +2781,7 @@ public class ShopClientGUI extends JFrame{
 	 */
 	public void shopAnmeldung() {
 		
-				//Fenster erstellen
+				//Fenster e shop erstellen
 		
 				shopAnmeldung = new JFrame();
 				shopAnmeldung.setTitle("E-Shop");
@@ -3095,7 +2796,7 @@ public class ShopClientGUI extends JFrame{
 				lblNewLabel_1.setBounds(93, 88, 241, 14);
 				shopAnmeldung.getContentPane().add(lblNewLabel_1);
 				
-				//button Mitarbeiter
+				//button Mitarbeiter + funktion zum mitarbeiterfenster 
 				
 				JButton btnNewButton = new JButton("Mitarbeiter");
 				btnNewButton.addActionListener(new ActionListener() {
@@ -3111,7 +2812,7 @@ public class ShopClientGUI extends JFrame{
 				shopAnmeldung.getContentPane().add(btnNewButton);
 				
 				
-				//button Kunde
+				//button Kunde + funktion zum kundenfenster
 				
 				JButton btnNewButton_1 = new JButton("Kunde");
 				btnNewButton_1.addActionListener(new ActionListener() {
@@ -3135,6 +2836,8 @@ public class ShopClientGUI extends JFrame{
 	 * Beschriebung: Erzeugt die GUI in der Benutzername und Passwort vom Mitarbeiter eingetragen werden.
 	 */
 	public void shopAnmeldungMitarbeiter() {
+		
+		// erstellt neue fenster für mitarbeiter 
 		
 		shopAnmeldungMitarbeiter = new JFrame();
 		shopAnmeldungMitarbeiter.setTitle("Mitarbeiterfenster");
@@ -3216,6 +2919,8 @@ public class ShopClientGUI extends JFrame{
 	 * Beschriebung: erzeugt die GUI in der Benutzername und Passwort für einen Kunden eingetragen werden können.
 	 */
 	public void shopAnmeldungKunde() {
+		
+		// erstellt neues fennster für die kunden 
 		
 		shopAnmeldungKunde = new JFrame();
 		shopAnmeldungKunde.setTitle("Kundenfenster");

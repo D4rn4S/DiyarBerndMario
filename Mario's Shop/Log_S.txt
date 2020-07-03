@@ -295,3 +295,69 @@ CarlSeveringStraﬂe
 Falscher Name!bei der Suche im Changelog
 true
 03-07-2020 12:20:03
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraﬂe
+2
+hat sich angemeldet.
+true
+03-07-2020 03:52:04
+msc
+123
+Mario
+Schulz
+Bremen
+28329
+CarlSeveringStraﬂe
+1
+hat sich angemeldet.
+false
+03-07-2020 06:02:21
+msc
+123
+Mario
+Schulz
+Bremen
+28329
+CarlSeveringStraﬂe
+1
+hat sich angemeldet.
+false
+03-07-2020 06:03:27
+msc
+123
+Mario
+Schulz
+Bremen
+28329
+CarlSeveringStraﬂe
+1
+hat sich angemeldet.
+false
+03-07-2020 06:06:38
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraﬂe
+2
+hat sich angemeldet.
+true
+03-07-2020 06:20:54
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraﬂe
+2
+Der Artikel: 3 wurde um die Anzahl: 1 erhˆht
+true
+03-07-2020 06:21:07

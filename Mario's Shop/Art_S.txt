@@ -1,7 +1,7 @@
 FassBier
 3
 30.0
-31
+1
 1
 0
 Brause
