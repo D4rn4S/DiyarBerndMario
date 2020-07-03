@@ -375,7 +375,7 @@ public class ShopClientGUI extends JFrame{
             rowData[4] = l.get(i).getWohnort();
             rowData[5] = l.get(i).getPlz();
             rowData[6] = l.get(i).getStrasse();
-            TabelleBefüllen.addRow(rowData);
+            TabelleBefüllen.addRow(rowData); //befüllt eine Zeile mit allen spalten
         }
 	}
 	
@@ -400,7 +400,7 @@ public class ShopClientGUI extends JFrame{
             rowData[4] = l.get(i).getWohnort();
             rowData[5] = l.get(i).getPlz();
             rowData[6] = l.get(i).getStrasse();
-            TabelleBefüllen.addRow(rowData);
+            TabelleBefüllen.addRow(rowData); //befüllt eine Zeile mit allen spalten
         }
 	}
 	
@@ -428,7 +428,7 @@ public class ShopClientGUI extends JFrame{
             if(l.get(i).getBestand()<= l.get(i).getMindestbestand()) {
             	//TabelleBefüllen
             }
-            TabelleBefüllen.addRow(rowData);
+            TabelleBefüllen.addRow(rowData); // befüllt eine Zeile mit allen Spalten
         }
 	}
 	
@@ -458,10 +458,10 @@ public class ShopClientGUI extends JFrame{
             rowData[4] = l.get(i).getArtikel().getPreis() * l.get(i).getAnzahl();
             
             gesamtpreis = l.get(i).getArtikel().getPreis()* l.get(i).getAnzahl();
-            test = gesamtpreis + test;
+            test = gesamtpreis + test; //um den Gesamtpreis im Warenkorb zu berechenn
             testString = String.valueOf(test);
-            TabelleBefüllen.addRow(rowData);
-            gesamtPreisZahl.setText("  " + testString + " €");
+            TabelleBefüllen.addRow(rowData); //befüllt eine Zeile mit allen Spalten
+            gesamtPreisZahl.setText("  " + testString + " €"); //setzt in der GUI den Gesamtpreis ein
         }   
 	}
 	
@@ -923,7 +923,7 @@ public class ShopClientGUI extends JFrame{
 						JButton Hinzufügen = new JButton("Hinzuf\u00FCgen");
 						Hinzufügen.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
-								
+								//die Variablen für die Eingabefelder und das Auslesen der Eingabefelder in der GUI
 								String aName = "";
 								String aNummer = "";
 								String aPreis = "";
@@ -963,31 +963,31 @@ public class ShopClientGUI extends JFrame{
 								try {
 									for(Artikel a : lager.gibAlleArtikel()) { //geht alle Artikel durch
 										if(a.getNummer() == aNum) {	 //wenn Artikelnummer schon vorhanden ist 
-											falscherArtikel.setForeground(Color.RED);
-											falscherArtikel.setText("Die ArtikelNr existiert bereits!");
+											falscherArtikel.setForeground(Color.RED); //Rote farbe für die Fehlermeldung
+											falscherArtikel.setText("Die ArtikelNr existiert bereits!"); //die Fehlermeldung
 											logmanager.einfuegen(new Changelog(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), "Es wurde versucht ein bereits vorhandener Artikel einzufügen!", true));
-											textNummer.setText(null);
+											textNummer.setText(null); //leert das feld mit der Artikelnummer
 											throw new InvalidArtikelNummerException(); //dann wirf die Exception
 									    
 										} 	
 									}
 								}
-								catch (InvalidArtikelNummerException ex) {
+								catch (InvalidArtikelNummerException ex) { 
 									System.out.println(ex.getMessage()); //fängt die Exception und gibt sie in der Console aus 
 								}
 								
-								if(!textNummer.getText().isEmpty()) {
-									lager.fuegeArtikelEin(aName, aNum, aPre, aBe, aMb, aMas);
+								if(!textNummer.getText().isEmpty()) { //fals alle felder richtig befüllt sind 
+									lager.fuegeArtikelEin(aName, aNum, aPre, aBe, aMb, aMas); //füge neuen artikel dem lager hinzu
 									logmanager.einfuegen(new Changelog(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), "Der Artikel: " + aName + " wurd hinzugefügt.", true));
 									try {
-										lager.schreibeArtikel();
+										lager.schreibeArtikel(); //speichert den neuer Lagerbestand in der Txt datei
 									} catch (IOException e1) {
 										// TODO Auto-generated catch block
 										e1.printStackTrace();
 									}
 						
-									ArtikelHinzufuegenMenue.setVisible(false);
-									updateTabelle(lager.gibAlleArtikel());
+									ArtikelHinzufuegenMenue.setVisible(false); //schließt das Menu
+									updateTabelle(lager.gibAlleArtikel()); //updated die Tabelle für die Artikel
 								}
 							
 							}
@@ -1061,21 +1061,21 @@ public class ShopClientGUI extends JFrame{
 								
 								try { // try und catch ob die Artikelnummer richtig ist 
 									if(checkNumber(aNum)) { //fals ja lösche Artikel
-										lager.loescheArtikel(aNum);
+										lager.loescheArtikel(aNum); //löscht den Artikel aus dem Lager
 										logmanager.einfuegen(new Changelog(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), "Der Artikel mit der Nummer: " + aNum + " wurde gelöscht!", true));
-										ArtikelLoeschenMenue.setVisible(false);
-										updateTabelle(lager.gibAlleArtikel());
+										ArtikelLoeschenMenue.setVisible(false); //schließt das Lösch Fenster 
+										updateTabelle(lager.gibAlleArtikel()); //updated die Tabelel´der Artikel
 										try {
-											lager.schreibeArtikel();
+											lager.schreibeArtikel(); //speichert die Artikel in die TXT datei
 										} catch (IOException e1) {
 											e1.printStackTrace();
 										}
 									}
 								} catch(InvalidArtikelNummerException ex) { //falls nein fange die Exception und gib fehlermeldung
-									System.out.println(ex.getMessage());
-									ANumNichtvergeben.setText("Bitte geben Sie eine gültige Artikelnummer ein!");
-									logmanager.einfuegen(new Changelog(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), ex.getMessage(), true));
-									textArtikelNummer.setText(null);
+									System.out.println(ex.getMessage()); //gibt die Fehlermeldung in der Console aus 
+									ANumNichtvergeben.setText("Bitte geben Sie eine gültige Artikelnummer ein!"); //fehlermeldung falls die Artikelnummer falsch ist in der GUI
+									logmanager.einfuegen(new Changelog(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), ex.getMessage(), true)); //schriebt den Fehler im Changelog
+									textArtikelNummer.setText(null); //leert das Eingabefeld für die Artikelnummer
 								}
 								
 						
@@ -1148,13 +1148,13 @@ public class ShopClientGUI extends JFrame{
 								
 								try { //try und catch ob der Name richtig ist 
 									if(checkName(aName)) { //falls ja suche danach
-										updateTabelle(lager.sucheNachName(aName));
-										artikelScreach.setVisible(false);
+										updateTabelle(lager.sucheNachName(aName)); //updated die Tabelle mit dem Suchergebnis
+										artikelScreach.setVisible(false); //schließt das Fenster
 									}
 								} catch (InvalidArtikelNameException ex) { //falls nein fange die Exception und gib fehlermeldung
-									System.out.println(ex.getMessage());
-									FalscherArtikel.setText("Ungültiger Name!");
-									textArtikel2.setText(null);
+									System.out.println(ex.getMessage()); //gibt die Fehlermeldung in der Console aus 
+									FalscherArtikel.setText("Ungültiger Name!"); //fehlermeldung in der Gui
+									textArtikel2.setText(null); //leert  das Eingabefeld für den Artikelnamen
 									logmanager.einfuegen(new Changelog(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), ex.getMessage() + "bei der Suche", true));
 								}
 								
@@ -1179,7 +1179,7 @@ public class ShopClientGUI extends JFrame{
 				Anzeigen.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						
-						updateTabelle(lager.gibAlleArtikel());
+						updateTabelle(lager.gibAlleArtikel()); //updated die Tabelle in der Alle Artikel stehen (zeigt wieder alles an)
 						
 					}
 				});
@@ -1198,7 +1198,7 @@ public class ShopClientGUI extends JFrame{
 					//Funktion zum öffnen eines neuen Fensters, um artikel zu sortieren zu können
 					public void actionPerformed(ActionEvent e) {
 						
-						updateTabelle(sortNummerArtikelliste(lager.gibAlleArtikel()));
+						updateTabelle(sortNummerArtikelliste(lager.gibAlleArtikel())); //sortiert die Tabelle für die Artikel
 					}
 				});
 				ArtikelSoNum.setBounds(0, 419, 195, 23);
@@ -1216,7 +1216,7 @@ public class ShopClientGUI extends JFrame{
 					
 					public void actionPerformed(ActionEvent e) {
 						
-						updateTabelle(sortNameArtikelliste(lager.gibAlleArtikel()));
+						updateTabelle(sortNameArtikelliste(lager.gibAlleArtikel())); //sortiert die Tabelle für die Artikel
 					
 					}
 				});
@@ -1280,7 +1280,7 @@ public class ShopClientGUI extends JFrame{
 					
 					public void actionPerformed(ActionEvent e) {
 						
-						
+						//variablenn für die Bestandänderung und ausleben der Textfelder
 						String aNummer = "";
 						String aBestand ="";
 						int aBe;
@@ -1290,29 +1290,29 @@ public class ShopClientGUI extends JFrame{
 						System.out.println(textArtikel.getText());
 						aNum = Integer.parseInt(aNummer);
 						
-						aBe = (Integer)spinnerBestand.getValue();
+						aBe = (Integer)spinnerBestand.getValue(); //auslesen des Spinners
 						
 						
-						try {
-							if(checkNummerBestand(aNum, aBe)) {
-								FalscheArtNr.setText(null);
-								textArtikel.setText(null);
-								spinnerBestand.setValue((Integer)0);
-								updateTabelle(lager.gibAlleArtikel());
-								FalscheArtNr.setForeground(Color.black);
-								FalscheArtNr.setText("Bestand geändert!");
+						try { //versuche den Artikebestand zu verändern
+							if(checkNummerBestand(aNum, aBe)) { //falls die Eingbae richig war..
+								FalscheArtNr.setText(null); //Lösche die Fehlermeldung 
+								textArtikel.setText(null);  //leere die eingabefelder
+								spinnerBestand.setValue((Integer)0); //leere die Eingabefelder
+								updateTabelle(lager.gibAlleArtikel()); //update die Tabelle
+								FalscheArtNr.setForeground(Color.black); //farbe des Textfeldes auf schwarz
+								FalscheArtNr.setText("Bestand geändert!"); //melde die erfolgreiche änderung 
 								logmanager.einfuegen(new Changelog(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), "Der Artikel: " + aNum + " wurde um die Anzahl: " + aBe + " erhöht", true));
 								try {
-									lager.schreibeArtikel();
+									lager.schreibeArtikel(); //speichere den neuen Artikelbestand
 								} catch (IOException e1) {
 									e1.printStackTrace();
 								}
 							}
-						} catch (InvalidArtikelNummerException ex) {
-							FalscheArtNr.setForeground(Color.RED);
-							FalscheArtNr.setText("Fehlerhafte Artikelnummer!");
-							textArtikel.setText(null);
-							System.out.println(ex.getMessage());
+						} catch (InvalidArtikelNummerException ex) { //falls die Eingabe fehlerhaft war
+							FalscheArtNr.setForeground(Color.RED); //Text für die Meldung auf Rot
+							FalscheArtNr.setText("Fehlerhafte Artikelnummer!"); //fehlermeldung
+							textArtikel.setText(null); //leere eingabefeld für die Artikelnummer
+							System.out.println(ex.getMessage()); //gib die Fehlermeldung in der console aus
 							logmanager.einfuegen(new Changelog(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), ex.getMessage() + "beim Bestand erhöhen", true));
 						}
 						
@@ -1402,19 +1402,19 @@ public class ShopClientGUI extends JFrame{
 						Suchen.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
 								
-								
+								//variable und eingabe auslesen
 								String lName = "";
 								
 								lName = textName2.getText();
 								
 								try { //try und catch ob der Name richtig ist 
 										
-										updateChangelogTabelle(logmanager.suchChangeloglName(lName));
-										nameScreach.setVisible(false);
+										updateChangelogTabelle(logmanager.suchChangeloglName(lName)); //falls richtig update die Tabelle mit dem Suchergebnis
+										nameScreach.setVisible(false); //fehlermeldung löschen
 								} catch (InvalidNameChangelogException ex) { //falls nein fange die Exception und gib fehlermeldung
-									System.out.println(ex.getMessage());
-									FalscherName.setText("Ungültiger Name!");
-									textName2.setText(null);
+									System.out.println(ex.getMessage()); //fehlermeldung in console ausgeben
+									FalscherName.setText("Ungültiger Name!"); //fehlermeldung in gui
+									textName2.setText(null); //eingabefeld leeren
 									logmanager.einfuegen(new Changelog(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), ex.getMessage() + "bei der Suche im Changelog", true));
 								}
 								
@@ -1605,15 +1605,15 @@ public class ShopClientGUI extends JFrame{
 								mNummer = textMitarbeiterNr.getText();
 								mNum = Integer.parseInt(mNummer);
 								
-								try {
-									if(checkNummerMitarbeiter(mNum)) {
-										updateBenutzerMitarbeiterTabelle(buero.sucheNachNummer(mNum));
-										mitarbeiterScreach.setVisible(false);
+								try { //versuche einen mitarbeiter zu suchen
+									if(checkNummerMitarbeiter(mNum)) { //falls es klappt
+										updateBenutzerMitarbeiterTabelle(buero.sucheNachNummer(mNum)); //tabelle mit dem Suchergebnis aktualisieren
+										mitarbeiterScreach.setVisible(false); //fenster schließen
 									}
-								} catch (InvalidMitarbeiterNummerException ex) {
-									FalscherArtikel.setText("Ungültige Nr!");
-									textArtikel.setText(null);
-									System.out.println(ex.getMessage());
+								} catch (InvalidMitarbeiterNummerException ex) { //falls es nicht klappt fange fehlermeldung
+									FalscherArtikel.setText("Ungültige Nr!"); //fehlermeldung in gui
+									textArtikel.setText(null); //leere eingabefelder
+									System.out.println(ex.getMessage()); //fehlermeldung in console
 									logmanager.einfuegen(new Changelog(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), "Fehler bei der Suche! " +  ex.getMessage(), true));
 								}
 								
@@ -1687,23 +1687,23 @@ public class ShopClientGUI extends JFrame{
 								System.out.println(mNummer);
 								mNum = Integer.parseInt(mNummer);
 								
-								try {
-									if(checkNummerMitarbeiter(mNum)) {
-										buero.loescheMitarbeiter(mNum);
-										mitaLoeschen.setVisible(false);
-										updateBenutzerMitarbeiterTabelle(buero.gibAlleMitarbeiter());
+								try { //versuche einen mitarbeiter zu löschen
+									if(checkNummerMitarbeiter(mNum)) { //falls die eingabe richtig war
+										buero.loescheMitarbeiter(mNum); //lösche mitarbeiter
+										mitaLoeschen.setVisible(false); //schließe fenster
+										updateBenutzerMitarbeiterTabelle(buero.gibAlleMitarbeiter()); //update die Tabelle
 										logmanager.einfuegen(new Changelog(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), "Der Mitarbeiter mit der Nummer: " + mNum + " wurde gelöscht.", true));
 										try {
-											buero.schreibeMitarbeiter();
+											buero.schreibeMitarbeiter(); //speichere die Mitarbeiter in die txt datei
 										} catch (IOException e1) {
 											e1.printStackTrace();
 										}
 									}
-								} catch (InvalidMitarbeiterNummerException ex) {
-									System.out.println(ex.getMessage());
-									mitaNrNichtvergeben.setText("Bitte geben Sie eine gültige Mitarbeiternummer ein!");
+								} catch (InvalidMitarbeiterNummerException ex) { //falls nicht fange fehler
+									System.out.println(ex.getMessage()); //fehlermeldung in console
+									mitaNrNichtvergeben.setText("Bitte geben Sie eine gültige Mitarbeiternummer ein!"); //fehlermeldung in gui
 									logmanager.einfuegen(new Changelog(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), "Fehlerhafte Mitarbeiternummer beim löschen!", true));
-									textMitarbeiterNummer.setText(null);
+									textMitarbeiterNummer.setText(null); //eingaefeld leeren
 								}
 								
 								
@@ -1790,14 +1790,14 @@ public class ShopClientGUI extends JFrame{
 								kNum = Integer.parseInt(kNummer);
 								
 								try {
-									if(checkNummerKunde(kNum)) {
-										updateBenutzerKundenTabelle(verkaufsstand.sucheNachNummer(kNum));
-										artikelScreach1.setVisible(false);
+									if(checkNummerKunde(kNum)) { //überprüfe die eingabe
+										updateBenutzerKundenTabelle(verkaufsstand.sucheNachNummer(kNum)); //fals richti gwar update die tabelle
+										artikelScreach1.setVisible(false); // schließe suchfenster
 									}
-								} catch(InvalidKundenNummerException ex) {
-									FalscherArtikel.setText("Ungültige Nr!");
-									textKundeNr.setText(null);
-									System.out.println(ex.getMessage());
+								} catch(InvalidKundenNummerException ex) { //fange die fehlermeldung
+									FalscherArtikel.setText("Ungültige Nr!"); //fehlermeldung in GUI
+									textKundeNr.setText(null); //leere eingabefeld
+									System.out.println(ex.getMessage()); //fehlermeldung in console
 								}
 								
 							}
@@ -1867,44 +1867,25 @@ public class ShopClientGUI extends JFrame{
 								System.out.println(kNummer);
 								kNum = Integer.parseInt(kNummer);
 								
-								try {
-									if(checkNummerKunde(kNum)) {
-										verkaufsstand.loescheKunde(kNum);
-										kundLoeschen.setVisible(false);
+								try { //versuche einen kunden zu löschen
+									if(checkNummerKunde(kNum)) { //überprüfe die eingabe
+										verkaufsstand.loescheKunde(kNum); //lösche kunden
+										kundLoeschen.setVisible(false); // schließe fenster
 										logmanager.einfuegen(new Changelog(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), "Der Kunde mit der Nummer: " + kNum +" wurde gelöscht", true));
-										updateBenutzerKundenTabelle(verkaufsstand.gibAlleKunden());
+										updateBenutzerKundenTabelle(verkaufsstand.gibAlleKunden()); //update tabelle
 										try {
-											verkaufsstand.schreibeKunden();
+											verkaufsstand.schreibeKunden(); //speiuchere kunden in die txt datei
 										} catch (IOException e1) {
 											e1.printStackTrace();
 										}
 									}
-								} catch(InvalidKundenNummerException ex) {
-									System.out.println(ex.getMessage());
+								} catch(InvalidKundenNummerException ex) { //fange die fehlermeldung
+									System.out.println(ex.getMessage()); //fehlermeldung in console
 									logmanager.einfuegen(new Changelog(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), "Fehler beim löschen eines Kunden", true));
-									kundNrNichtvergeben.setText("Bitte geben Sie eine gültige Kundennummer ein!");
-									textKundenNummer.setText(null);
+									kundNrNichtvergeben.setText("Bitte geben Sie eine gültige Kundennummer ein!"); //fehlermeldung in gui
+									textKundenNummer.setText(null); //leere eingabefelder
 								}
 								
-								/*
-								for(Kunde k : verkaufsstand.gibAlleKunden()) {
-									if(k.getKundenNr() == kNum) {	
-										verkaufsstand.loescheKunde(kNum);
-										kundLoeschen.setVisible(false);
-										updateBenutzerKundenTabelle(verkaufsstand.gibAlleKunden());
-										changelog.schreibeLog("Der Kunde mit der Nummer: " + kNum +" wurde gelöscht.");
-										try {
-											verkaufsstand.schreibeKunden();
-										} catch (IOException e1) {
-											e1.printStackTrace();
-										}
-									} else {
-										kundNrNichtvergeben.setText("Bitte geben Sie eine gültige Kundennummer ein!");
-										textKundenNummer.setText(null);
-									}
-								} */
-								
-						
 							}
 						});
 						Loeschen.setBounds(81, 143, 104, 32);
@@ -1973,8 +1954,8 @@ public class ShopClientGUI extends JFrame{
 				JButton Ausloggen = new JButton("Ausloggen");
 				Ausloggen.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						gibMenueAus();
-						mitarbeiterMenue.setVisible(false);
+						gibMenueAus(); //gibt das startmenue aus
+						mitarbeiterMenue.setVisible(false); //ausloggen
 						
 					}
 				});
