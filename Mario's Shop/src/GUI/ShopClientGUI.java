@@ -3101,7 +3101,7 @@ public class ShopClientGUI extends JFrame{
 		
 		FalscheKundenNr = new JLabel("      ");
 		FalscheKundenNr.setForeground(Color.RED);
-		FalscheKundenNr.setBounds(232, 279, 180, 14);
+		FalscheKundenNr.setBounds(215, 279, 180, 14);
 		shopKundeRegistrierung.getContentPane().add(FalscheKundenNr);  
 		
 		// erstellt ein Hintergrund Balken (Rechteck layout)
@@ -3166,7 +3166,7 @@ public class ShopClientGUI extends JFrame{
 				kundenNr = Integer.parseInt(kundenNummer);
 			
 				
-				if(!textKundeNr.getText().isEmpty()) {
+				if(!textBenutzername.getText().isEmpty()) {
 					verkaufsstand.fuegeKundeEin(username, passwort, vorname, nachname, wohnort, PLZ, strasse, kundenNr);
 					try {
 						verkaufsstand.schreibeKunden();
@@ -3183,7 +3183,9 @@ public class ShopClientGUI extends JFrame{
 						logmanager.einfuegen(new Changelog(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), "Der Kunde: "+ username + " | " + kundenNr + " wurde angelegt.", true));
 					}
 					
-				} 
+				} else {
+					FalscheKundenNr.setText("Bitte füllen Sie alle Felder!");
+				}
 			}
 
 			
@@ -3296,7 +3298,7 @@ public class ShopClientGUI extends JFrame{
 		textPasswort.setBounds(24, 272, 115, 20);
 		shopMitarbeiterRegistrierung.getContentPane().add(textPasswort);
 		
-		// erstellt KundenNrtext + eingabetext
+		// erstellt MitarbeiterNrtext + eingabetext
 		
 		JLabel KundeNr = new JLabel("MitarbeiterNr :");
 		KundeNr.setBounds(232, 219, 121, 14);
@@ -3308,11 +3310,11 @@ public class ShopClientGUI extends JFrame{
 		textMitarbeiterNr.setBounds(264, 248, 43, 20);
 		shopMitarbeiterRegistrierung.getContentPane().add(textMitarbeiterNr);
 		
-		//  bei bereits existernder KundenNr!
+		//  bei bereits existernder MitarbeiterNr!
 		
 		FalscheMitarbeiterNr = new JLabel("      ");
 		FalscheMitarbeiterNr.setForeground(Color.RED);
-		FalscheMitarbeiterNr.setBounds(232, 279, 180, 14);
+		FalscheMitarbeiterNr.setBounds(215, 279, 180, 14);
 		shopMitarbeiterRegistrierung.getContentPane().add(FalscheMitarbeiterNr);  
 		
 		// erstellt ein Hintergrund Balken (Rechteck layout)
@@ -3377,7 +3379,7 @@ public class ShopClientGUI extends JFrame{
 				mitarbeiterNr = Integer.parseInt(mitarbeiterNummer);
 				
 				
-				if(!textMitarbeiterNr.getText().isEmpty()) {
+				if(!textBenutzername.getText().isEmpty()) {
 					buero.fuegeMitarbeiterEin(username, passwort, vorname, nachname, wohnort, PLZ, strasse, mitarbeiterNr);
 					try {
 						buero.schreibeMitarbeiter();
@@ -3393,6 +3395,8 @@ public class ShopClientGUI extends JFrame{
 						
 					}
 					
+				} else {
+					FalscheMitarbeiterNr.setText("Bitte füllen sie alle Felder aus!");
 				}
 			}
 
