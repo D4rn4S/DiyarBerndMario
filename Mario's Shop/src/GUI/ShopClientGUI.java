@@ -3055,12 +3055,6 @@ public class ShopClientGUI extends JFrame{
 		textplz.setBounds(296, 63, 57, 20);
 		shopKundeRegistrierung.getContentPane().add(textplz);
 		
-	
-		// erstellt ein Hintergrund Balken (Rechteck layout)
-		
-		JPanel LayoutRechteck = new JPanel();
-		LayoutRechteck.setBounds(10, 20, 364, 140);
-		shopKundeRegistrierung.getContentPane().add(LayoutRechteck);
 		
 		// erstellt Benutzernametext + eingabetext
 		
@@ -3087,7 +3081,7 @@ public class ShopClientGUI extends JFrame{
 		// erstellt KundenNrtext + eingabetext
 		
 		JLabel KundeNr = new JLabel("KundenNr :");
-		KundeNr.setBounds(232, 219, 121, 14);
+		KundeNr.setBounds(250, 219, 121, 14);
 		shopKundeRegistrierung.getContentPane().add(KundeNr);
 		
 		textKundeNr = new JTextField(""+newNumberKunde(verkaufsstand.gibAlleKunden()));
@@ -3104,11 +3098,6 @@ public class ShopClientGUI extends JFrame{
 		FalscheKundenNr.setBounds(215, 279, 180, 14);
 		shopKundeRegistrierung.getContentPane().add(FalscheKundenNr);  
 		
-		// erstellt ein Hintergrund Balken (Rechteck layout)
-		
-		JProgressBar progressBar_1 = new JProgressBar();
-		progressBar_1.setBounds(10, 180, 364, 129);
-		shopKundeRegistrierung.getContentPane().add(progressBar_1);
 		
 		//Erstellt Button
 		
@@ -3270,11 +3259,6 @@ public class ShopClientGUI extends JFrame{
 		shopMitarbeiterRegistrierung.getContentPane().add(textplz);
 		
 	
-		// erstellt ein Hintergrund Balken (Rechteck layout)
-		
-		JPanel layoutRechteck = new JPanel();
-		layoutRechteck.setBounds(10, 20, 364, 140);
-		shopMitarbeiterRegistrierung.getContentPane().add(layoutRechteck);
 		
 		// erstellt Benutzernametext + eingabetext
 		
@@ -3317,11 +3301,6 @@ public class ShopClientGUI extends JFrame{
 		FalscheMitarbeiterNr.setBounds(215, 279, 180, 14);
 		shopMitarbeiterRegistrierung.getContentPane().add(FalscheMitarbeiterNr);  
 		
-		// erstellt ein Hintergrund Balken (Rechteck layout)
-		
-		JProgressBar progressBar_1 = new JProgressBar();
-		progressBar_1.setBounds(10, 180, 364, 129);
-		shopMitarbeiterRegistrierung.getContentPane().add(progressBar_1);
 		
 		//Erstellt Button
 		
