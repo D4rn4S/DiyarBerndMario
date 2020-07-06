@@ -121,6 +121,7 @@ public class ShopClientGUI extends JFrame{
 	private JTextField textArtikelNr1;
 	private JTextField textAnzahl1;
 	private JTextField textMassengut;
+	private JTextField textArtikel5;
 	private JPasswordField textPasswort;
 	private JTextField textKundeNr;
 	private JTextField textMitarbeiterNr;
@@ -886,7 +887,7 @@ public class ShopClientGUI extends JFrame{
 						 // erstellt label für mindestbestand 
 						
 						JLabel Mindestbestand = new JLabel("Mindestbestand :");
-						Mindestbestand.setBounds(37, 176, 96, 14);
+						Mindestbestand.setBounds(37, 176, 110, 14);
 						ArtikelHinzufuegenMenue.getContentPane().add(Mindestbestand);
 						
 						// erstellt texteingabe für mindestbestand 
@@ -1133,7 +1134,7 @@ public class ShopClientGUI extends JFrame{
 						
 						JLabel FalscherArtikel = new JLabel("");
 						FalscherArtikel.setForeground(Color.RED);
-						FalscherArtikel.setBounds(26, 186, 240, 14);
+						FalscherArtikel.setBounds(80, 186, 240, 14);
 						artikelScreach.getContentPane().add(FalscherArtikel);
 						
 						// erstellt button suchen und eine funktion zum suchen eines artikels
@@ -1257,10 +1258,10 @@ public class ShopClientGUI extends JFrame{
 				
 				//erstellt eine Texteingabe zum schreiben für ArtikelNummer
 				
-				textArtikel = new JTextField();
-				textArtikel.setColumns(10);
-				textArtikel.setBounds(37, 41, 96, 20);
-				Raster.add(textArtikel);
+				textArtikel5 = new JTextField();
+				textArtikel5.setColumns(10);
+				textArtikel5.setBounds(37, 41, 96, 20);
+				Raster.add(textArtikel5);
 				
 				// erstellt label für falscher eingabe ( vorerst bleibt es leer) 
 				
@@ -1269,7 +1270,7 @@ public class ShopClientGUI extends JFrame{
 				FalscheArtNr.setBounds(7, 168, 170, 14);
 				Raster.add(FalscheArtNr);
 				
-				System.out.println(textArtikel.getText());
+				System.out.println(textArtikel5.getText());
 				
 				// erstellt button " bestand aendern"
 				
@@ -1285,9 +1286,9 @@ public class ShopClientGUI extends JFrame{
 						String aBestand ="";
 						int aBe;
 						int aNum;
-						System.out.println(textArtikel.getText());
-						aNummer = textArtikel.getText();
-						System.out.println(textArtikel.getText());
+						System.out.println(textArtikel5.getText());
+						aNummer = textArtikel5.getText();
+						System.out.println(textArtikel5.getText());
 						aNum = Integer.parseInt(aNummer);
 						
 						aBe = (Integer)spinnerBestand.getValue(); //auslesen des Spinners
@@ -1395,7 +1396,7 @@ public class ShopClientGUI extends JFrame{
 						
 						JLabel FalscherName = new JLabel("");
 						FalscherName.setForeground(Color.RED);
-						FalscherName.setBounds(26, 186, 240, 14);
+						FalscherName.setBounds(80, 186, 240, 14);
 						nameScreach.getContentPane().add(FalscherName);
 						
 						JButton Suchen = new JButton("Suchen");
@@ -1591,7 +1592,7 @@ public class ShopClientGUI extends JFrame{
 						// erstellt label bei falscher eingabge ( vorerst leer, in funktion wird sie gefüllt) 
 						JLabel FalscherArtikel = new JLabel("");
 						FalscherArtikel.setForeground(Color.RED);
-						FalscherArtikel.setBounds(26, 186, 240, 14);
+						FalscherArtikel.setBounds(80, 186, 240, 14);
 						mitarbeiterScreach.getContentPane().add(FalscherArtikel);
 						
 						// erstellt buton suchen + funktion zum suchen eines mitarbeiters 
@@ -1775,7 +1776,7 @@ public class ShopClientGUI extends JFrame{
 						
 						JLabel FalscherArtikel = new JLabel("");
 						FalscherArtikel.setForeground(Color.RED);
-						FalscherArtikel.setBounds(26, 186, 240, 14);
+						FalscherArtikel.setBounds(80, 186, 240, 14);
 						artikelScreach1.getContentPane().add(FalscherArtikel);
 						
 						// erstellt button suchen + funktion suchen 
@@ -1965,7 +1966,7 @@ public class ShopClientGUI extends JFrame{
 				
 				// erstellt ein heftiges label für die krassen creater xD 
 				
-				JLabel Creater = new JLabel("E-Shop creater : Mario Schulz, Bernd Henke, Dyar lol");
+				JLabel Creater = new JLabel("E-Shop creater : Mario Schulz, Bernd Henke, Diyar Aydin");
 				Creater.setBounds(40, 510, 442, 14);
 				mitarbeiterMenue.getContentPane().add(Creater);
 			}		
@@ -2085,7 +2086,7 @@ public class ShopClientGUI extends JFrame{
 				
 				JLabel FalscherArtikel = new JLabel("");
 				FalscherArtikel.setForeground(Color.RED);
-				FalscherArtikel.setBounds(26, 186, 240, 14);
+				FalscherArtikel.setBounds(20, 186, 260, 14);
 				artikelScreach.getContentPane().add(FalscherArtikel);
 				
 				// erstellt button suchen + funktion suchen eines artikels im sortiment 
@@ -2599,7 +2600,7 @@ public class ShopClientGUI extends JFrame{
 		
 		falscheEingabe = new JLabel("  ");
 		falscheEingabe.setForeground(Color.RED);
-		falscheEingabe.setBounds(475, 404, 141, 14);
+		falscheEingabe.setBounds(460, 404, 141, 14);
 		Warenkorb.add(falscheEingabe);
 		
 		// erstellt layout größe für artikel entfernen
@@ -2677,7 +2678,7 @@ public class ShopClientGUI extends JFrame{
 				
 				JLabel FalscherArtikel = new JLabel(" ");
 				FalscherArtikel.setForeground(Color.RED);
-				FalscherArtikel.setBounds(26, 186, 240, 14);
+				FalscherArtikel.setBounds(70, 186, 240, 14);
 				artikelScreach.getContentPane().add(FalscherArtikel);
 				
 				// erstellt button suchen + funktion zum suchen eines artikels 
@@ -2749,7 +2750,7 @@ public class ShopClientGUI extends JFrame{
 		
 		// erstellt ein heftige label für die krassen creator des Projekts xDD 
 		
-		JLabel lblNewLabel = new JLabel("E-Shop creater : Mario Schulz, Bernd Henke, Dyar lol");
+		JLabel lblNewLabel = new JLabel("E-Shop creater : Mario Schulz, Bernd Henke, Diyar Aydin");
 		lblNewLabel.setBounds(40, 510, 442, 14);
 		kundenMenue.getContentPane().add(lblNewLabel);
 		
@@ -2992,7 +2993,7 @@ public class ShopClientGUI extends JFrame{
 		 shopKundeRegistrierung = new JFrame();
 		 shopKundeRegistrierung.setTitle("Registrierungsfenster");
 		 shopKundeRegistrierung.setBounds(500, 300, 397, 394);
-		 shopKundeRegistrierung.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		 shopKundeRegistrierung.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		 shopKundeRegistrierung.getContentPane().setLayout(null);
 		 shopKundeRegistrierung.setVisible(true);
 		 
@@ -3055,9 +3056,9 @@ public class ShopClientGUI extends JFrame{
 	
 		// erstellt ein Hintergrund Balken (Rechteck layout)
 		
-		JProgressBar progressBar = new JProgressBar();
-		progressBar.setBounds(10, 20, 364, 140);
-		shopKundeRegistrierung.getContentPane().add(progressBar);
+		JPanel LayoutRechteck = new JPanel();
+		LayoutRechteck.setBounds(10, 20, 364, 140);
+		shopKundeRegistrierung.getContentPane().add(LayoutRechteck);
 		
 		// erstellt Benutzernametext + eingabetext
 		
@@ -3083,7 +3084,7 @@ public class ShopClientGUI extends JFrame{
 		
 		// erstellt KundenNrtext + eingabetext
 		
-		JLabel KundeNr = new JLabel("KundenNr angeben :");
+		JLabel KundeNr = new JLabel("KundenNr :");
 		KundeNr.setBounds(232, 219, 121, 14);
 		shopKundeRegistrierung.getContentPane().add(KundeNr);
 		
@@ -3202,9 +3203,9 @@ public class ShopClientGUI extends JFrame{
 		 // erstellt das Fenster für die Registrierung
 		
 		 shopMitarbeiterRegistrierung = new JFrame();
-		 shopMitarbeiterRegistrierung.setTitle("Registrierungsfenster");
+		 shopMitarbeiterRegistrierung.setTitle("Mitarbeiter anlegen");
 		 shopMitarbeiterRegistrierung.setBounds(500, 300, 397, 394);
-		 shopMitarbeiterRegistrierung.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		 shopMitarbeiterRegistrierung.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		 shopMitarbeiterRegistrierung.getContentPane().setLayout(null);
 		 shopMitarbeiterRegistrierung.setVisible(true);
 		 
@@ -3267,9 +3268,9 @@ public class ShopClientGUI extends JFrame{
 	
 		// erstellt ein Hintergrund Balken (Rechteck layout)
 		
-		JProgressBar progressBar = new JProgressBar();
-		progressBar.setBounds(10, 20, 364, 140);
-		shopMitarbeiterRegistrierung.getContentPane().add(progressBar);
+		JPanel layoutRechteck = new JPanel();
+		layoutRechteck.setBounds(10, 20, 364, 140);
+		shopMitarbeiterRegistrierung.getContentPane().add(layoutRechteck);
 		
 		// erstellt Benutzernametext + eingabetext
 		
@@ -3295,7 +3296,7 @@ public class ShopClientGUI extends JFrame{
 		
 		// erstellt KundenNrtext + eingabetext
 		
-		JLabel KundeNr = new JLabel("MitarbeiterNr angeben :");
+		JLabel KundeNr = new JLabel("MitarbeiterNr :");
 		KundeNr.setBounds(232, 219, 121, 14);
 		shopMitarbeiterRegistrierung.getContentPane().add(KundeNr);
 		
@@ -3320,8 +3321,8 @@ public class ShopClientGUI extends JFrame{
 		
 		//Erstellt Button
 		
-		JButton Registrieren = new JButton("Registrieren!");
-		Registrieren.setBounds(141, 325, 115, 23);
+		JButton Registrieren = new JButton("Mitarbeiter anlegen");
+		Registrieren.setBounds(125, 325, 150, 23);
 		shopMitarbeiterRegistrierung.getContentPane().add(Registrieren);
 		
 		
@@ -3557,6 +3558,8 @@ public class ShopClientGUI extends JFrame{
 		
 		
 		gui.gibMenueAus();
+		
+		// erstellt das datum mit der heutigen zeit
 		
 		Date date = Calendar.getInstance().getTime();  
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");  

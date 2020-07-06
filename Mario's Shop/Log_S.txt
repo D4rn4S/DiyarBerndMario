@@ -449,3 +449,817 @@ JuliusBrechtAllee
 hat sich angemeldet.
 true
 06-07-2020 10:21:45
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraße
+2
+hat sich angemeldet.
+true
+06-07-2020 01:34:07
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraße
+2
+hat sich angemeldet.
+true
+06-07-2020 01:35:02
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraße
+2
+hat sich angemeldet.
+true
+06-07-2020 01:35:27
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraße
+2
+hat sich angemeldet.
+true
+06-07-2020 01:35:53
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraße
+2
+hat sich angemeldet.
+true
+06-07-2020 01:36:13
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraße
+2
+hat sich angemeldet.
+true
+06-07-2020 01:36:33
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraße
+2
+Der Mitarbeiter:  | 5 wurde angelegt.
+true
+06-07-2020 01:36:39
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraße
+2
+hat sich angemeldet.
+true
+06-07-2020 01:38:21
+system
+123456789
+Admin
+Admin
+Admin
+101010001001
+Admin
+1
+Fehler bei der Anmeldung!
+true
+06-07-2020 01:46:14
+system
+123456789
+Admin
+Admin
+Admin
+101010001001
+Admin
+1
+Fehler bei der Anmeldung!
+true
+06-07-2020 01:46:25
+system
+123456789
+Admin
+Admin
+Admin
+101010001001
+Admin
+1
+Der Kunde: heinz | 6 wurde angelegt.
+true
+06-07-2020 01:47:21
+system
+123456789
+Admin
+Admin
+Admin
+101010001001
+Admin
+1
+Fehler bei der Anmeldung!
+true
+06-07-2020 01:47:25
+system
+123456789
+Admin
+Admin
+Admin
+101010001001
+Admin
+1
+Fehler bei der Anmeldung!
+true
+06-07-2020 01:47:41
+system
+123456789
+Admin
+Admin
+Admin
+101010001001
+Admin
+1
+Der Kunde: heini | 7 wurde angelegt.
+true
+06-07-2020 01:48:11
+heini
+123
+hein
+henke
+berlin
+49688
+sada 12
+7
+hat sich angemeldet.
+false
+06-07-2020 01:48:16
+heini
+123
+hein
+henke
+berlin
+49688
+sada 12
+7
+Es gab einen Fehler bei der Artikelsuche
+false
+06-07-2020 01:48:36
+heini
+123
+hein
+henke
+berlin
+49688
+sada 12
+7
+hat sich angemeldet.
+false
+06-07-2020 01:49:40
+heini
+123
+hein
+henke
+berlin
+49688
+sada 12
+7
+Es gab einen Fehler bei der Artikelsuche
+false
+06-07-2020 01:49:45
+system
+123456789
+Admin
+Admin
+Admin
+101010001001
+Admin
+1
+Fehler bei der Anmeldung!
+true
+06-07-2020 01:50:06
+heini
+123
+hein
+henke
+berlin
+49688
+sada 12
+7
+hat sich angemeldet.
+false
+06-07-2020 01:50:10
+heini
+123
+hein
+henke
+berlin
+49688
+sada 12
+7
+Es gab einen Fehler bei der Artikelsuche
+false
+06-07-2020 01:50:16
+heini
+123
+hein
+henke
+berlin
+49688
+sada 12
+7
+Es gab einen Fehler bei der Artikelsuche
+false
+06-07-2020 01:50:25
+heini
+123
+hein
+henke
+berlin
+49688
+sada 12
+7
+Fehlerhafte eingabe Beim hinzufügen zum Warenkorb
+false
+06-07-2020 01:50:49
+heini
+123
+hein
+henke
+berlin
+49688
+sada 12
+7
+Fehlerhafte eingabe Beim hinzufügen zum Warenkorb
+false
+06-07-2020 01:51:07
+heini
+123
+hein
+henke
+berlin
+49688
+sada 12
+7
+Der Artikel: 31wurde 8x den Warenkorb hinzugefügt.
+false
+06-07-2020 01:51:26
+heini
+123
+hein
+henke
+berlin
+49688
+sada 12
+7
+Hat den Warenkorb geleert!
+false
+06-07-2020 01:51:51
+heini
+123
+hein
+henke
+berlin
+49688
+sada 12
+7
+Der Artikel: 6wurde 10x den Warenkorb hinzugefügt.
+false
+06-07-2020 01:52:06
+heini
+123
+hein
+henke
+berlin
+49688
+sada 12
+7
+Der Warenkorb wurde gekauft!
+false
+06-07-2020 01:52:48
+heini
+123
+hein
+henke
+berlin
+49688
+sada 12
+7
+Der Warenkorb wurde gekauft!
+false
+06-07-2020 01:54:31
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraße
+2
+hat sich angemeldet.
+true
+06-07-2020 02:02:22
+msc
+123
+Mario
+Schulz
+Bremen
+28329
+CarlSeveringStraße
+1
+hat sich angemeldet.
+false
+06-07-2020 02:02:49
+msc
+123
+Mario
+Schulz
+Bremen
+28329
+CarlSeveringStraße
+1
+Der Artikel: 30wurde 8x den Warenkorb hinzugefügt.
+false
+06-07-2020 02:03:33
+msc
+123
+Mario
+Schulz
+Bremen
+28329
+CarlSeveringStraße
+1
+Der Warenkorb wurde gekauft!
+false
+06-07-2020 02:04:26
+msc
+123
+Mario
+Schulz
+Bremen
+28329
+CarlSeveringStraße
+1
+Fehlerhafte eingabe Beim hinzufügen zum Warenkorb
+false
+06-07-2020 02:04:41
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraße
+2
+hat sich angemeldet.
+true
+06-07-2020 02:05:20
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraße
+2
+Der Artikel: Diyar wurd hinzugefügt.
+true
+06-07-2020 02:07:20
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraße
+2
+hat sich angemeldet.
+true
+06-07-2020 02:13:34
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraße
+2
+Der Artikel: Mario wurd hinzugefügt.
+true
+06-07-2020 02:13:53
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraße
+2
+Der Artikel: 34 wurde um die Anzahl: 4 erhöht
+true
+06-07-2020 02:14:08
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraße
+2
+Der Artikel: 32 wurde um die Anzahl: 10 erhöht
+true
+06-07-2020 02:14:23
+system
+123456789
+Admin
+Admin
+Admin
+101010001001
+Admin
+1
+Der Kunde: la | 8 wurde angelegt.
+true
+06-07-2020 02:16:06
+la
+123
+laura
+willen
+hamburg
+2131
+baba weg 33
+8
+hat sich angemeldet.
+false
+06-07-2020 02:16:10
+la
+123
+laura
+willen
+hamburg
+2131
+baba weg 33
+8
+Fehlerhafte eingabe in der Suche im Warenkorb!
+false
+06-07-2020 02:16:20
+msc
+123
+Mario
+Schulz
+Bremen
+28329
+CarlSeveringStraße
+1
+hat sich angemeldet.
+false
+06-07-2020 02:21:11
+msc
+123
+Mario
+Schulz
+Bremen
+28329
+CarlSeveringStraße
+1
+Fehlerhafte eingabe Beim hinzufügen zum Warenkorb
+false
+06-07-2020 02:21:24
+msc
+123
+Mario
+Schulz
+Bremen
+28329
+CarlSeveringStraße
+1
+Der Artikel: 12wurde 3x den Warenkorb hinzugefügt.
+false
+06-07-2020 02:21:35
+msc
+123
+Mario
+Schulz
+Bremen
+28329
+CarlSeveringStraße
+1
+Fehlerhafte eingabe beim Entfernen aus dem Warenkorb!
+false
+06-07-2020 02:21:42
+msc
+123
+Mario
+Schulz
+Bremen
+28329
+CarlSeveringStraße
+1
+Fehlerhafte eingabe beim Entfernen aus dem Warenkorb!
+false
+06-07-2020 02:22:10
+system
+123456789
+Admin
+Admin
+Admin
+101010001001
+Admin
+1
+Fehler bei der Anmeldung!
+true
+06-07-2020 02:22:40
+msc
+123
+Mario
+Schulz
+Bremen
+28329
+CarlSeveringStraße
+1
+hat sich angemeldet.
+false
+06-07-2020 02:22:44
+msc
+123
+Mario
+Schulz
+Bremen
+28329
+CarlSeveringStraße
+1
+Der Artikel: 4wurde 6x den Warenkorb hinzugefügt.
+false
+06-07-2020 02:22:54
+msc
+123
+Mario
+Schulz
+Bremen
+28329
+CarlSeveringStraße
+1
+Der Artikel: 4wurde 5x aus den Warenkorb entfernt
+false
+06-07-2020 02:23:07
+msc
+123
+Mario
+Schulz
+Bremen
+28329
+CarlSeveringStraße
+1
+Der Artikel: 4wurde 10x den Warenkorb hinzugefügt.
+false
+06-07-2020 02:23:26
+msc
+123
+Mario
+Schulz
+Bremen
+28329
+CarlSeveringStraße
+1
+Fehlerhafte eingabe beim Entfernen aus dem Warenkorb!
+false
+06-07-2020 02:23:39
+msc
+123
+Mario
+Schulz
+Bremen
+28329
+CarlSeveringStraße
+1
+Der Artikel: 4wurde 1x aus den Warenkorb entfernt
+false
+06-07-2020 02:23:47
+msc
+123
+Mario
+Schulz
+Bremen
+28329
+CarlSeveringStraße
+1
+Der Artikel: 4wurde 5x aus den Warenkorb entfernt
+false
+06-07-2020 02:23:55
+msc
+123
+Mario
+Schulz
+Bremen
+28329
+CarlSeveringStraße
+1
+Fehlerhafte eingabe beim Entfernen aus dem Warenkorb!
+false
+06-07-2020 02:24:00
+msc
+123
+Mario
+Schulz
+Bremen
+28329
+CarlSeveringStraße
+1
+Der Warenkorb wurde gekauft!
+false
+06-07-2020 02:24:31
+system
+123456789
+Admin
+Admin
+Admin
+101010001001
+Admin
+1
+Fehler bei der Anmeldung!
+true
+06-07-2020 02:25:15
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraße
+2
+hat sich angemeldet.
+true
+06-07-2020 02:25:19
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraße
+2
+Der Artikel mit der Nummer: 34 wurde gelöscht!
+true
+06-07-2020 02:25:38
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraße
+2
+Fehlerhafte Artikelnummer
+true
+06-07-2020 02:25:44
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraße
+2
+Fehlerhafter ArtikelNamebei der Suche
+true
+06-07-2020 02:26:01
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraße
+2
+Fehlerhafter ArtikelNamebei der Suche
+true
+06-07-2020 02:27:39
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraße
+2
+Fehlerhafter ArtikelNamebei der Suche
+true
+06-07-2020 02:27:44
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraße
+2
+hat sich angemeldet.
+true
+06-07-2020 02:28:02
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraße
+2
+Fehlerhafter ArtikelNamebei der Suche
+true
+06-07-2020 02:28:04
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraße
+2
+Falscher Name!bei der Suche im Changelog
+true
+06-07-2020 02:28:46
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraße
+2
+hat sich angemeldet.
+true
+06-07-2020 02:31:48
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraße
+2
+Fehler beim löschen eines Kunden
+true
+06-07-2020 02:32:09
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraße
+2
+hat sich angemeldet.
+true
+06-07-2020 02:33:00
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraße
+2
+Fehler beim löschen eines Kunden
+true
+06-07-2020 02:33:11
+system
+123456789
+Admin
+Admin
+Admin
+101010001001
+Admin
+1
+Fehler bei der Anmeldung!
+true
+06-07-2020 02:36:22
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraße
+2
+hat sich angemeldet.
+true
+06-07-2020 02:36:25
