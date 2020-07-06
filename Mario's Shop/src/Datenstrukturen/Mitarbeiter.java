@@ -13,7 +13,17 @@ public class Mitarbeiter {
 	private String strasse;
 	
 	
-	
+	/**
+	 * der Konstruktor um einen Mitarbeiter zu erstellen
+	 * @param username
+	 * @param passwort
+	 * @param vorname
+	 * @param nachname
+	 * @param wohnort
+	 * @param plz
+	 * @param strasse
+	 * @param MitarbeiterNr
+	 */
 	public Mitarbeiter(String username, String passwort, String vorname, String nachname, String wohnort, String plz, String strasse, int MitarbeiterNr) {
 		//super(username, passwort, vorname, nachname, wohnort, plz, strasse);
 		this.MitarbeiterNr = MitarbeiterNr;
@@ -57,6 +67,9 @@ public class Mitarbeiter {
 	
 	public void setPasswort(String passwort) {this.passwort = passwort;}
 	
+	/**
+	 * toString methode um einen MItarbeiter in der Console auszugeben
+	 */
 	public String toString() {
 		return ("Kürzel: " + username + " | Passwort: " + passwort + " | Vorname: " + vorname + " | Nachname: " + nachname + " | Wohnort: " + wohnort + " | Postleitzahl: " + plz + " | Strasse: " + strasse + " | MitarbeiterNr: "+ MitarbeiterNr);
 	}

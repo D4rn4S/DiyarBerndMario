@@ -10,6 +10,14 @@ public class AnmeldungMitarbeiter {
 	
 	private int aktuelleNummer;
 	
+	/**
+	 * Überprüft die Benutzerdaten, falls diese stimmen wird true zurückgegeben, falls nicht wird eine exception geworfen
+	 * @param liste
+	 * @param username
+	 * @param passwort
+	 * @return
+	 * @throws FlascheAnmeldedatenException
+	 */
 	public boolean anmeldung(List<Mitarbeiter> liste, String username, String passwort) throws FlascheAnmeldedatenException {
 		boolean x = false;
 		for(Mitarbeiter m : liste) {

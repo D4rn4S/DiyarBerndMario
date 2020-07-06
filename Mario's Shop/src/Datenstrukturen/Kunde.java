@@ -11,7 +11,17 @@ public class Kunde {
 	private String plz;
 	private String strasse;
 	
-	
+	/**
+	 * Konstruktor um einen Kunden zu erstellen.
+	 * @param username
+	 * @param passwort
+	 * @param vorname
+	 * @param nachname
+	 * @param wohnort
+	 * @param plz
+	 * @param strasse
+	 * @param KundenNr
+	 */
 	public Kunde(String username, String passwort, String vorname, String nachname, String wohnort, String plz, String strasse, int KundenNr) {
 		//super(username, passwort, vorname, nachname, wohnort, plz, strasse);
 		this.KundenNr = KundenNr;
@@ -55,6 +65,9 @@ public class Kunde {
 	
 	public void setPasswort(String passwort) {this.passwort = passwort;}
 	
+	/**
+	 * toString Methode um einen Kunden in der Console aus zu geben
+	 */
 	public String toString() {
 		return ("Kürzel: " + username + " | Passwort: " + passwort + " | Vorname: " + vorname + " | Nachname: " + nachname + " | Wohnort: " + wohnort + " | Postleitzahl: " + plz + " | Strasse: " + strasse + " | KundenNr: "+ KundenNr);
 	}

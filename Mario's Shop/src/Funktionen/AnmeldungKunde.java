@@ -11,6 +11,14 @@ public class AnmeldungKunde {
 	
 	private int aktuelleNummer;
 	
+	/**
+	 * Prüft ob Username und Passwort stimmen, falls nicht wird eine Exception geworfen
+	 * @param liste
+	 * @param username
+	 * @param passwort
+	 * @return
+	 * @throws FlascheAnmeldedatenException
+	 */
 	public boolean anmeldung(List<Kunde> liste, String username, String passwort) throws FlascheAnmeldedatenException {
 		boolean x = false;
 		for(Kunde k : liste) {

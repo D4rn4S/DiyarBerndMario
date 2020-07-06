@@ -343,7 +343,9 @@ public class FilePersistenceManager implements PersistenceManager {
 		}
 	}
 	
-	
+	/**
+	 * läd den Changelog, liest Zeile für Zeile aus und baut dadurch den changelog auf
+	 */
 	public Changelog ladeChangelogNeu() throws IOException{
 		
 		//einlesen des Usernamens
@@ -422,6 +424,9 @@ public class FilePersistenceManager implements PersistenceManager {
 		
 	}
 
+	/**
+	 * Speichert Zeile für Zeile den Changelog
+	 */
 	public boolean speichereChangelog(Changelog c) {
 		if(c.getTyp()) {
 			schreibeZeile(c.getMitarbeiter().getUsername());
