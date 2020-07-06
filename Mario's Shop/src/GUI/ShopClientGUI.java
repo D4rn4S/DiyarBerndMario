@@ -1605,15 +1605,15 @@ public class ShopClientGUI extends JFrame{
 								mNummer = textMitarbeiterNr.getText();
 								mNum = Integer.parseInt(mNummer);
 								
-								try { //versuche einen mitarbeiter zu suchen
-									if(checkNummerMitarbeiter(mNum)) { //falls es klappt
-										updateBenutzerMitarbeiterTabelle(buero.sucheNachNummer(mNum)); //tabelle mit dem Suchergebnis aktualisieren
-										mitarbeiterScreach.setVisible(false); //fenster schließen
+								try {
+									if(checkNummerMitarbeiter(mNum)) {
+										updateBenutzerMitarbeiterTabelle(buero.sucheNachNummer(mNum)); 
+										mitarbeiterScreach.setVisible(false);
 									}
-								} catch (InvalidMitarbeiterNummerException ex) { //falls es nicht klappt fange fehlermeldung
-									FalscherArtikel.setText("Ungültige Nr!"); //fehlermeldung in gui
-									textArtikel.setText(null); //leere eingabefelder
-									System.out.println(ex.getMessage()); //fehlermeldung in console
+								} catch (InvalidMitarbeiterNummerException ex) {
+									FalscherArtikel.setText("Ungültige Nr!");
+									textArtikel.setText(null);
+									System.out.println(ex.getMessage());
 									logmanager.einfuegen(new Changelog(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), "Fehler bei der Suche! " +  ex.getMessage(), true));
 								}
 								
@@ -1687,23 +1687,23 @@ public class ShopClientGUI extends JFrame{
 								System.out.println(mNummer);
 								mNum = Integer.parseInt(mNummer);
 								
-								try { //versuche einen mitarbeiter zu löschen
-									if(checkNummerMitarbeiter(mNum)) { //falls die eingabe richtig war
-										buero.loescheMitarbeiter(mNum); //lösche mitarbeiter
-										mitaLoeschen.setVisible(false); //schließe fenster
-										updateBenutzerMitarbeiterTabelle(buero.gibAlleMitarbeiter()); //update die Tabelle
+								try {
+									if(checkNummerMitarbeiter(mNum)) {
+										buero.loescheMitarbeiter(mNum);
+										mitaLoeschen.setVisible(false);
+										updateBenutzerMitarbeiterTabelle(buero.gibAlleMitarbeiter());
 										logmanager.einfuegen(new Changelog(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), "Der Mitarbeiter mit der Nummer: " + mNum + " wurde gelöscht.", true));
 										try {
-											buero.schreibeMitarbeiter(); //speichere die Mitarbeiter in die txt datei
+											buero.schreibeMitarbeiter();
 										} catch (IOException e1) {
 											e1.printStackTrace();
 										}
 									}
-								} catch (InvalidMitarbeiterNummerException ex) { //falls nicht fange fehler
-									System.out.println(ex.getMessage()); //fehlermeldung in console
-									mitaNrNichtvergeben.setText("Bitte geben Sie eine gültige Mitarbeiternummer ein!"); //fehlermeldung in gui
+								} catch (InvalidMitarbeiterNummerException ex) {
+									System.out.println(ex.getMessage()); 
+									mitaNrNichtvergeben.setText("Bitte geben Sie eine gültige Mitarbeiternummer ein!"); 
 									logmanager.einfuegen(new Changelog(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), "Fehlerhafte Mitarbeiternummer beim löschen!", true));
-									textMitarbeiterNummer.setText(null); //eingaefeld leeren
+									textMitarbeiterNummer.setText(null); 
 								}
 								
 								
@@ -1790,14 +1790,14 @@ public class ShopClientGUI extends JFrame{
 								kNum = Integer.parseInt(kNummer);
 								
 								try {
-									if(checkNummerKunde(kNum)) { //überprüfe die eingabe
-										updateBenutzerKundenTabelle(verkaufsstand.sucheNachNummer(kNum)); //fals richti gwar update die tabelle
-										artikelScreach1.setVisible(false); // schließe suchfenster
+									if(checkNummerKunde(kNum)) {
+										updateBenutzerKundenTabelle(verkaufsstand.sucheNachNummer(kNum));
+										artikelScreach1.setVisible(false); 
 									}
-								} catch(InvalidKundenNummerException ex) { //fange die fehlermeldung
-									FalscherArtikel.setText("Ungültige Nr!"); //fehlermeldung in GUI
-									textKundeNr.setText(null); //leere eingabefeld
-									System.out.println(ex.getMessage()); //fehlermeldung in console
+								} catch(InvalidKundenNummerException ex) {
+									FalscherArtikel.setText("Ungültige Nr!"); 
+									textKundeNr.setText(null); 
+									System.out.println(ex.getMessage()); 
 								}
 								
 							}
@@ -1867,23 +1867,23 @@ public class ShopClientGUI extends JFrame{
 								System.out.println(kNummer);
 								kNum = Integer.parseInt(kNummer);
 								
-								try { //versuche einen kunden zu löschen
-									if(checkNummerKunde(kNum)) { //überprüfe die eingabe
-										verkaufsstand.loescheKunde(kNum); //lösche kunden
-										kundLoeschen.setVisible(false); // schließe fenster
+								try {
+									if(checkNummerKunde(kNum)) {
+										verkaufsstand.loescheKunde(kNum);
+										kundLoeschen.setVisible(false);
 										logmanager.einfuegen(new Changelog(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), "Der Kunde mit der Nummer: " + kNum +" wurde gelöscht", true));
-										updateBenutzerKundenTabelle(verkaufsstand.gibAlleKunden()); //update tabelle
+										updateBenutzerKundenTabelle(verkaufsstand.gibAlleKunden());
 										try {
-											verkaufsstand.schreibeKunden(); //speiuchere kunden in die txt datei
+											verkaufsstand.schreibeKunden();
 										} catch (IOException e1) {
 											e1.printStackTrace();
 										}
 									}
-								} catch(InvalidKundenNummerException ex) { //fange die fehlermeldung
-									System.out.println(ex.getMessage()); //fehlermeldung in console
+								} catch(InvalidKundenNummerException ex) {
+									System.out.println(ex.getMessage());
 									logmanager.einfuegen(new Changelog(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), "Fehler beim löschen eines Kunden", true));
-									kundNrNichtvergeben.setText("Bitte geben Sie eine gültige Kundennummer ein!"); //fehlermeldung in gui
-									textKundenNummer.setText(null); //leere eingabefelder
+									kundNrNichtvergeben.setText("Bitte geben Sie eine gültige Kundennummer ein!"); 
+									textKundenNummer.setText(null);
 								}
 								
 							}

@@ -12,14 +12,19 @@ public class AnmeldungKunde {
 	private int aktuelleNummer;
 	
 	public boolean anmeldung(List<Kunde> liste, String username, String passwort) throws FlascheAnmeldedatenException {
+		boolean x = false;
 		for(Kunde k : liste) {
 			if(!(k.getUsername().equals(username) && k.getPasswort().equals(passwort))) {
-				throw new FlascheAnmeldedatenException("Benutzername oder Passwort sind falsch!");	
+				x = false;
 			} else {
 				aktuelleNummer = k.getKundenNr();
+				x = true;
 				return true;
 				
 			}
+		}
+		if(!x) {
+			throw new FlascheAnmeldedatenException("Benutzername oder Passwort sind falsch!");	
 		}
 		return false;
 	}

@@ -361,3 +361,91 @@ CarlSeveringStraﬂe
 Der Artikel: 3 wurde um die Anzahl: 1 erhˆht
 true
 03-07-2020 06:21:07
+system
+123456789
+Admin
+Admin
+Admin
+101010001001
+Admin
+1
+Der Kunde: obi | 5 wurde angelegt.
+true
+06-07-2020 09:44:25
+system
+123456789
+Admin
+Admin
+Admin
+101010001001
+Admin
+1
+Fehler bei der Anmeldung!
+true
+06-07-2020 09:44:28
+system
+123456789
+Admin
+Admin
+Admin
+101010001001
+Admin
+1
+Fehler bei der Anmeldung!
+true
+06-07-2020 09:44:58
+msc
+123
+Mario
+Schulz
+Bremen
+28329
+CarlSeveringStraﬂe
+1
+hat sich angemeldet.
+false
+06-07-2020 09:45:20
+system
+123456789
+Admin
+Admin
+Admin
+101010001001
+Admin
+1
+Fehler bei der Anmeldung!
+true
+06-07-2020 09:47:26
+obi
+123
+Ole
+Biermann
+Lastrup
+49688
+Winkelstraﬂe 4
+5
+hat sich angemeldet.
+false
+06-07-2020 09:48:53
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraﬂe
+2
+hat sich angemeldet.
+true
+06-07-2020 10:21:18
+ibu
+jargo
+Insa
+Buennemeyer
+Bremen
+28329
+JuliusBrechtAllee
+3
+hat sich angemeldet.
+true
+06-07-2020 10:21:45
