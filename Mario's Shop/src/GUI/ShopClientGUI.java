@@ -1957,6 +1957,7 @@ public class ShopClientGUI extends JFrame{
 					public void actionPerformed(ActionEvent e) {
 						gibMenueAus(); //gibt das startmenue aus
 						mitarbeiterMenue.setVisible(false); //ausloggen
+						logmanager.einfuegen(new Changelog(buero.sucheNachNummer(aktuellerMitarbeiter).get(0), "Hat sich abgemeldet", true));
 						
 					}
 				});
@@ -2743,6 +2744,7 @@ public class ShopClientGUI extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				gibMenueAus();
 				kundenMenue.setVisible(false);
+				logmanager.einfuegen(new Changelog(verkaufsstand.sucheNachNummer(aktuellerKunde).get(0), "Hat sich abgemeldet", false));
 			}
 		});
 		btnNewButton.setBounds(549, 506, 119, 23);
