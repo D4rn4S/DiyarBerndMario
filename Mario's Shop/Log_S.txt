@@ -1361,4 +1361,59 @@ CarlSeveringStraﬂe
 2
 hat sich angemeldet.
 true
-06-07-2020 03:11:06
+07-07-2020 09:54:24
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraﬂe
+2
+Hat sich abgemeldet
+true
+07-07-2020 09:54:42
+msc
+123
+Mario
+Schulz
+Bremen
+28329
+CarlSeveringStraﬂe
+1
+hat sich angemeldet.
+false
+07-07-2020 09:54:47
+msc
+123
+Mario
+Schulz
+Bremen
+28329
+CarlSeveringStraﬂe
+1
+Hat sich abgemeldet
+false
+07-07-2020 09:54:57
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraﬂe
+2
+hat sich angemeldet.
+true
+07-07-2020 09:55:03
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraﬂe
+2
+Der Mitarbeiter mit der Nummer: 5 wurde gelˆscht.
+true
+07-07-2020 09:55:12

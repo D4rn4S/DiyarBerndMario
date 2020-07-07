@@ -348,6 +348,7 @@ public class ShopClientGUI extends JFrame{
             rowData[3] = l.get(i).getBestand();
             rowData[4] = l.get(i).getMindestbestand();
             rowData[5] = l.get(i).getMassengut();
+            
             if(l.get(i).getBestand()<= l.get(i).getMindestbestand()) { //nur ein test
             	//TabelleBefüllen
             }
@@ -768,28 +769,7 @@ public class ShopClientGUI extends JFrame{
 				
 				// erstellt die Tabelle
 				tabelle = new JTable();
-				tabelle.setModel(new DefaultTableModel(
-					new Object[][] {
-					},
-					new String[] {
-						"Name", "Nummer", "Preis", "Bestand", "Mindestbestand", "Massengut"
-					}
-				) {
-					// die Klassen mit jeweils den Parametern
-					
-					Class[] columnTypes = new Class[] {
-						Object.class, Integer.class, Double.class, Integer.class, Integer.class, Integer.class
-					};
-					public Class getColumnClass(int columnIndex) {
-						return columnTypes[columnIndex];
-					}
-					boolean[] columnEditables = new boolean[] {
-						true, false, false, false, false
-					};
-					public boolean isCellEditable(int row, int column) {
-						return columnEditables[column];
-					}
-				});
+				tabelle.setModel(new DefaultTableModel(new Object[][] {},new String[] {"Name", "Nummer", "Preis", "Bestand", "Mindestbestand", "Massengut"}) {});
 				
 				// setzt die größe der spalte des fensters mit den namen fest 
 				
@@ -1342,20 +1322,8 @@ public class ShopClientGUI extends JFrame{
 				// erstellt die tabelle
 				
 				tabelle4 = new JTable();
-				tabelle4.setModel(new DefaultTableModel(
-					new Object[][] {
-					},															// erstellt mehrere arrays für die tabellen 
-					new String[] {
-						"Datum", "Nr", "Vorname", "Nachname", "Meldung"
-					}
-				) {
-					Class[] columnTypes = new Class[] {
-						String.class, Integer.class, String.class, String.class, String.class
-					};
-					public Class getColumnClass(int columnIndex) {
-						return columnTypes[columnIndex];
-					}
-				});
+				tabelle4.setModel(new DefaultTableModel(new Object[][] {},new String[] {"Datum", "Nr", "Vorname", "Nachname", "Meldung"}) {});
+				
 				tabelle4.getColumnModel().getColumn(0).setPreferredWidth(53);
 				tabelle4.getColumnModel().getColumn(1).setPreferredWidth(33);
 				tabelle4.getColumnModel().getColumn(2).setPreferredWidth(62);
@@ -1468,28 +1436,7 @@ public class ShopClientGUI extends JFrame{
 				// erstellt tabelle für Kunde
 				
 				tabelle2 = new JTable();
-				tabelle2.setModel(new DefaultTableModel(
-					new Object[][] {
-					},
-					new String[] {
-						"KundenNr", "Username", "Vorname", "Nachname", "Wohnort", "PLZ", "Strasse"
-					}
-				) {
-					// eigenschaften in der Tabelle ( größe, int etc..)
-					
-					Class[] columnTypes = new Class[] {
-						Integer.class, String.class, String.class, Object.class, String.class, Integer.class, String.class
-					};
-					public Class getColumnClass(int columnIndex) {
-						return columnTypes[columnIndex];
-					}
-					boolean[] columnEditables = new boolean[] {
-						true, false, true, false, false, true, false
-					};
-					public boolean isCellEditable(int row, int column) {
-						return columnEditables[column];
-					}
-				});
+				tabelle2.setModel(new DefaultTableModel(new Object[][] {},new String[] {"KundenNr", "Username", "Vorname", "Nachname", "Wohnort", "PLZ", "Strasse"}) {});
 				
 				// setzt die größe der spalte des fensters mit den namen fest 
 				
@@ -1517,28 +1464,7 @@ public class ShopClientGUI extends JFrame{
 				// erstellt tabelle für Mitarbeiter
 				
 				tabelle3 = new JTable();
-				tabelle3.setModel(new DefaultTableModel(
-					new Object[][] {
-					},
-					new String[] {
-						"MitarbeiterNr", "Username", "Vorname", "Nachname", "Wohnort", "PLZ", "Strasse"
-					}
-				) {
-					// eigenschaften in der Tabelle ( größe, int etc..)
-					
-					Class[] columnTypes = new Class[] {
-						String.class, String.class, String.class, String.class, String.class, Integer.class, String.class
-					};
-					public Class getColumnClass(int columnIndex) {
-						return columnTypes[columnIndex];
-					}
-					boolean[] columnEditables = new boolean[] {
-						false, false, true, true, true, true, true
-					};
-					public boolean isCellEditable(int row, int column) {
-						return columnEditables[column];
-					}
-				});
+				tabelle3.setModel(new DefaultTableModel(new Object[][] {},new String[] {"MitarbeiterNr", "Username", "Vorname", "Nachname", "Wohnort", "PLZ", "Strasse"}) {});
 				
 				// setzt die größe der spalte des fensters mit den namen fest 
 				
@@ -2013,28 +1939,7 @@ public class ShopClientGUI extends JFrame{
 		
 		// erstellt die Tabelle
 		tabelle = new JTable();
-		tabelle.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Name", "Nummer", "Preis","Auf Lager", "Mindestanzahl"
-			}
-		) {
-			// die Klassen mit jeweils den Parametern
-			
-			Class[] columnTypes = new Class[] {
-				Object.class, Integer.class, Double.class, Integer.class, Integer.class
-			};
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-			boolean[] columnEditables = new boolean[] {
-				true, false, false, false, false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
+		tabelle.setModel(new DefaultTableModel(new Object[][] {},new String[] {"Name", "Nummer", "Preis","Auf Lager", "Mindestanzahl"}) {});
 		
 		// größe der spalten
 		
@@ -2286,26 +2191,7 @@ public class ShopClientGUI extends JFrame{
 		// erstellt eine tabelle mit den jeweiligen eigenschaften
 		
 		tabelle1 = new JTable();
-		tabelle1.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Name", "Nr", "Anzahl", "St\u00FCckpreis", "Preis"
-			}
-		) {
-			Class[] columnTypes = new Class[] {
-				String.class, Integer.class, Integer.class, Double.class, Double.class
-			};
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-			boolean[] columnEditables = new boolean[] {
-				true, true, true, false, false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
+		tabelle1.setModel(new DefaultTableModel(new Object[][] {},new String[] {"Name", "Nr", "Anzahl", "St\u00FCckpreis", "Preis"}) {});
 		
 		// größe der einzelnen componenten in der tabelle
 		
@@ -2367,26 +2253,7 @@ public class ShopClientGUI extends JFrame{
 				// erstellt die tabelle 
 				
 				table = new JTable();
-				table.setModel(new DefaultTableModel(
-					new Object[][] {
-					},
-					new String[] {
-						"Name", "Nr", "Anzahl", "St\u00FCckpreis", "Preis"
-					}
-				) {
-					Class[] columnTypes = new Class[] {
-						Object.class, Integer.class, Integer.class, Integer.class, Integer.class
-					};
-					public Class getColumnClass(int columnIndex) {
-						return columnTypes[columnIndex];
-					}
-					boolean[] columnEditables = new boolean[] {
-						false, false, false, false, false
-					};
-					public boolean isCellEditable(int row, int column) {
-						return columnEditables[column];
-					}
-				});
+				table.setModel(new DefaultTableModel(new Object[][] {},new String[] {"Name", "Nr", "Anzahl", "St\u00FCckpreis", "Preis"}) {});
 				
 				// größe der einzelnen componenten in der tabell
 				
@@ -3126,6 +2993,7 @@ public class ShopClientGUI extends JFrame{
 				List<Kunde> liste;
 				liste = verkaufsstand.gibAlleKunden();
 				
+				// zumm lesen der texteingabe 
 				
 				vorname = textVorname.getText();
 				System.out.print(vorname);
