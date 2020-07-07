@@ -1417,3 +1417,36 @@ CarlSeveringStraße
 Der Mitarbeiter mit der Nummer: 5 wurde gelöscht.
 true
 07-07-2020 09:55:12
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraße
+2
+hat sich angemeldet.
+true
+07-07-2020 09:57:00
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraße
+2
+hat sich angemeldet.
+true
+07-07-2020 11:56:00
+ske
+123
+Stephanie
+Kerperin
+Bremen
+28329
+CarlSeveringStraße
+2
+hat sich angemeldet.
+true
+07-07-2020 12:47:56

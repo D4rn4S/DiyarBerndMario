@@ -222,47 +222,7 @@ public class ShopClientGUI extends JFrame{
 		
 	}
 	
-	
-	/**
-	 * Funktion wird nicht mehr benötigt in der GUI, kommt aus der CUI..
-	 * @return
-	 */
-	public String liesEingabe() {
-		//einlesen von Konsoleneingaben
-		String input = "";
-		Scanner sc = new Scanner(System.in);
-		input = sc.nextLine();
-		
-		// Funktion zum Beenden des Programms 
-		if(input.equals("quit")) {
-			System.out.println("das Programm wird jetzt beendet...");
-			try {
-				logmanager.schreibeDaten("Log");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			System.exit( 0 );
-		}
-		return input;
-	}
-	
-	
 
-
-/**
- *  startet das Programm, wird eigentlich auch nicht mehr richtig benötigt..
- */
-	public void run() {
-		// Variable für Eingaben von der Konsole
-		String input = "";
-	
-		//Hauptschliefe der Benutzeroberfläche
-		do {
-			gibMenueAus();
-		} while (!input.equals("q"));
-	
-	}
 
 
 	/**
@@ -3362,27 +3322,7 @@ public class ShopClientGUI extends JFrame{
 			}
 		}
 	}
-	
-	/**
-	 * Beschreibung: wird nicht mehr benötigt, kommt aus der CUI
-	 */
-/*	private void gibLogAus() {
-		
-		try {
-			log = logmanager.liesLog("Log");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		if (log.isEmpty()) {
-			System.out.println("Liste ist leer.");
-		} else {
-			for (String l : log) {
-				System.out.println(l);
-			}
-		}
-	} */
-	
+
 	
 	public int newNumberKunde(List<Kunde> liste) {
 		//gibt die höchste Kundenummer aus, er vergleicht alle Kunden in der liste mit GetKundenNr
